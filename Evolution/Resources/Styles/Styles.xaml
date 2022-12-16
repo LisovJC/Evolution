@@ -4,8 +4,8 @@
                     xmlns:hc="https://handyorg.github.io/handycontrol">
 
 
-    <!-- AccountButton -->
-    <Style x:Key="AccountButton" TargetType="Button">
+    <!-- WindowButton -->
+    <Style x:Key="WindowButton" TargetType="Button">
         <Setter Property="Height" Value="45"/>
         <Setter Property="Width" Value="45"/>
         <Setter Property="Background" Value="#fefefe"/>
@@ -37,7 +37,7 @@
         </Style.Triggers>
     </Style>
 
-    <Style x:Key="FFF" TargetType="hc:SplitButton">
+    <Style x:Key="AccountButton" TargetType="Button">
         <Setter Property="Height" Value="45"/>
         <Setter Property="Width" Value="45"/>
         <Setter Property="Background" Value="#fefefe"/>
@@ -46,7 +46,7 @@
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="{x:Type hc:SplitButton}">
+                <ControlTemplate TargetType="{x:Type Button}">
                     <Border Background="{TemplateBinding Background}"
                                 CornerRadius="25">
                         <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
@@ -117,28 +117,6 @@
         </Style.Triggers>
     </Style>
 
-
-    <!-- InputFields -->
-    <Style x:Key="InputFields" TargetType="TextBox">
-        <Setter Property="FontSize" Value="15"/>
-        <Setter Property="FontWeight" Value="Normal"/>
-        <Setter Property="Foreground" Value="Black"/>
-        <Setter Property="FontFamily" Value="Bahnschrift"/>
-        <Setter Property="HorizontalAlignment" Value="Left"/>
-        <Setter Property="VerticalContentAlignment" Value="Center"/>
-        <Setter Property="HorizontalContentAlignment" Value="Left"/>
-        <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="BorderThickness" Value="0"/>
-        <Setter Property="MinWidth" Value="250"/>
-        <Setter Property="Margin" Value="5"/>
-        <Setter Property="TextWrapping" Value="Wrap"/>
-        <Setter Property="AcceptsReturn" Value="True"/>
-        <Setter Property="AcceptsTab" Value="True"/>
-        <Setter Property="IsReadOnly" Value="False"/>
-        <Setter Property="FontWeight" Value="UltraLight"/>
-        <Setter Property="Padding" Value="5"/>
-    </Style>
-
     <!-- SignButtons -->
     <Style x:Key="SignButtons" TargetType="Button">
         <Setter Property="Height" Value="35"/>
@@ -181,6 +159,47 @@
         </Style.Triggers>
     </Style>
 
+    <Style x:Key="ActionFlatButtons" TargetType="Button">
+        <Setter Property="Height" Value="32"/>
+        <Setter Property="Width" Value="85"/>
+        <Setter Property="Background" Value="#fefefe"/>
+        <Setter Property="Margin" Value="5,0,5,0"/>
+        <Setter Property="Padding" Value="2.5,2.5,2.5,2.5"/>
+        <Setter Property="Foreground" Value="Black"/>
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="FontWeight" Value="UltraLight"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Background="{TemplateBinding Background}"
+                                CornerRadius="7">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Button.Effect">
+            <Setter.Value>
+                <DropShadowEffect Direction="-160" ShadowDepth="3.5" BlurRadius="5" Opacity="0.4" RenderingBias="Quality"/>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#ff3c38"/>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" Value="#fefefe"/>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Opacity" Value="1"/>
+                <Setter Property="Foreground" Value="Gray"/>
+                <Setter Property="Background" Value="LightGray"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
     <!-- HeaderSign -->
     <Style x:Key="HeaderSign" TargetType="Label">
         <Setter Property="FontSize" Value="15"/>
@@ -192,5 +211,7 @@
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="HorizontalAlignment" Value="Center"/>
     </Style>
+    
+    
 
 </ResourceDictionary>

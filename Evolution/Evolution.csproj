@@ -16,6 +16,7 @@
     <PackageReference Include="Dropbox.Api" Version="6.36.0" />
     <PackageReference Include="FireSharp" Version="2.0.4" />
     <PackageReference Include="HandyControl" Version="3.4.0" />
+    <PackageReference Include="LiveChartsCore.SkiaSharpView.WPF" Version="2.0.0-beta.603" />
     <PackageReference Include="MahApps.Metro" Version="2.4.9" />
     <PackageReference Include="MahApps.Metro.IconPacks" Version="4.11.0" />
     <PackageReference Include="MaterialDesignThemes" Version="4.6.1" />

@@ -70,26 +70,13 @@
                         <StackPanel Orientation="Horizontal"
                                     Margin="10,5,0,0">
 
-                            <hc:SplitButton Height="45"
-                                            Padding="3.5"                                           
-                                            HitMode="Click"
-                                            Foreground="#fefefe"
-                                            Background="Transparent"
-                                            BorderThickness="0">
+                            <Button Style="{StaticResource AccountButton}">
                                 <materialDesign:PackIcon     Kind="Account"
-                                                             Foreground="#fefefe"
+                                                             Foreground="#272a2f"
                                                              Width="40"
                                                              Height="40"
                                                              Style="{StaticResource HotIcon}"/>
-
-                                <hc:SplitButton.DropDownContent>
-                                    <StackPanel>
-                                        <MenuItem Header="Title" Command="{Binding SelectCmd}" CommandParameter="Command1"/>
-                                        <MenuItem Header="Title" Command="{Binding SelectCmd}" CommandParameter="Command2"/>
-                                        <MenuItem Header="Title" Command="{Binding SelectCmd}" CommandParameter="Command3"/>
-                                    </StackPanel>
-                                </hc:SplitButton.DropDownContent>
-                            </hc:SplitButton>
+                            </Button>
 
                             <StackPanel Orientation="Vertical"
                                         Margin="10,0,0,0">
@@ -110,18 +97,18 @@
                             </StackPanel>
                         </StackPanel>
 
-                        <Button Style="{StaticResource AccountButton}"
-                                    Background="Transparent">
+                        <Button   Style="{StaticResource AccountButton}"
+                                  Background="Transparent">
                             <materialDesign:Badged Badge="3"
-                                               BadgeBackground="#ff383e"
-                                               BadgeForeground="White"
-                                               Margin="10,5,0,0">
+                                                   BadgeBackground="#ff383e"
+                                                   BadgeForeground="White"
+                                                   Margin="10,5,0,0">
                                 <materialDesign:PackIcon     Kind="Bell"
                                                              Style="{StaticResource HotIcon}"
                                                              Background="Transparent"
                                                              Width="30"
                                                              Height="30"/>
-                                
+
                             </materialDesign:Badged>
                         </Button>
                     </StackPanel>
@@ -132,7 +119,7 @@
                             HorizontalAlignment="Right"
                             Margin="0,0,10,0">
 
-                    <Button Style="{StaticResource AccountButton}"
+                    <Button Style="{StaticResource WindowButton}"
                             Background="Transparent">
 
                         <materialDesign:PackIcon    Kind="Minimize"
@@ -142,7 +129,7 @@
                                                     Height="25"/>
                     </Button>
 
-                    <Button Style="{StaticResource AccountButton}"
+                    <Button Style="{StaticResource WindowButton}"
                             Background="Transparent"
                             Command="{Binding CloseAppCommand}">
 
@@ -212,7 +199,7 @@
 
                 <StackPanel Orientation="Vertical">
 
-                    <Button Content="My tasks"
+                    <Button Content="Tasks"
                             Style="{StaticResource NavigationButtons}"
                             Command="{Binding SelectMyTCommand}"/>
 

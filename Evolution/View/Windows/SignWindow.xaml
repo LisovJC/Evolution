@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Evolution.View.Windows" 
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
-        xmlns:windows="clr-namespace:Evolution.ViewModel.Windows"
+        xmlns:windows="clr-namespace:Evolution.ViewModel.Windows" xmlns:hc="https://handyorg.github.io/handycontrol"
         mc:Ignorable="d"
         Title="SignWindow"
         WindowStartupLocation="CenterScreen"
@@ -55,10 +55,13 @@
 
                     <Border Background="#fefefe"
                             CornerRadius="10"
-                            Margin="0,5,0,0"
+                            Margin="0,5,0,0"                           
                             Height="35">
-                        <TextBox Style="{StaticResource InputFields}"
-                                 Text="{Binding Login, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        <hc:TextBox FontSize="15"
+                                    Width="260"
+                                    MaxLength="24"
+                                    hc:InfoElement.Placeholder="Eneter your login..."
+                                    Text="{Binding Login, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                     </Border>
 
                 </StackPanel>
@@ -83,8 +86,13 @@
                             CornerRadius="10"
                             Margin="0,5,0,0"
                             Height="35">
-                        <TextBox Style="{StaticResource InputFields}"
-                                 Text="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        <hc:PasswordBox IsSafeEnabled="False"
+                                        FontSize="15"
+                                        Width="260"
+                                        MaxLength="24"
+                                        hc:InfoElement.Placeholder="Eneter your password..."
+                                        ShowEyeButton="True"
+                                        UnsafePassword="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                     </Border>
 
                 </StackPanel>
@@ -114,8 +122,13 @@
                                 CornerRadius="10"
                                 Margin="0,5,0,0"
                                 Height="35">
-                            <TextBox Style="{StaticResource InputFields}"
-                                     Text="{Binding ConfirmPassword, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            <hc:PasswordBox FontSize="15"
+                                            Width="260"
+                                            IsSafeEnabled="False"
+                                            ShowEyeButton="True"
+                                            MaxLength="24"
+                                            hc:InfoElement.Placeholder="Confirm your password..."
+                                            UnsafePassword="{Binding ConfirmPassword, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                         </Border>
 
                     </StackPanel>
@@ -135,8 +148,11 @@
                                 CornerRadius="10"
                                 Margin="0,5,0,0"
                                 Height="35">
-                            <TextBox Style="{StaticResource InputFields}"
-                                     Text="{Binding Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            <hc:TextBox FontSize="15"
+                                        Width="260"
+                                        MaxLength="24"
+                                        hc:InfoElement.Placeholder="Eneter your Email..."
+                                        Text="{Binding Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                         </Border>
 
                     </StackPanel>
@@ -151,23 +167,23 @@
                                 IsEnabled="{Binding isEnableSignIn, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Cursor="Hand"/>
 
                             <Button Style="{StaticResource SignButtons}"
-                                IsEnabled="{Binding isEnableSignUp, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                                Content="{Binding ContentRegButton, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                                Command="{Binding SignUpCommand}"
-                                Background="#ff3c38" Cursor="Hand"
-                                Foreground="White"/>
+                                    IsEnabled="{Binding isEnableSignUp, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                    Content="{Binding ContentRegButton, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                    Command="{Binding SignUpCommand}"
+                                    Background="#ff3c38" Cursor="Hand"
+                                    Foreground="White"/>
 
                         </StackPanel>
 
-                        <materialDesign:PackIcon Kind="AccountCircle"
-                                             Foreground="#fefefe"
-                                             HorizontalAlignment="Center"
-                                             VerticalAlignment="Top"
-                                             Width="100"
-                                             Height="100"
-                                             Margin="0,85,0,0"
-                                             Grid.Row="3"
-                                             Visibility="{Binding IconVisibility, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        <materialDesign:PackIcon Kind="Code"
+                                                 Foreground="#ff3c38"
+                                                 HorizontalAlignment="Center"
+                                                 VerticalAlignment="Top"
+                                                 Width="100"
+                                                 Height="100"
+                                                 Margin="0,85,0,0"
+                                                 Grid.Row="3"
+                                                 Visibility="{Binding IconVisibility, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                     <Button Style="{StaticResource SignButtons}"
                             Visibility="{Binding SignUpVisibility, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -181,7 +197,8 @@
         </Border>
 
         <Border Background="#212429"
-                Grid.Row="0">
+                Grid.Row="0"
+                MouseLeftButtonDown="Border_MouseLeftButtonDown">
             <Border.Effect>
                 <DropShadowEffect  BlurRadius="7" 
                                    Direction="270"
@@ -201,25 +218,13 @@
                             FlowDirection="RightToLeft"
                             Margin="0,0,5,0">
 
-                    <Button Style="{StaticResource AccountButton}"
+                    <Button Style="{StaticResource WindowButton}"
                             Background="Transparent"
                             Width="20"
                             Height="20"
                             Command="{Binding CloseAppCommand}">
 
                         <materialDesign:PackIcon    Kind="Close"
-                                                    Style="{StaticResource HotIcon}"
-                                                    Background="Transparent"
-                                                    Width="15"
-                                                    Height="15"/>
-                    </Button>
-
-                    <Button Style="{StaticResource AccountButton}"
-                            Background="Transparent"
-                            Width="20"
-                            Height="20">
-
-                        <materialDesign:PackIcon    Kind="Minimize"
                                                     Style="{StaticResource HotIcon}"
                                                     Background="Transparent"
                                                     Width="15"
