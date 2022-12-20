@@ -155,13 +155,14 @@
                                             Background="Transparent"
                                             Foreground="#fe433e"
                                             Width="50"
-                                            Height="50"/>
+                                            Height="50"
+                                            Margin="10,0,0,0"/>
 
                 <Label Content="Evolution"
                        FontWeight="UltraLight"
                        Style="{StaticResource HeaderSign}"
                        VerticalContentAlignment="Center"
-                       Padding="10"
+                       Padding="20,10,10,10"
                        Foreground="#fefefe"
                        FontSize="30"/>
             </StackPanel>
@@ -234,6 +235,19 @@
                             CornerRadius="1"
                             Background="#fe433e"
                             Visibility="{Binding isCreateSelect, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Vertical">
+
+                    <Button Content="Storage"
+                            Style="{StaticResource NavigationButtons}"
+                            Command="{Binding SelectStorageCommand}"/>
+
+                    <Border Height="2"
+                            Margin="15,0,15,0"
+                            CornerRadius="1"
+                            Background="#fe433e"
+                            Visibility="{Binding isStorageSelect, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 </StackPanel>
 
                 <StackPanel Orientation="Vertical">

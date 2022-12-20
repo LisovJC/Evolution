@@ -26,7 +26,7 @@
                Padding="10"
                Foreground="#fefefe"
                FontSize="50"
-               Margin="55,30,0,0"
+               Margin="75,30,0,0"
                HorizontalAlignment="Left"/>
 
         <Grid Grid.Row="1">
@@ -37,16 +37,16 @@
             </Grid.ColumnDefinitions>
 
             <Grid.RowDefinitions>
-                <RowDefinition Height="1.5*"/>
-                <RowDefinition/>
+                <RowDefinition Height="1*"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
             <Border Grid.Column="0"
                     Grid.Row="0"
+                    Grid.ColumnSpan="2"
                     Background="#272a2f"
                     CornerRadius="20"
-                    Margin="25,35,25,25">
+                    Margin="75,35,255,25">
 
                 <Grid>
                     <Grid.RowDefinitions>
