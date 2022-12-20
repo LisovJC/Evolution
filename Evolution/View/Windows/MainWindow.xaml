@@ -68,7 +68,7 @@
                                 Margin="10,0,0,0">
 
                         <StackPanel Orientation="Horizontal"
-                                    Margin="10,5,0,0">
+                                    Margin="10,0,0,0">
 
                             <Button Style="{StaticResource AccountButton}">
                                 <materialDesign:PackIcon     Kind="Account"
@@ -80,7 +80,7 @@
 
                             <StackPanel Orientation="Vertical"
                                         Margin="10,0,0,0">
-                                <Label Content="User_123"
+                                <Label Content="{Binding CurrentUser, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                                        HorizontalAlignment="Left"
                                        Style="{StaticResource HeaderSign}"
                                        VerticalContentAlignment="Center"
@@ -102,7 +102,7 @@
                             <materialDesign:Badged Badge="3"
                                                    BadgeBackground="#ff383e"
                                                    BadgeForeground="White"
-                                                   Margin="10,5,0,0">
+                                                   Margin="10,0,0,0">
                                 <materialDesign:PackIcon     Kind="Bell"
                                                              Style="{StaticResource HotIcon}"
                                                              Background="Transparent"

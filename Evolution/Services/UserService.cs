@@ -38,7 +38,7 @@ namespace Evolution.Services
                         User.Login = login;
                         User.Email = Email;
                         User.Password = password;
-                        User.AccessRights = UserModel.Acces.asRegularUser;
+                        User.DateCreate = DateTime.Now;
                         DataSaveLoad.Serialize(User);
                         return PathToUserAuthFile;
                     }

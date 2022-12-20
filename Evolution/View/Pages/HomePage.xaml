@@ -75,7 +75,7 @@
                                 Background="#ff3c38"/>
 
                         <Button Style="{StaticResource ActionFlatButtons}"
-                                Content="Go to Task"/>
+                                Content="Go to Task" Cursor="Hand"/>
                     </StackPanel>
                 </Grid>
                 <Border.Effect>

@@ -1,4 +1,5 @@
 ﻿using Evolution.Core;
+using System;
 
 namespace Evolution.Model
 {
@@ -28,20 +29,13 @@ namespace Evolution.Model
             set => Set(ref _email, value);
         }
 
-        private Acces _accessRights;
+        private DateTime _dateCreate;
 
-        public Acces AccessRights
+        public DateTime DateCreate
         {
-            get => _accessRights;
-            set => Set(ref _accessRights, value);
+            get => _dateCreate;
+            set => Set(ref _dateCreate, value);
         }
-
-        public enum Acces
-        {
-            asRegularUser,
-            asAdministrator
-        }
-
 
     }
 }

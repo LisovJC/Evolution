@@ -22,13 +22,13 @@ namespace Evolution.Services
                 }
             }
 
-            if (MessengerViewModel.MessageList != null)
-            {
-                if (o.GetType() == MessengerViewModel.MessageList.GetType())
-                {
-                    SaveDatas($"{AppDomain.CurrentDomain.BaseDirectory}\\Messages\\Messages.json", o);
-                }
-            }
+            //if (MessengerViewModel.MessageList != null)
+            //{
+            //    if (o.GetType() == MessengerViewModel.MessageList.GetType())
+            //    {
+            //        SaveDatas($"{AppDomain.CurrentDomain.BaseDirectory}\\Messages\\Messages.json", o);
+            //    }
+            //}
 
             //if (SettingsViewModel.settingsObj != null)
             //{

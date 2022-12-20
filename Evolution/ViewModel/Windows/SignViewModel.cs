@@ -1,13 +1,16 @@
-﻿using Evolution.Command;
+﻿using ControlzEx.Standard;
+using Evolution.Command;
 using Evolution.Core;
-using Evolution.Model;
 using Evolution.Services;
-using System.Collections.Generic;
+using Google.Apis.Drive.v3.Data;
+using System;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Documents;
-using System.Windows.Interop;
+using File = Google.Apis.Drive.v3.Data.File;
 
 namespace Evolution.ViewModel.Windows
 {
@@ -115,6 +118,12 @@ namespace Evolution.ViewModel.Windows
 
         #endregion
 
+        ObservableCollection<File> FilesAndFolders = new ObservableCollection<File>();
+
+        private static string _EVOLUTIONFolder = "";
+        private static string _UserFolder = "";
+
+
         #region Commands
         public RelayCommand SignInCommand { get; set; }
         public RelayCommand SignUpCommand { get; set; }
@@ -122,8 +131,7 @@ namespace Evolution.ViewModel.Windows
         public RelayCommand CloseAppCommand { get; set; }
         #endregion        
         public SignViewModel()
-        {
-            //FirebaseService.GetMessagesFromDataBase();
+        {            
             SignInCommand = new(o =>
             {
                 if(AuthService.SignIn(Login, Password))
@@ -179,13 +187,14 @@ namespace Evolution.ViewModel.Windows
                     Debug.WriteLine("Succes!");                                       
                     ConfirmPassword = string.Empty;
                     Email = string.Empty;
+                    CreateMainUserFolderInGDrive(Login);
                 }
             });
 
             CloseAppCommand = new(o =>
             {
                 Application.Current.Shutdown();
-            });
+            });           
         }
 
         private void IsValidData()
@@ -206,6 +215,34 @@ namespace Evolution.ViewModel.Windows
 
                 Debug.WriteLine(ex.Message);
             }            
+        }
+
+        public async void CreateMainUserFolderInGDrive(string login)
+        {
+            FilesAndFolders = await GoogleDriveService.ListEntities(); //Весь список файлов и папок в корне
+            _EVOLUTIONFolder = GetFolderIDByName("EVOLUTION").Result; //айди папки EVOLUTION
+            await GoogleDriveService.CreateFolder(login, _EVOLUTIONFolder); //Создание папки
+            
+            FilesAndFolders = await GoogleDriveService.ListEntities(_EVOLUTIONFolder); //Весь список файлов и папок в ПАПКЕ EVOLUTION
+            _UserFolder = GetFolderIDByName(Login).Result;//Получение айли папки пользователя
+
+            await GoogleDriveService.uploadFile($"{AppDomain.CurrentDomain.BaseDirectory}\\Users\\{login}\\user_auth.json", _UserFolder);//Загрузка файла данных о пользователе в его папку
+                       
+            
+            //GoogleDriveService.Remove(GetFolderIDByName("FFF").Result);//Удаление папки в папке
+        }
+
+        async Task<string> GetFolderIDByName(string name)
+        {            
+            for (int i = 0; i < FilesAndFolders.Count; i++)
+            {                
+                if (FilesAndFolders[i].Name == name)
+                {
+                    return FilesAndFolders[i].Id;
+                }
+            }
+
+            return null;
         }
     }
 }

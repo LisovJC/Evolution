@@ -1,5 +1,4 @@
-﻿using Dropbox.Api.Sharing;
-using Evolution.Command;
+﻿using Evolution.Command;
 using Evolution.Core;
 using Evolution.Model;
 using Evolution.Services;
@@ -13,62 +12,61 @@ namespace Evolution.ViewModel.Pages
 {
     internal class MessengerViewModel : ObservableObject
     {
-        public static ObservableCollectionEX<MessageModel> MessageList { get; set; }
-        public List<MessageModel> test { get; set; }
+        //public static ObservableCollectionEX<MessageModel> MessageList { get; set; }
+        //public List<MessageModel> test { get; set; }
 
 
-        public RelayCommand SendCommand { get; set; }
-        public RelayCommand UpdateCommand { get; set; }
+        //public RelayCommand SendCommand { get; set; }
+        //public RelayCommand UpdateCommand { get; set; }
 
-        private string _message;
+        //private string _message;
 
-        public string Message
-        {
-            get => _message;
-            set => Set(ref _message, value);
-        }
+        //public string Message
+        //{
+        //    get => _message;
+        //    set => Set(ref _message, value);
+        //}
 
-        public MessengerViewModel()
-        {
-            MessageList = new();
-            GetMsgs();
+        //public MessengerViewModel()
+        //{
+        //    MessageList = new();
+        //    GetMsgs();
 
 
-            SendCommand = new(o => 
-            {                                                       
-                try
-                {
-                    MessageModel msg = new MessageModel { Message = Message, Sender = UserService.GetUserLogin() + ":" };
-                    FirebaseService.PushMessageToDataBase(msg);
-                }
-                catch (Exception ex)
-                {
+        //    SendCommand = new(o => 
+        //    {                                                       
+        //        try
+        //        {
+        //            MessageModel msg = new MessageModel { Message = Message, Sender = UserService.GetUserLogin() + ":" };                    
+        //        }
+        //        catch (Exception ex)
+        //        {
 
-                    Debug.WriteLine(ex.Message);
-                }
-                Message = String.Empty;
-            });
+        //            Debug.WriteLine(ex.Message);
+        //        }
+        //        Message = String.Empty;
+        //    });
            
-        } 
+        //} 
         
-        public async void GetMsgs()
-        {
-            while(true)
-            {
-                await Task.Delay(500);
-                test = FirebaseService.GetMessages();
-                if(test != null)
-                {
-                    if (test.Count != MessageList.Count)
-                    {
-                        MessageList.Clear();
-                        foreach (var item in test)
-                        {
-                            MessageList.Add(item);
-                        }
-                    }
-                }
-            }
-        }
+        //public async void GetMsgs()
+        //{
+        //    while(true)
+        //    {
+        //        await Task.Delay(500);
+        //        test = FirebaseService.GetMessages();
+        //        if(test != null)
+        //        {
+        //            if (test.Count != MessageList.Count)
+        //            {
+        //                MessageList.Clear();
+        //                foreach (var item in test)
+        //                {
+        //                    MessageList.Add(item);
+        //                }
+        //            }
+        //        }
+        //    }
+        //}
     }
 }

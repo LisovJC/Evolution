@@ -1,5 +1,6 @@
 ﻿using Evolution.Command;
 using Evolution.Core;
+using Evolution.Services;
 using Evolution.View.Pages;
 using Evolution.ViewModel.Pages;
 using System.Windows;
@@ -81,6 +82,13 @@ namespace Evolution.ViewModel.Windows
             set => Set(ref _selectSecondaryPage, value);
         }
 
+        private string _currentUser;
+        public string CurrentUser
+        {
+            get => _currentUser;
+            set => Set(ref _currentUser, value);
+        }
+
 
         public RelayCommand SelectHomeCommand { get; set; }
         public RelayCommand SelectAvailableTCommand { get; set; }
@@ -94,6 +102,8 @@ namespace Evolution.ViewModel.Windows
         public static readonly string unSelectButtonColor = "#fefefe";
         public MainViewModel()
         {
+            CurrentUser = UserService.GetUserLogin();
+
             GoSelectPage(AppPages.Home);
 
             SelectHomeCommand = new(o =>{GoSelectPage(AppPages.Home);});
