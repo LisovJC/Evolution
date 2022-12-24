@@ -12,7 +12,11 @@
       Title="CreatePage"
       Background="#212429">
 
-    <Grid>
+        <Page.DataContext>
+            <local:CreateViewModel/>
+        </Page.DataContext>
+
+        <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="130"/>
             <RowDefinition/>
@@ -66,10 +70,11 @@
                                FontSize="18"/>
 
                      <hc:TextBox FontSize="18"
-                                    Width="320"
-                                    MaxLength="30"
-                                    HorizontalAlignment="Left"
-                                    hc:InfoElement.Placeholder="Eneter task title..."/>
+                                 Text="{Binding Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                 Width="320"
+                                 MaxLength="30"
+                                 HorizontalAlignment="Left"
+                                 hc:InfoElement.Placeholder="Eneter task title..."/>
                 </StackPanel>
 
                 <StackPanel Orientation="Vertical"
@@ -82,6 +87,7 @@
                                Margin="0,0,0,5"/>
 
                     <hc:TextBox FontSize="18"
+                                Text="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 Width="320"
                                 Height="150"
                                 MaxLength="190"
@@ -101,10 +107,10 @@
                                Margin="0,0,0,5"/>
 
                     <RadioButton Content="Priority: P0 (today)"
-                              FontWeight="UltraLight"
+                                 FontWeight="UltraLight"
                                  FontSize="18"
-                              Foreground="#fefefe"
-                              Margin="0,0,0,10"
+                                 Foreground="#fefefe"
+                                 Margin="0,0,0,10"
                                  HorizontalAlignment="Left"/>
                     <RadioButton Content="Priority: P1 (few day)"
                               FontWeight="UltraLight"
@@ -166,10 +172,11 @@
                                FontSize="18"/>
 
                     <hc:TextBox FontSize="18"
-                                    Width="320"
-                                    MaxLength="30"
-                                    HorizontalAlignment="Left"
-                                    hc:InfoElement.Placeholder="Eneter time in hours..."/>
+                                Width="320"
+                                MaxLength="30"
+                                HorizontalAlignment="Left"
+                                Text="{Binding PlannedTimeCosts, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                hc:InfoElement.Placeholder="Eneter time in hours..."/>
                 </StackPanel>
 
                 <StackPanel Orientation="Vertical"
@@ -181,82 +188,93 @@
                                HorizontalAlignment="Left"
                                Margin="0,0,0,5"/>
 
-                    <CheckBox Content="Code gameplay logic"
+                    <CheckBox Content="Code"
                               FontWeight="UltraLight"
-                                 FontSize="18"
+                              FontSize="18"
                               Foreground="#fefefe"
                               Margin="0,0,0,10"
-                                 HorizontalAlignment="Left"/>
+                              Command="{Binding AddCategoryCodeCommand}"
+                              HorizontalAlignment="Left"/>
 
-                    <CheckBox Content="Code services"
+                    <CheckBox Content="Art/Sprite"
                               FontWeight="UltraLight"
                                  FontSize="18"
                               Foreground="#fefefe"
                               Margin="0,0,0,10"
-                                 HorizontalAlignment="Left"/>
+                                 HorizontalAlignment="Left"
+                              Command="{Binding AddCategoryArtSpriteCommand}"/>
 
-                    <CheckBox Content="UI sprite"
+                    <CheckBox Content="Sound"
                               FontWeight="UltraLight"
                                  FontSize="18"
                               Foreground="#fefefe"
                               Margin="0,0,0,10"
-                                 HorizontalAlignment="Left"/>
-
-                    <CheckBox Content="Environment sprite"
-                              FontWeight="UltraLight"
-                                 FontSize="18"
-                              Foreground="#fefefe"
-                              Margin="0,0,0,10"
-                                 HorizontalAlignment="Left"/>
-
-                    <CheckBox Content="Character sprite"
-                              FontWeight="UltraLight"
-                                 FontSize="18"
-                              Foreground="#fefefe"
-                              Margin="0,0,0,10"
-                                 HorizontalAlignment="Left"/>
-
-                    <CheckBox Content="Decor sprite"
-                              FontWeight="UltraLight"
-                                 FontSize="18"
-                              Foreground="#fefefe"
-                              Margin="0,0,0,10"
-                                 HorizontalAlignment="Left"/>
-
-                    <CheckBox Content="Other sprite"
-                              FontWeight="UltraLight"
-                                 FontSize="18"
-                              Foreground="#fefefe"
-                              Margin="0,0,0,10"
-                                 HorizontalAlignment="Left"/>
-
-                    <CheckBox Content="Character sounds"
-                              FontWeight="UltraLight"
-                                 FontSize="18"
-                              Foreground="#fefefe"
-                              Margin="0,0,0,10"
-                                 HorizontalAlignment="Left"/>
-
-                    <CheckBox Content="Environment sounds"
-                              FontWeight="UltraLight"
-                                 FontSize="18"
-                              Foreground="#fefefe"
-                              Margin="0,0,0,10"
-                                 HorizontalAlignment="Left"/>
+                                 HorizontalAlignment="Left"
+                              Command="{Binding AddCategorySoundCommand}"/>
 
                     <CheckBox Content="Music"
                               FontWeight="UltraLight"
                                  FontSize="18"
                               Foreground="#fefefe"
                               Margin="0,0,0,10"
-                                 HorizontalAlignment="Left"/>
+                                 HorizontalAlignment="Left"
+                              Command="{Binding AddCategoryMusicCommand}"/>
 
-                    <CheckBox Content="Other sounds"
+                    <CheckBox Content="Character"
                               FontWeight="UltraLight"
                                  FontSize="18"
                               Foreground="#fefefe"
                               Margin="0,0,0,10"
-                                 HorizontalAlignment="Left"/>
+                                 HorizontalAlignment="Left"
+                              Command="{Binding AddCategoryCharacterCommand}"/>
+
+                    <CheckBox Content="Decor"
+                              FontWeight="UltraLight"
+                                 FontSize="18"
+                              Foreground="#fefefe"
+                              Margin="0,0,0,10"
+                                 HorizontalAlignment="Left"
+                              Command="{Binding AddCategoryDecorCommand}"/>
+
+                    <CheckBox Content="UI"
+                              FontWeight="UltraLight"
+                                 FontSize="18"
+                              Foreground="#fefefe"
+                              Margin="0,0,0,10"
+                                 HorizontalAlignment="Left"
+                              Command="{Binding AddCategoryUICommand}"/>
+
+                    <CheckBox Content="Environment"
+                              FontWeight="UltraLight"
+                                 FontSize="18"
+                              Foreground="#fefefe"
+                              Margin="0,0,0,10"
+                                 HorizontalAlignment="Left"
+                              Command="{Binding AddCategoryEnvironmentCommand}"/>
+
+                    <CheckBox Content="Actions/Animations"
+                              FontWeight="UltraLight"
+                                 FontSize="18"
+                              Foreground="#fefefe"
+                              Margin="0,0,0,10"
+                                 HorizontalAlignment="Left"
+                              Command="{Binding AddCategoryActionsAnimationsCommand}"/>
+
+                    <CheckBox Content="Settings"
+                              FontWeight="UltraLight"
+                                 FontSize="18"
+                              Foreground="#fefefe"
+                              Margin="0,0,0,10"
+                                 HorizontalAlignment="Left"
+                              Command="{Binding AddCategorySettingsCommand}"/>
+
+                    <CheckBox Content="Dialog"
+                              FontWeight="UltraLight"
+                                 FontSize="18"
+                              Foreground="#fefefe"
+                              Margin="0,0,0,10"
+                                 HorizontalAlignment="Left"
+                              Command="{Binding AddCategoryDialogCommand}"/>
 
                     <CheckBox Content="Other (must write)"
                               FontWeight="UltraLight"
@@ -269,6 +287,7 @@
                                 Width="320"
                                 Height="150"
                                 MaxLength="190"
+                                Text="{Binding OtherCategory, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 TextWrapping="Wrap"
                                 HorizontalAlignment="Left"
                                 VerticalContentAlignment="Top"
@@ -279,8 +298,10 @@
 
             <Button VerticalAlignment="Bottom"
                     Grid.Row="1"
-                    HorizontalAlignment="Left"
-                    Margin="89,0,0,80"
+                    Grid.Column="1"
+                    HorizontalAlignment="Right"
+                    Margin="0,0,60,60"
+                    Command="{Binding CreateTaskCommand}"
                     Style="{StaticResource SignButtons}"
                     Content="Create task"/>
 

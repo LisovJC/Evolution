@@ -1,14 +1,8 @@
-﻿using ControlzEx.Standard;
-using Evolution.Command;
+﻿using Evolution.Command;
 using Evolution.Core;
-using Evolution.Services;
-using Google.Apis.Drive.v3.Data;
-using System;
+using Evolution.Services.UserServices;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 using File = Google.Apis.Drive.v3.Data.File;
 
@@ -118,11 +112,12 @@ namespace Evolution.ViewModel.Windows
 
         #endregion
 
+        #region GoogleDrive
         ObservableCollection<File> FilesAndFolders = new ObservableCollection<File>();
 
         private static string _EVOLUTIONFolder = "";
         private static string _UserFolder = "";
-
+        #endregion
 
         #region Commands
         public RelayCommand SignInCommand { get; set; }
@@ -131,10 +126,11 @@ namespace Evolution.ViewModel.Windows
         public RelayCommand CloseAppCommand { get; set; }
         #endregion        
         public SignViewModel()
-        {            
+        {
+            #region Commands
             SignInCommand = new(o =>
             {
-                if(AuthService.SignIn(Login, Password))
+                if (AuthUserService.SignIn(Login, Password))
                 {
                     MainWindow mainWindow = new();
                     mainWindow.Owner = Application.Current.MainWindow;
@@ -149,7 +145,7 @@ namespace Evolution.ViewModel.Windows
 
             SignUpCommand = new(o =>
             {
-                if(SignUpVisibility == Visibility.Collapsed)
+                if (SignUpVisibility == Visibility.Collapsed)
                 {
                     SignUpVisibility = Visibility.Visible;
                     LabelSign = "Registration";
@@ -167,11 +163,11 @@ namespace Evolution.ViewModel.Windows
                     ContentRegButton = "Sign Up";
                     IconVisibility = Visibility.Visible;
                 }
-                
+
             });
 
             GetStartedCommand = new(o =>
-            {              
+            {
                 SignUpVisibility = Visibility.Collapsed;
                 LabelSign = "Sign in";
                 isEnableSignIn = true;
@@ -180,21 +176,21 @@ namespace Evolution.ViewModel.Windows
                 IconVisibility = Visibility.Visible;
 
                 string userSucces = "";
-                userSucces = UserService.CreateUser(Login, Password, ConfirmPassword, Email);
+                userSucces = CreateUserService.CreateUser(Login, Password, ConfirmPassword, Email);
 
                 if (userSucces != "false")
                 {
-                    Debug.WriteLine("Succes!");                                       
+                    Debug.WriteLine("Succes!");
                     ConfirmPassword = string.Empty;
-                    Email = string.Empty;
-                    CreateMainUserFolderInGDrive(Login);
+                    Email = string.Empty;                    
                 }
             });
 
             CloseAppCommand = new(o =>
             {
                 Application.Current.Shutdown();
-            });           
+            });
+            #endregion                      
         }
 
         private void IsValidData()
@@ -216,33 +212,18 @@ namespace Evolution.ViewModel.Windows
                 Debug.WriteLine(ex.Message);
             }            
         }
+           
+        //async void Test()
+        //{
+        //    FilesAndFolders = await GoogleDriveService.ListEntities();
+        //    string id_Evo = GetItemIDByName("EVOLUTION").Result;
+        //    FilesAndFolders = await GoogleDriveService.ListEntities(id_Evo);
+        //    id_Evo = GetItemIDByName("Lisov").Result;
+        //    FilesAndFolders = await GoogleDriveService.ListEntities(id_Evo);
+        //    id_Evo = GetItemIDByName("user_auth.json").Result;
 
-        public async void CreateMainUserFolderInGDrive(string login)
-        {
-            FilesAndFolders = await GoogleDriveService.ListEntities(); //Весь список файлов и папок в корне
-            _EVOLUTIONFolder = GetFolderIDByName("EVOLUTION").Result; //айди папки EVOLUTION
-            await GoogleDriveService.CreateFolder(login, _EVOLUTIONFolder); //Создание папки
             
-            FilesAndFolders = await GoogleDriveService.ListEntities(_EVOLUTIONFolder); //Весь список файлов и папок в ПАПКЕ EVOLUTION
-            _UserFolder = GetFolderIDByName(Login).Result;//Получение айли папки пользователя
-
-            await GoogleDriveService.uploadFile($"{AppDomain.CurrentDomain.BaseDirectory}\\Users\\{login}\\user_auth.json", _UserFolder);//Загрузка файла данных о пользователе в его папку
-                       
-            
-            //GoogleDriveService.Remove(GetFolderIDByName("FFF").Result);//Удаление папки в папке
-        }
-
-        async Task<string> GetFolderIDByName(string name)
-        {            
-            for (int i = 0; i < FilesAndFolders.Count; i++)
-            {                
-                if (FilesAndFolders[i].Name == name)
-                {
-                    return FilesAndFolders[i].Id;
-                }
-            }
-
-            return null;
-        }
+        //    GoogleDriveService.Download(id_Evo, "C:\\Users\\lisov\\source\\repos\\Evolution_1\\Evolution\\bin\\ee.json"); //Загрузка и сейв файла.                         
+        //}
     }
 }

@@ -1,25 +1,16 @@
 ﻿using Google.Apis.Auth.OAuth2;
-using Google.Apis.Auth.OAuth2.Flows;
-using Google.Apis.Auth.OAuth2.Responses;
 using Google.Apis.Drive.v3;
-using Google.Apis.Drive.v3.Data;
 using Google.Apis.Services;
 using Google.Apis.Util.Store;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.StaticFiles;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows.Threading;
-using static Google.Apis.Drive.v3.DriveService;
+using File = Google.Apis.Drive.v3.Data.File;
 
 namespace Evolution.Services
 {
@@ -113,6 +104,40 @@ namespace Evolution.Services
             }
         }
 
+        public static File updateFile(string _uploadFile, string id, string _fileId)
+        {
+
+            if (System.IO.File.Exists(_uploadFile))
+            {
+                File body = new File();
+                body.Name = Path.GetFileName(_uploadFile);
+                body.Description = "File updated...";
+                body.MimeType = GetMimeType(_uploadFile);
+                body.Parents = new List<string> { id };
+
+                // File's content.
+                byte[] byteArray = System.IO.File.ReadAllBytes(_uploadFile);
+                System.IO.MemoryStream stream = new System.IO.MemoryStream(byteArray);
+                try
+                {
+                    FilesResource.UpdateMediaUpload request = service.Files.Update(body, _fileId, stream, GetMimeType(_uploadFile));
+                    request.Upload();
+                    return request.ResponseBody;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("An error occurred: " + e.Message);
+                    return null;
+                }
+            }
+            else
+            {
+                Console.WriteLine("File does not exist: " + _uploadFile);
+                return null;
+            }
+
+        }
+
         public static void Remove(string id)
         {
             service.Files.Delete(id).Execute();
@@ -126,6 +151,21 @@ namespace Evolution.Services
             if (regKey != null && regKey.GetValue("Content Type") != null) 
                 mimeType = regKey.GetValue("Content Type").ToString(); 
             System.Diagnostics.Debug.WriteLine(mimeType); return mimeType; 
+        }
+
+        public static async Task<Stream> Download(string fileId, string saveTo)
+        {
+            var stream = new System.IO.MemoryStream();
+            var request = service.Files.Get(fileId);
+
+            await request.DownloadAsync(stream);
+
+            using (System.IO.FileStream file = new System.IO.FileStream(saveTo, System.IO.FileMode.Create, System.IO.FileAccess.Write))
+            {
+                stream.WriteTo(file);
+            }
+          
+            return stream;
         }
 
 

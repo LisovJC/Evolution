@@ -1,8 +1,10 @@
 ﻿using Evolution.Command;
 using Evolution.Core;
 using Evolution.Services;
+using Evolution.Services.UserServices;
 using Evolution.View.Pages;
 using Evolution.ViewModel.Pages;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -17,8 +19,7 @@ namespace Evolution.ViewModel.Windows
             AvailableTasks,
             TasksInWork,
             Create,
-            Storage,
-            Messenger
+            Storage
         }
 
         private Visibility _isHomeSelect = Visibility.Hidden;
@@ -68,14 +69,7 @@ namespace Evolution.ViewModel.Windows
             get => _isCreateSelect;
             set => Set(ref _isCreateSelect, value);
         }
-
-        private Visibility _isMessengerSelect = Visibility.Hidden;
-
-        public Visibility isMessengerSelect
-        {
-            get => _isMessengerSelect;
-            set => Set(ref _isMessengerSelect, value);
-        }
+        
 
         private Page _selectMainPage;
         public Page SelectMainPage
@@ -104,7 +98,6 @@ namespace Evolution.ViewModel.Windows
         public RelayCommand SelectMyTCommand { get; set; }
         public RelayCommand SelectTInWorkCommand { get; set; }
         public RelayCommand SelectCreateCommand { get; set; }
-        public RelayCommand SelectMessengerCommand { get; set; }
         public RelayCommand SelectStorageCommand { get; set; }
         public RelayCommand CloseAppCommand { get; set; }
 
@@ -112,7 +105,8 @@ namespace Evolution.ViewModel.Windows
         public static readonly string unSelectButtonColor = "#fefefe";
         public MainViewModel()
         {
-            CurrentUser = UserService.GetUserLogin();
+            CurrentUser = GetUserInfoService.GetUserLogin();
+            Debug.WriteLine(GetUserInfoService.GetUserGDriveFolder());
 
             GoSelectPage(AppPages.Home);
 
@@ -124,9 +118,7 @@ namespace Evolution.ViewModel.Windows
 
             SelectTInWorkCommand = new(o => { GoSelectPage(AppPages.TasksInWork); });
 
-            SelectCreateCommand = new(o => { GoSelectPage(AppPages.Create); });
-
-            SelectMessengerCommand = new(o => { GoSelectPage(AppPages.Messenger); });
+            SelectCreateCommand = new(o => { GoSelectPage(AppPages.Create); });           
 
             SelectStorageCommand = new(o => { GoSelectPage(AppPages.Storage); });
 
@@ -142,8 +134,7 @@ namespace Evolution.ViewModel.Windows
                 isAvailableTSelect = Visibility.Hidden;
                 isMyTSelect = Visibility.Hidden;
                 isTInWorkSelect = Visibility.Hidden;
-                isCreateSelect = Visibility.Hidden;
-                isMessengerSelect = Visibility.Hidden;
+                isCreateSelect = Visibility.Hidden;               
                 isStorageSelect = Visibility.Hidden;
                 SelectMainPage = new HomePage();
                 SelectSecondaryPage = new SecondaryHomePage();
@@ -155,8 +146,7 @@ namespace Evolution.ViewModel.Windows
                 isAvailableTSelect = Visibility.Visible;
                 isMyTSelect = Visibility.Hidden;
                 isTInWorkSelect = Visibility.Hidden;
-                isCreateSelect = Visibility.Hidden;
-                isMessengerSelect = Visibility.Hidden;
+                isCreateSelect = Visibility.Hidden;               
                 isStorageSelect = Visibility.Hidden;
                 SelectMainPage = new AvailableTaskPage();
                 SelectSecondaryPage = new SecondaryHomePage();
@@ -168,8 +158,7 @@ namespace Evolution.ViewModel.Windows
                 isAvailableTSelect = Visibility.Hidden;
                 isMyTSelect = Visibility.Visible;
                 isTInWorkSelect = Visibility.Hidden;
-                isCreateSelect = Visibility.Hidden;
-                isMessengerSelect = Visibility.Hidden;
+                isCreateSelect = Visibility.Hidden;               
                 isStorageSelect = Visibility.Hidden;
                 SelectMainPage = new MyTasksPage();
                 SelectSecondaryPage = new SecondaryHomePage();
@@ -181,8 +170,7 @@ namespace Evolution.ViewModel.Windows
                 isAvailableTSelect = Visibility.Hidden;
                 isMyTSelect = Visibility.Hidden;
                 isTInWorkSelect = Visibility.Visible;
-                isCreateSelect = Visibility.Hidden;
-                isMessengerSelect = Visibility.Hidden;
+                isCreateSelect = Visibility.Hidden;               
                 isStorageSelect = Visibility.Hidden;
                 SelectMainPage = new TasksInWorkPage();
                 SelectSecondaryPage = new SecondaryHomePage();
@@ -194,25 +182,11 @@ namespace Evolution.ViewModel.Windows
                 isAvailableTSelect = Visibility.Hidden;
                 isMyTSelect = Visibility.Hidden;
                 isTInWorkSelect = Visibility.Hidden;
-                isCreateSelect = Visibility.Visible;
-                isMessengerSelect = Visibility.Hidden;
+                isCreateSelect = Visibility.Visible;                
                 isStorageSelect = Visibility.Hidden;
                 SelectMainPage = new CreatePage();
                 SelectSecondaryPage = new SecondaryHomePage();
-            }
-            
-            if (page == AppPages.Messenger)
-            {
-                isHomeSelect = Visibility.Hidden;
-                isAvailableTSelect = Visibility.Hidden;
-                isMyTSelect = Visibility.Hidden;
-                isTInWorkSelect = Visibility.Hidden;
-                isCreateSelect = Visibility.Hidden;
-                isMessengerSelect = Visibility.Visible;
-                isStorageSelect = Visibility.Hidden;
-                SelectMainPage = new MessengerPage();
-                SelectSecondaryPage = new SecondaryHomePage();
-            }
+            }                     
 
             if (page == AppPages.Storage)
             {
@@ -220,8 +194,7 @@ namespace Evolution.ViewModel.Windows
                 isAvailableTSelect = Visibility.Hidden;
                 isMyTSelect = Visibility.Hidden;
                 isTInWorkSelect = Visibility.Hidden;
-                isCreateSelect = Visibility.Hidden;
-                isMessengerSelect = Visibility.Hidden;
+                isCreateSelect = Visibility.Hidden;                
                 isStorageSelect = Visibility.Visible;
                 SelectMainPage = new StoragePage();
                 SelectSecondaryPage = new SecondaryHomePage();

@@ -1,19 +1,12 @@
 ﻿using Evolution.Model;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Evolution.Services
+namespace Evolution.Services.UserServices
 {
-    public static class AuthService
+    public class AuthUserService
     {
-        private static bool isValidUserData = false;
-
         private static string PathToUserFolder = "";
 
         public static UserModel User = new();
@@ -22,12 +15,12 @@ namespace Evolution.Services
         {
             PathToUserFolder = $"{AppDomain.CurrentDomain.BaseDirectory}\\Users\\{login}";
 
-            if(UserExists(PathToUserFolder))
+            if (UserExists(PathToUserFolder))
             {
-                User = DataSaveLoad.LoadDataUser<UserModel>(PathToUserFolder+"\\user_auth.json");                
+                User = DataSaveLoad.LoadDataUser<UserModel>(PathToUserFolder + "\\user_auth.json");
                 if (IsCorrectUserData(login, password, User))
                 {
-                    UserService.currentUser = login;
+                    GetUserInfoService.SetUserLogin(login);
                     return true;
                 }
                 else
@@ -38,12 +31,12 @@ namespace Evolution.Services
             else
             {
                 return false;
-            }           
+            }
         }
 
         private static bool UserExists(string path)
         {
-            if(Directory.Exists(path))
+            if (Directory.Exists(path))
             {
                 return true;
             }
@@ -77,6 +70,5 @@ namespace Evolution.Services
             }
 
         }
-
     }
 }
