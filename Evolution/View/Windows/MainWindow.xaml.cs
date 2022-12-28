@@ -24,5 +24,18 @@ namespace Evolution
         {
             InitializeComponent();
         }
+
+        private void Grid_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+            {
+                if (Application.Current.MainWindow.WindowState == WindowState.Maximized)
+                {
+                    Application.Current.MainWindow.WindowState = WindowState.Normal;
+                }
+                this.DragMove();
+            }
+
+        }
     }
 }

@@ -25,39 +25,7 @@ namespace Evolution.Services
                 if (o.GetType() == TaskService.AllTasks.GetType())
                 {
                     SaveDatas(TaskService.PathToUserTasksFile, o);
-                }
-
-                //if (MessengerViewModel.MessageList != null)
-                //{
-                //    if (o.GetType() == MessengerViewModel.MessageList.GetType())
-                //    {
-                //        SaveDatas($"{AppDomain.CurrentDomain.BaseDirectory}\\Messages\\Messages.json", o);
-                //    }
-                //}
-
-                //if (SettingsViewModel.settingsObj != null)
-                //{
-                //    if (o.GetType() == SettingsViewModel.settingsObj.GetType())
-                //    {
-                //        SaveDatas(JsonPathSettings, o);
-                //    }
-                //}
-
-                //if (MainViewModelPage.CurrentDatas != null)
-                //{
-                //    if (o.GetType() == MainViewModelPage.CurrentDatas.GetType())
-                //    {
-                //        SaveDatas(JsonPathCurrentData, o);
-                //    }
-                //}
-
-                //if (CreatePageViewModel.AdvancedPlans != null)
-                //{
-                //    if (o.GetType() == CreatePageViewModel.AdvancedPlans.GetType())
-                //    {
-                //        SaveDatas(JsonPathAdvancedPlansData, o);
-                //    }
-                //}
+                }                              
             }
         }
 

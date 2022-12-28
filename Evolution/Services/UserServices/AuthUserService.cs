@@ -19,8 +19,7 @@ namespace Evolution.Services.UserServices
             {
                 User = DataSaveLoad.LoadDataUser<UserModel>(PathToUserFolder + "\\user_auth.json");
                 if (IsCorrectUserData(login, password, User))
-                {
-                    GetUserInfoService.SetUserLogin(login);
+                {                                     
                     return true;
                 }
                 else

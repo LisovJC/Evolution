@@ -5,13 +5,27 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Evolution.ViewModel.Pages"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-      xmlns:iconPacks="clr-namespace:MahApps.Metro.IconPacks;assembly=MahApps.Metro.IconPacks.Material" 
-      xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls" xmlns:hc="https://handyorg.github.io/handycontrol"
+      xmlns:iconPacks="clr-namespace:MahApps.Metro.IconPacks;assembly=MahApps.Metro.IconPacks.Material"
+      xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls" 
+      xmlns:hc="https://handyorg.github.io/handycontrol" 
+      xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+      xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
       mc:Ignorable="d" 
      d:DesignHeight="970" d:DesignWidth="1120"
       Title="CreatePage"
       Background="#212429">
 
+    <Page.Resources>
+        <Style TargetType="Menu" x:Key="Horizontal">
+            <Setter Property="ItemsPanel">
+                <Setter.Value>
+                    <ItemsPanelTemplate>
+                        <StackPanel VerticalAlignment="Center"/>
+                    </ItemsPanelTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
         <Page.DataContext>
             <local:CreateViewModel/>
         </Page.DataContext>
@@ -39,7 +53,7 @@
             </Grid.ColumnDefinitions>
 
             <Grid.RowDefinitions>
-                <RowDefinition Height="5*"/>
+                <RowDefinition Height="7.5*"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
             
@@ -50,13 +64,17 @@
                             Margin="14,0,0,25">
                     <RadioButton Content="Your local ussue"
                                  Foreground="#fefefe"
+                                 Style="{StaticResource RadioButtonBaseStyle}"
                                  Margin="0,0,15,0"
                                  FontSize="18"
+                                 Command="{Binding LocalTypeCommand}"
                                  FontWeight="UltraLight"/>
                     
                     <RadioButton Content="Project global ussue"
                                  Foreground="#fefefe"
+                                 Style="{StaticResource RadioButtonBaseStyle}"
                                  FontWeight="UltraLight"
+                                 Command="{Binding GlobalTypeCommand}"
                                  FontSize="18"/>
                 </StackPanel>
             
@@ -108,24 +126,29 @@
 
                     <RadioButton Content="Priority: P0 (today)"
                                  FontWeight="UltraLight"
+                                 Style="{StaticResource RadioButtonBaseStyle}"
                                  FontSize="18"
                                  Foreground="#fefefe"
                                  Margin="0,0,0,10"
                                  HorizontalAlignment="Left"/>
                     <RadioButton Content="Priority: P1 (few day)"
                               FontWeight="UltraLight"
+                                 Style="{StaticResource RadioButtonBaseStyle}"
                                  FontSize="18"
+
                               Foreground="#fefefe"
                               Margin="0,0,0,10"
                                  HorizontalAlignment="Left"/>
                     <RadioButton Content="Priority: P2 (week)"
                               FontWeight="UltraLight"
+                                Style="{StaticResource RadioButtonBaseStyle}"
                                  FontSize="18"
                               Foreground="#fefefe"
                               Margin="0,0,0,10"
                                  HorizontalAlignment="Left"/>
                     <RadioButton Content="Priority: P3 (more week)"
                               FontWeight="UltraLight"
+                                 Style="{StaticResource RadioButtonBaseStyle}"
                                  FontSize="18"
                               Foreground="#fefefe"
                               Margin="0,0,0,0"
@@ -142,19 +165,42 @@
                                Margin="0,0,0,5"/>
 
                     <hc:SplitButton HorizontalAlignment="Left"
-                                    Content="Choose..."
+                                    Content="{Binding Assigned, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                                     FontSize="18"
                                     MinHeight="40"
+                                    MaxWidth="200"
                                     MinWidth="200"
                                     HorizontalContentAlignment="Left">
+
                         <hc:SplitButton.DropDownContent>
-                            <StackPanel>
-                                <MenuItem Header="Title" Command="{Binding SelectCmd}" CommandParameter="Command1"/>
-                                <MenuItem Header="Title" Command="{Binding SelectCmd}" CommandParameter="Command2"/>
-                                <MenuItem Header="Title" Command="{Binding SelectCmd}" CommandParameter="Command3"/>
-                            </StackPanel>
+                            <Menu ItemsSource="{Binding AllUsers}"
+                                  Style="{StaticResource Horizontal}"
+                                  Background="Transparent">
+                                <Menu.ItemTemplate>
+                                    <DataTemplate>
+                                        <Label Content="{Binding Login}"
+                                               Style="{StaticResource HeaderSign}"
+                                               Foreground="Black"
+                                               x:Name="lll"
+                                               MinWidth="200"
+                                               Margin="0,0,5,0"
+                                               HorizontalAlignment="Stretch"
+                                               HorizontalContentAlignment="Left">
+                                            <i:Interaction.Triggers>
+                                                <i:EventTrigger EventName="MouseDown" >
+                                                    <i:InvokeCommandAction Command="{Binding DataContext.SelectAssigneCommand, 
+                                                                           RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
+                                                                           CommandParameter="{Binding ElementName=lll, Path=Content}"/>
+                                                </i:EventTrigger>
+                                            </i:Interaction.Triggers>
+                                        </Label>
+                                    </DataTemplate>
+                                </Menu.ItemTemplate>
+                                
+                            </Menu>
                         </hc:SplitButton.DropDownContent>
                     </hc:SplitButton>
+                    
                 </StackPanel>
             </StackPanel>
 
@@ -189,6 +235,7 @@
                                Margin="0,0,0,5"/>
 
                     <CheckBox Content="Code"
+                              Style="{StaticResource CheckBoxBaseStyle}"
                               FontWeight="UltraLight"
                               FontSize="18"
                               Foreground="#fefefe"
@@ -198,6 +245,7 @@
 
                     <CheckBox Content="Art/Sprite"
                               FontWeight="UltraLight"
+                              Style="{StaticResource CheckBoxBaseStyle}"
                                  FontSize="18"
                               Foreground="#fefefe"
                               Margin="0,0,0,10"
@@ -208,12 +256,14 @@
                               FontWeight="UltraLight"
                                  FontSize="18"
                               Foreground="#fefefe"
+                              Style="{StaticResource CheckBoxBaseStyle}"
                               Margin="0,0,0,10"
                                  HorizontalAlignment="Left"
                               Command="{Binding AddCategorySoundCommand}"/>
 
                     <CheckBox Content="Music"
                               FontWeight="UltraLight"
+                              Style="{StaticResource CheckBoxBaseStyle}"
                                  FontSize="18"
                               Foreground="#fefefe"
                               Margin="0,0,0,10"
@@ -222,6 +272,7 @@
 
                     <CheckBox Content="Character"
                               FontWeight="UltraLight"
+                              Style="{StaticResource CheckBoxBaseStyle}"
                                  FontSize="18"
                               Foreground="#fefefe"
                               Margin="0,0,0,10"
@@ -232,6 +283,7 @@
                               FontWeight="UltraLight"
                                  FontSize="18"
                               Foreground="#fefefe"
+                              Style="{StaticResource CheckBoxBaseStyle}"
                               Margin="0,0,0,10"
                                  HorizontalAlignment="Left"
                               Command="{Binding AddCategoryDecorCommand}"/>
@@ -241,6 +293,7 @@
                                  FontSize="18"
                               Foreground="#fefefe"
                               Margin="0,0,0,10"
+                              Style="{StaticResource CheckBoxBaseStyle}"
                                  HorizontalAlignment="Left"
                               Command="{Binding AddCategoryUICommand}"/>
 
@@ -248,6 +301,7 @@
                               FontWeight="UltraLight"
                                  FontSize="18"
                               Foreground="#fefefe"
+                              Style="{StaticResource CheckBoxBaseStyle}"
                               Margin="0,0,0,10"
                                  HorizontalAlignment="Left"
                               Command="{Binding AddCategoryEnvironmentCommand}"/>
@@ -257,12 +311,14 @@
                                  FontSize="18"
                               Foreground="#fefefe"
                               Margin="0,0,0,10"
+                              Style="{StaticResource CheckBoxBaseStyle}"
                                  HorizontalAlignment="Left"
                               Command="{Binding AddCategoryActionsAnimationsCommand}"/>
 
                     <CheckBox Content="Settings"
                               FontWeight="UltraLight"
                                  FontSize="18"
+                              Style="{StaticResource CheckBoxBaseStyle}"
                               Foreground="#fefefe"
                               Margin="0,0,0,10"
                                  HorizontalAlignment="Left"
@@ -272,6 +328,7 @@
                               FontWeight="UltraLight"
                                  FontSize="18"
                               Foreground="#fefefe"
+                              Style="{StaticResource CheckBoxBaseStyle}"
                               Margin="0,0,0,10"
                                  HorizontalAlignment="Left"
                               Command="{Binding AddCategoryDialogCommand}"/>
@@ -281,6 +338,7 @@
                                  FontSize="18"
                               Foreground="#fefefe"
                               Margin="0,0,0,10"
+                              Style="{StaticResource CheckBoxBaseStyle}"
                                  HorizontalAlignment="Left"/>
 
                     <hc:TextBox FontSize="18"

@@ -13,8 +13,8 @@
                 <ResourceDictionary Source="/Evolution;component/Resources/Styles/Styles.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/HandyControl;component/Themes/SkinDefault.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/HandyControl;component/Themes/Theme.xaml"/>
-                <ui:ThemesDictionary Theme="Dark" />
                 <ui:ControlsDictionary />
+                <ui:ThemesDictionary Theme="Light" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

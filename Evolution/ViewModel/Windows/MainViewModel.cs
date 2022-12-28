@@ -1,6 +1,7 @@
 ﻿using Evolution.Command;
 using Evolution.Core;
 using Evolution.Services;
+using Evolution.Services.HelperServices;
 using Evolution.Services.UserServices;
 using Evolution.View.Pages;
 using Evolution.ViewModel.Pages;
@@ -105,8 +106,7 @@ namespace Evolution.ViewModel.Windows
         public static readonly string unSelectButtonColor = "#fefefe";
         public MainViewModel()
         {
-            CurrentUser = GetUserInfoService.GetUserLogin();
-            Debug.WriteLine(GetUserInfoService.GetUserGDriveFolder());
+            CurrentUser = HelperService.CurrentUser;
 
             GoSelectPage(AppPages.Home);
 

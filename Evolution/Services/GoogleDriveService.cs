@@ -122,17 +122,18 @@ namespace Evolution.Services
                 {
                     FilesResource.UpdateMediaUpload request = service.Files.Update(body, _fileId, stream, GetMimeType(_uploadFile));
                     request.Upload();
+                    Debug.WriteLine("Good: ");
                     return request.ResponseBody;
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine("An error occurred: " + e.Message);
+                    Debug.WriteLine("An error occurred: " + e.Message);
                     return null;
                 }
             }
             else
             {
-                Console.WriteLine("File does not exist: " + _uploadFile);
+                Debug.WriteLine("File does not exist: " + _uploadFile);
                 return null;
             }
 
@@ -140,7 +141,15 @@ namespace Evolution.Services
 
         public static void Remove(string id)
         {
-            service.Files.Delete(id).Execute();
+            try
+            {
+                              
+                service.Files.Delete(id).Execute();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         private static string GetMimeType(string fileName) 
@@ -158,7 +167,7 @@ namespace Evolution.Services
             var stream = new System.IO.MemoryStream();
             var request = service.Files.Get(fileId);
 
-            await request.DownloadAsync(stream);
+            await Task.Run(() => request.DownloadAsync(stream));
 
             using (System.IO.FileStream file = new System.IO.FileStream(saveTo, System.IO.FileMode.Create, System.IO.FileAccess.Write))
             {

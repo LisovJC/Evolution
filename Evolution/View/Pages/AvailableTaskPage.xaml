@@ -187,6 +187,7 @@
                                             <TextBlock Text="ffffffff"
                                                        MaxWidth="210"
                                                x:Name="Lb4"
+                                                       FontWeight="UltraLight"
                                                Margin="5,0,0,0"
                                                FontSize="15" 
                                                TextWrapping="Wrap"

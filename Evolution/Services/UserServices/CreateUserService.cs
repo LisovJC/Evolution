@@ -1,5 +1,4 @@
-﻿using ControlzEx.Standard;
-using Evolution.Model;
+﻿using Evolution.Model;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
@@ -20,7 +19,7 @@ namespace Evolution.Services.UserServices
 
         public static UserModel User = new();
 
-        public static string CreateUser(string? login, string? password, string? confirmPassword, string Email = "none")
+        public static bool CreateUser(string? login, string? password, string? confirmPassword, string Email = "none")
         {
 
             if (IsValidUserData(login, password, confirmPassword, Email))
@@ -30,7 +29,7 @@ namespace Evolution.Services.UserServices
                 if (PathToUserFolder == "Exists")
                 {
                     Debug.WriteLine("Ошибка. Пользователь существует.");
-                    return "false";
+                    return false;
                 }
                 else
                 {
@@ -46,12 +45,12 @@ namespace Evolution.Services.UserServices
                     
                     CreateUserFolderInGDrive(login, true);
                     
-                    return PathToUserAuthFile;
+                    return true;
                 }
             }
             else
             {
-                return "false";
+                return false;
             }
         }
 
@@ -86,14 +85,15 @@ namespace Evolution.Services.UserServices
 
         private static string CreateUserJSON(string? login)
         {
-            string folderPath = $"{AppDomain.CurrentDomain.BaseDirectory}\\Users\\{login}";
+            PathToUserFolder = $"{AppDomain.CurrentDomain.BaseDirectory}\\Users\\{login}";
+            PathToUserAuthFile = $"{PathToUserFolder}\\user_auth.json";
 
-            if (!Directory.Exists(folderPath))
+            if (!Directory.Exists(PathToUserFolder))
             {
-                Directory.CreateDirectory(folderPath);
-                var file = System.IO.File.Create($"{folderPath}\\user_auth.json");
+                Directory.CreateDirectory(PathToUserFolder);
+                var file = System.IO.File.Create($"{PathToUserFolder}\\user_auth.json");
                 file.Close();
-                return folderPath;
+                return PathToUserFolder;
             }
             else
             {
@@ -104,23 +104,18 @@ namespace Evolution.Services.UserServices
         public static async void CreateUserFolderInGDrive(string login, bool isCreate = false)
         {
                                  
-            FilesAndFolders = await GoogleDriveService.ListEntities(); //Получаем весь список файлов и папок в корне
+            FilesAndFolders = await Task.Run(() => GoogleDriveService.ListEntities()); //Получаем весь список файлов и папок в корне
             
             EVOLUTIONFolder = GetItemIDByName("EVOLUTION"); //айди папки EVOLUTION
             
-            if(isCreate) await GoogleDriveService.CreateFolder(login, EVOLUTIONFolder); //Создание папки пользователя        
+            if(isCreate) await Task.Run(() => GoogleDriveService.CreateFolder(login, EVOLUTIONFolder)); //Создание папки пользователя        
 
-            FilesAndFolders = await GoogleDriveService.ListEntities(EVOLUTIONFolder); //Весь список файлов и папок в ПАПКЕ EVOLUTION
-            string UserFolder = GetItemIDByName(login); //Получение айпи папки пользователя
-            GetUserInfoService.SetUserGDriveFolder(UserFolder);
-
-            if (isCreate) await GoogleDriveService.uploadFile($"{AppDomain.CurrentDomain.BaseDirectory}\\Users\\{login}\\user_auth.json", UserFolder); //Загрузка файла данных о пользователе в его папку
-
-
-            //GoogleDriveService.Remove(GetFolderIDByName("FFF").Result);//Удаление папки в папке
+            FilesAndFolders = await Task.Run(() => GoogleDriveService.ListEntities(EVOLUTIONFolder)); //Весь список файлов и папок в ПАПКЕ EVOLUTION            
+            string UserFolder = GetItemIDByName(login); //Получение айпи папки пользователя           
+            if (isCreate) await Task.Run(() => GoogleDriveService.uploadFile($"{AppDomain.CurrentDomain.BaseDirectory}\\Users\\{login}\\user_auth.json", UserFolder)); //Загрузка файла данных о пользователе в его папку           
         }
 
-        private static string GetItemIDByName(string name)
+        public static string GetItemIDByName(string name)
         {
             for (int i = 0; i < FilesAndFolders.Count; i++)
             {

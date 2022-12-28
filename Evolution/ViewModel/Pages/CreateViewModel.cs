@@ -2,7 +2,11 @@
 using Evolution.Core;
 using Evolution.Model;
 using Evolution.Services;
+using Evolution.Services.HelperServices;
+using Evolution.Services.UserServices;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
 using static Evolution.Model.TaskModel;
 
 namespace Evolution.ViewModel.Pages
@@ -25,7 +29,7 @@ namespace Evolution.ViewModel.Pages
             set => Set(ref _description, value);
         }
 
-        private string _assigned;
+        private string _assigned = "Choose...";
 
         public string Assigned
         {
@@ -61,6 +65,7 @@ namespace Evolution.ViewModel.Pages
 
         public TypeTaskEdentity typeTask { get; set; }
 
+        public List<UserModel> AllUsers { get; set; } = new();
         public RelayCommand CreateTaskCommand { get; set; }
         public RelayCommand P0PriorityCommand { get; set; }
         public RelayCommand P1PriorityCommand { get; set; }
@@ -79,13 +84,18 @@ namespace Evolution.ViewModel.Pages
         public RelayCommand AddCategoryActionsAnimationsCommand { get; set; }
         public RelayCommand AddCategorySettingsCommand { get; set; }
         public RelayCommand AddCategoryDialogCommand { get; set; }
+        public RelayCommand SelectAssigneCommand { get; set; }
 
         public CreateViewModel()
         {
             CreateListCategory();
 
+
+            AllUsers = HelperService.AllUsersInApp;
+
             CreateTaskCommand = new(o => { CreateTask(); });
-            
+            SelectAssigneCommand = new(o => { Assigned = o.ToString(); });
+
             P0PriorityCommand = new(o => { SetPriority(Priority.P0); });
             P1PriorityCommand = new(o => { SetPriority(Priority.P1); });
             P2PriorityCommand = new(o => { SetPriority(Priority.P2); });
@@ -201,5 +211,6 @@ namespace Evolution.ViewModel.Pages
             PlannedTimeCosts = 0;
             OtherCategory = "";           
         }
+        
     }
 }

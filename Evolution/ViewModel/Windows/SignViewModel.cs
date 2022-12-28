@@ -1,10 +1,9 @@
 ﻿using Evolution.Command;
 using Evolution.Core;
+using Evolution.Services.HelperServices;
 using Evolution.Services.UserServices;
-using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Windows;
-using File = Google.Apis.Drive.v3.Data.File;
 
 namespace Evolution.ViewModel.Windows
 {
@@ -111,14 +110,7 @@ namespace Evolution.ViewModel.Windows
         }
 
         #endregion
-
-        #region GoogleDrive
-        ObservableCollection<File> FilesAndFolders = new ObservableCollection<File>();
-
-        private static string _EVOLUTIONFolder = "";
-        private static string _UserFolder = "";
-        #endregion
-
+    
         #region Commands
         public RelayCommand SignInCommand { get; set; }
         public RelayCommand SignUpCommand { get; set; }
@@ -132,6 +124,7 @@ namespace Evolution.ViewModel.Windows
             {
                 if (AuthUserService.SignIn(Login, Password))
                 {
+                    HelperService.HelperUpdateData(Login);
                     MainWindow mainWindow = new();
                     mainWindow.Owner = Application.Current.MainWindow;
                     mainWindow.Show();
@@ -173,12 +166,9 @@ namespace Evolution.ViewModel.Windows
                 isEnableSignIn = true;
                 Reqired = Visibility.Collapsed;
                 ContentRegButton = "Sign Up";
-                IconVisibility = Visibility.Visible;
+                IconVisibility = Visibility.Visible;                          
 
-                string userSucces = "";
-                userSucces = CreateUserService.CreateUser(Login, Password, ConfirmPassword, Email);
-
-                if (userSucces != "false")
+                if (CreateUserService.CreateUser(Login, Password, ConfirmPassword, Email))
                 {
                     Debug.WriteLine("Succes!");
                     ConfirmPassword = string.Empty;
@@ -211,19 +201,6 @@ namespace Evolution.ViewModel.Windows
 
                 Debug.WriteLine(ex.Message);
             }            
-        }
-           
-        //async void Test()
-        //{
-        //    FilesAndFolders = await GoogleDriveService.ListEntities();
-        //    string id_Evo = GetItemIDByName("EVOLUTION").Result;
-        //    FilesAndFolders = await GoogleDriveService.ListEntities(id_Evo);
-        //    id_Evo = GetItemIDByName("Lisov").Result;
-        //    FilesAndFolders = await GoogleDriveService.ListEntities(id_Evo);
-        //    id_Evo = GetItemIDByName("user_auth.json").Result;
-
-            
-        //    GoogleDriveService.Download(id_Evo, "C:\\Users\\lisov\\source\\repos\\Evolution_1\\Evolution\\bin\\ee.json"); //Загрузка и сейв файла.                         
-        //}
+        }            
     }
 }

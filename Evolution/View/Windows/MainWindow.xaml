@@ -20,7 +20,8 @@
     <Window.DataContext>
         <windows:MainViewModel/>
     </Window.DataContext>
-    <Grid Background="#212429">
+    <Grid Background="#212429"
+          MouseLeftButtonDown="Grid_MouseLeftButtonDown">
         <Grid.RowDefinitions>
             <RowDefinition Height="80"/>
             <RowDefinition/>
