@@ -39,7 +39,8 @@ namespace Evolution.Services
                 TaskPriority = priority,
                 TypeTask = typeTask,
                 DateCreate = DateTime.Now,
-                Categories = AddCategories(categories)
+                Categories = AddCategories(categories),
+                Creator = HelperService.CurrentUser
             };
 
             if (task.TypeTask == TypeTaskEdentity.local)

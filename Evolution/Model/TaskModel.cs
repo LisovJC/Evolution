@@ -64,6 +64,14 @@ namespace Evolution.Model
             set => Set(ref _assigned, value);
         }
 
+        private string _creator = "none";
+
+        public string Creator
+        {
+            get => _creator;
+            set => Set(ref _creator, value);
+        }
+
         private double _plannedTimeCosts = 0.0;
 
         public double PlannedTimeCosts
@@ -85,7 +93,7 @@ namespace Evolution.Model
         public List<Category> Categories
         {
             get => _categories;
-            set => Set(ref _categories, value);
+            set { Set(ref _categories, value); SetCategories(); }
         }
 
         private DateTime _dateCreate;
@@ -94,6 +102,24 @@ namespace Evolution.Model
         {
             get => _dateCreate;
             set => Set(ref _dateCreate, value);
+        }
+
+        private string _getCategories = "no categories set...";
+
+        public string GetCategories
+        {
+            get { return _getCategories; }
+            set => Set(ref _getCategories, value);
+        }
+
+
+        private void SetCategories()
+        {
+            GetCategories = "";
+            for (int i = 0; i < Categories.Count; i++)
+            {
+                GetCategories += Categories[i].CategoryName + ", ";
+            }
         }
 
     }

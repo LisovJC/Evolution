@@ -1,6 +1,7 @@
 ﻿using Evolution.Core;
 using Evolution.Model;
 using Evolution.Services;
+using Evolution.Services.HelperServices;
 using Evolution.Services.UserServices;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Evolution.ViewModel.Pages
 {
@@ -17,7 +19,7 @@ namespace Evolution.ViewModel.Pages
         public ObservableCollection<TaskModel> LoadedCommonTasks { get; set; } = new();
         public ObservableCollectionEX<TaskModel> CommonTasks { get; set; } = new();
         public AvailableTaskViewModel()
-        {
+        {           
             LoadDatas();
         }
 

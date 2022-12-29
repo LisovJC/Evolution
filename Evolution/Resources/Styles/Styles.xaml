@@ -114,6 +114,9 @@
             <Trigger Property="IsMouseCaptured" Value="True">
                 <Setter Property="Foreground" Value="#fefefe"/>
             </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Foreground" Value="Gray"/>
+            </Trigger>
         </Style.Triggers>
     </Style>
 

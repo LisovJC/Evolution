@@ -90,7 +90,6 @@ namespace Evolution.ViewModel.Pages
         {
             CreateListCategory();
 
-
             AllUsers = HelperService.AllUsersInApp;
 
             CreateTaskCommand = new(o => { CreateTask(); });

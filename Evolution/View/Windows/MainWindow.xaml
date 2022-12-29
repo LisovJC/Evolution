@@ -202,6 +202,7 @@
                 <StackPanel Orientation="Vertical">
 
                     <Button Content="Tasks"
+                            IsEnabled="False"
                             Style="{StaticResource NavigationButtons}"
                             Command="{Binding SelectMyTCommand}"/>
 
@@ -215,6 +216,7 @@
                 <StackPanel Orientation="Vertical">
 
                     <Button Content="Tasks in work"
+                            IsEnabled="False"
                             Style="{StaticResource NavigationButtons}"
                             Command="{Binding SelectTInWorkCommand}"/>
 
@@ -229,7 +231,8 @@
 
                     <Button Content="Create"
                             Style="{StaticResource NavigationButtons}"
-                            Command="{Binding SelectCreateCommand}"/>
+                            Command="{Binding SelectCreateCommand}"
+                            IsEnabled="False"/>
 
                     <Border Height="2"
                             Margin="15,0,15,0"
@@ -241,6 +244,7 @@
                 <StackPanel Orientation="Vertical">
 
                     <Button Content="Storage"
+                            IsEnabled="False"
                             Style="{StaticResource NavigationButtons}"
                             Command="{Binding SelectStorageCommand}"/>
 

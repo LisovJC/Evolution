@@ -23,6 +23,7 @@ namespace Evolution.Services.HelperServices
         {
             try
             {
+                AllUsersInApp.Clear();
                 CurrentUser = user;
                 FilesAndFoldersInRootFolder = await Task.Run(() => GoogleDriveService.ListEntities());
                 IdEvolutionFolder = GetItemIDByName(FilesAndFoldersInRootFolder, "EVOLUTION");
