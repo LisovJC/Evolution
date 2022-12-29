@@ -1,5 +1,6 @@
 ﻿using Evolution.Core;
 using Evolution.Model;
+using Evolution.Services;
 using Evolution.Services.UserServices;
 using System;
 using System.Collections.Generic;
@@ -13,49 +14,25 @@ namespace Evolution.ViewModel.Pages
 {
     internal class AvailableTaskViewModel
     {
-        public ObservableCollection<TaskModel> tests { get; set; } = new();
+        public ObservableCollection<TaskModel> LoadedCommonTasks { get; set; } = new();
+        public ObservableCollectionEX<TaskModel> CommonTasks { get; set; } = new();
         public AvailableTaskViewModel()
         {
-            tests.Add(new TaskModel
+            LoadDatas();
+        }
+
+        public async void LoadDatas()
+        {
+            await Task.Run(() => LoadedCommonTasks = TaskService.GetCommonTasks().Result);
+            LoadCollection();
+        }
+
+        public void LoadCollection()
+        {
+            for (int i = 0; i < LoadedCommonTasks.Count; i++)
             {
-                Title = "Lisov",
-                Description = "GGG"
-            });
-            tests.Add(new TaskModel
-            {
-                Title = "QWqwerqweqweqweqwe",
-                Description = "GGG"
-            });
-            tests.Add(new TaskModel
-            {
-                Title = "weeeeF",
-                Description = "GGG"
-            });
-            tests.Add(new TaskModel
-            {
-                Title = "eF",
-                Description = "GGG"
-            });
-            tests.Add(new TaskModel
-            {
-                Title = "eF",
-                Description = "GGG"
-            });
-            tests.Add(new TaskModel
-            {
-                Title = "eF",
-                Description = "GGG"
-            });
-            tests.Add(new TaskModel
-            {
-                Title = "eF",
-                Description = "GGG"
-            });
-            tests.Add(new TaskModel
-            {
-                Title = "eF",
-                Description = "GGG"
-            });            
+                CommonTasks.Add(LoadedCommonTasks[i]);
+            }
         }
     }
 }

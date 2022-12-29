@@ -14,12 +14,12 @@ namespace Evolution.Services
     internal class TaskService
     {
         public static ObservableCollection<TaskModel> AllTasks { get; set; } = new();
-        public static List<TaskModel> CommonTasks { get; set; } = new();
-        public static ObservableCollection<File> TempTasks { get; set; } = new();
+        public static ObservableCollection<TaskModel> CommonTasks { get; set; } = new();
+        public static ObservableCollection<File> FilesAndFoldersInCommonTasksFolder { get; set; } = new();
         public static TaskModel task = new();
         public static string PathToUserTasksFile = "";
         public static string PathToCommonTasksFile = $"{Environment.CurrentDirectory}\\Common_Tasks\\Common_Tasks.json";
-        public static void CreateIssue(
+        public static async void CreateIssue(
             string Title,
             string Assigned,
             double PlannedTimeCosts,
@@ -42,12 +42,34 @@ namespace Evolution.Services
                 Categories = AddCategories(categories)
             };
 
-            InitTaskJsonFiles(HelperService.CurrentUser);
+            if (task.TypeTask == TypeTaskEdentity.local)
+            {
+                InitTaskJsonFiles(HelperService.CurrentUser);
+                AllTasks = DataSaveLoad.LoadData<TaskModel>(PathToUserTasksFile);
+                AllTasks.Add(task);
+                DataSaveLoad.Serialize(AllTasks);
+            }
+            else
+            {
+                CommonTasks = await GetCommonTasks();
 
-            AllTasks = DataSaveLoad.LoadData<TaskModel>(PathToUserTasksFile);
-            AllTasks.Add(task);
-            DataSaveLoad.Serialize(AllTasks);
-            AddCommonTask(HelperService.CurrentUser);
+                CommonTasks.Add(task);
+                DataSaveLoad.SaveDatas(PathToCommonTasksFile, CommonTasks);
+                try
+                {
+                    if (HelperService.GetItemIDByName(FilesAndFoldersInCommonTasksFolder, "Common_Tasks.json") != null)
+                    {
+                        GoogleDriveService.Remove(HelperService.GetItemIDByName(FilesAndFoldersInCommonTasksFolder, "Common_Tasks.json"));
+                    }
+
+                    await GoogleDriveService.uploadFile(PathToCommonTasksFile, HelperService.IdCommonTaskFolder);
+                }
+                catch (Exception ex)
+                {
+
+                    Debug.Write(ex.Message);
+                }
+            }         
         }
 
         private static List<Category> AddCategories(List<Category> Categories)
@@ -77,62 +99,13 @@ namespace Evolution.Services
             }
             else
             {
-                return "Exists";
+                return "This file exists!";
             }
         }
 
-        private static async void AddCommonTask(string login)
-        {
-            CommonTasks = await GetCommonTasks();
-            if (CommonTasks.Count == 0)
-            {
-                for (int i = 0; i < AllTasks.Count; i++)
-                {
-                    if (AllTasks[i].TypeTask == TypeTaskEdentity.global)
-                    {                       
-                         CommonTasks.Add(AllTasks[i]);                      
-                    }
-                }
-            }
-            else
-            {
-                for (int i = 0; i < AllTasks.Count; i++)
-                {
-                    if (AllTasks[i].TypeTask == TypeTaskEdentity.global)
-                    {
-                        for (int j = 0; j < CommonTasks.Count; j++)
-                        {
-                            if (CommonTasks[j] != AllTasks[i])
-                            {
-                                CommonTasks.Add(AllTasks[i]);
-                            }
-                        }
-                    }
-                }
-            }
-
-            DataSaveLoad.SaveDatas(PathToCommonTasksFile,CommonTasks);
-
-            try
-            {
-                if(HelperService.GetItemIDByName(TempTasks, "Common_Tasks.json") != null)
-                {
-                    GoogleDriveService.Remove(HelperService.GetItemIDByName(TempTasks, "Common_Tasks.json"));
-                }
-                
-                await GoogleDriveService.uploadFile(PathToCommonTasksFile, HelperService.IdCommonTaskFolder);
-            }
-            catch (Exception ex)
-            {
-
-                Debug.Write(ex.Message);
-            }    
-                                 
-        }
-
-        private static async Task<List<TaskModel>> GetCommonTasks()
+        public static async Task<ObservableCollection<TaskModel>> GetCommonTasks()
         {            
-            bool waiting = await HelperService.HelperUpdateData(HelperService.CurrentUser);           
+            await HelperService.HelperUpdateData(HelperService.CurrentUser);           
             
             if (!System.IO.File.Exists(PathToCommonTasksFile))
             {
@@ -140,24 +113,21 @@ namespace Evolution.Services
                 file.Close();
             }
 
-            TempTasks = HelperService.FilesAndFoldersInCommonTasksFolder;          
-            ObservableCollection<TaskModel> temp;
+            FilesAndFoldersInCommonTasksFolder = HelperService.FilesAndFoldersInCommonTasksFolder;          
 
-            if (TempTasks.Count == 0)
+            if (FilesAndFoldersInCommonTasksFolder.Count == 0)
             {
                 return CommonTasks;
             }
             else
             {
-                await GoogleDriveService.Download(HelperService.GetItemIDByName(TempTasks, "Common_Tasks.json"), PathToCommonTasksFile);
-                temp = DataSaveLoad.LoadData<TaskModel>(PathToCommonTasksFile);
-            }
-            for (int i = 0; i < temp.Count; i++)
-            {
-                CommonTasks.Add(temp[i]);
-            }
-            return CommonTasks;
-            
+                await GoogleDriveService.Download(HelperService.GetItemIDByName(
+                    FilesAndFoldersInCommonTasksFolder, 
+                    "Common_Tasks.json"), 
+                    PathToCommonTasksFile);
+                CommonTasks = DataSaveLoad.LoadData<TaskModel>(PathToCommonTasksFile);
+                return CommonTasks;
+            }           
         }
     }
 }

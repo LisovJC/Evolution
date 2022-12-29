@@ -39,7 +39,7 @@
                   Height="auto"
                   Width="auto"
                   Background="Transparent"
-                  ItemsSource="{Binding tests}"
+                  ItemsSource="{Binding CommonTasks}"
                   SelectedIndex="{Binding SelectedPlanIndex, 
                                   Mode=TwoWay, 
                                   UpdateSourceTrigger=PropertyChanged}">
