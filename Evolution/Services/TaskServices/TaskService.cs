@@ -21,7 +21,7 @@ namespace Evolution.Services.TaskServices
         public static TaskModel task = new();
         public static string PathToUserTasksFile = "";
         public static string PathToCommonTasksFile = $"{Environment.CurrentDirectory}\\Common_Tasks\\Common_Tasks.json";
-        public static async void CreateIssue(
+        public static async void CreateTask(
             string Title,
             string Assigned,
             double PlannedTimeCosts,
@@ -45,34 +45,49 @@ namespace Evolution.Services.TaskServices
                 Creator = HelperService.CurrentUser
             };
 
-            if (task.TypeTask == TypeTaskEdentity.local)
+            switch(task.TypeTask)
             {
-                InitTaskJsonFiles(HelperService.CurrentUser);
-                AllTasks = DataSaveLoad.LoadData<TaskModel>(PathToUserTasksFile);
-                AllTasks.Add(task);
-                DataSaveLoad.Serialize(AllTasks);
-            }
-            else
-            {
-                CommonTasks = await GetCommonTasks();
-
-                CommonTasks.Add(task);
-                DataSaveLoad.SaveDatas(PathToCommonTasksFile, CommonTasks);
-                try
-                {
-                    if (HelperService.GetItemIDByName(FilesAndFoldersInCommonTasksFolder, "Common_Tasks.json") != null)
+                case TypeTaskEdentity.local:
                     {
-                        GoogleDriveService.Remove(HelperService.GetItemIDByName(FilesAndFoldersInCommonTasksFolder, "Common_Tasks.json"));
+                        InitTaskJsonFiles(HelperService.CurrentUser);
+                        AllTasks = DataSaveLoad.LoadData<TaskModel>(PathToUserTasksFile);
+                        AllTasks.Add(task);
+                        DataSaveLoad.Serialize(AllTasks);
                     }
+                    break;
+                case TypeTaskEdentity.global:
+                    {
+                        ////CommonTasks = await GetCommonTasks();
 
-                    await GoogleDriveService.uploadFile(PathToCommonTasksFile, HelperService.IdCommonTaskFolder);
-                }
-                catch (Exception ex)
-                {
+                        ////CommonTasks.Add(task);
+                        ////DataSaveLoad.SaveDatas(PathToCommonTasksFile, CommonTasks);
+                        //try
+                        //{
+                        //    if (HelperService.GetItemIDByName(FilesAndFoldersInCommonTasksFolder, "Common_Tasks.json") != null)
+                        //    {
+                        //        GoogleDriveService.Remove(HelperService.GetItemIDByName(FilesAndFoldersInCommonTasksFolder, "Common_Tasks.json"));
+                        //    }
 
-                    Debug.Write(ex.Message);
-                }
-            }
+                        //    await GoogleDriveService.uploadFile(PathToCommonTasksFile, HelperService.IdCommonTaskFolder);
+                        //}
+                        //catch (Exception ex)
+                        //{
+
+                        //    Debug.Write(ex.Message);
+                        //}
+                        try
+                        {
+                            FireBaseService.PushToDataBase(task, null, "GlobalTask");
+                        }
+                        catch (Exception ex)
+                        {
+
+                            Debug.WriteLine(ex.Message);
+                        }
+                    }
+                    break;
+
+            }       
         }
 
         private static List<Category> AddCategories(List<Category> Categories)

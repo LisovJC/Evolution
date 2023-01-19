@@ -73,7 +73,7 @@ namespace Evolution.Services.UserServices
                 (
                     (login.Trim().Length < 3) || login.Contains(" ") ||
                     (password.Trim().Length < 3) || password.Contains(" ") || confirmPassword != password ||
-                    (!email.IsValid(Email) && Email != "none")
+                    (!email.IsValid(Email) && Email != "none" && Email != "")
                 )
             {
                 return false;

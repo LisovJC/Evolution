@@ -1,4 +1,5 @@
-﻿using Evolution.Command;
+﻿using ControlzEx.Standard;
+using Evolution.Command;
 using Evolution.Core;
 using Evolution.Model;
 using Evolution.Services.HelperServices;
@@ -13,6 +14,7 @@ namespace Evolution.ViewModel.Pages
 {
     internal class CreateViewModel : ObservableObject
     {
+        #region TaskProperties
         private string _title;
 
         public string Title
@@ -60,12 +62,15 @@ namespace Evolution.ViewModel.Pages
             get => _categories;
             set => Set(ref _categories, value);
         }
-        
+
         public Priority priority { get; set; }
 
         public TypeTaskEdentity typeTask { get; set; }
 
         public List<UserModel> AllUsers { get; set; } = new();
+        #endregion
+
+        #region Commands
         public RelayCommand CreateTaskCommand { get; set; }
         public RelayCommand P0PriorityCommand { get; set; }
         public RelayCommand P1PriorityCommand { get; set; }
@@ -85,10 +90,11 @@ namespace Evolution.ViewModel.Pages
         public RelayCommand AddCategorySettingsCommand { get; set; }
         public RelayCommand AddCategoryDialogCommand { get; set; }
         public RelayCommand SelectAssigneCommand { get; set; }
+        #endregion
 
         public CreateViewModel()
         {
-            CreateListCategory();
+            if (Categories.Count == 0) CreateListCategory();
 
             AllUsers = HelperService.AllUsersInApp;
 
@@ -103,6 +109,7 @@ namespace Evolution.ViewModel.Pages
             LocalTypeCommand = new(o => { SetType(TypeTaskEdentity.local); });
             GlobalTypeCommand = new(o => { SetType(TypeTaskEdentity.global); });
 
+            //TODO убрать хард код из параметров!
             AddCategoryCodeCommand = new(o => { AddOrRemoveCategory("Code"); });
             AddCategoryArtSpriteCommand = new(o => { AddOrRemoveCategory("Art/Sprite"); });
             AddCategorySoundCommand = new(o => { AddOrRemoveCategory("Sound"); });
@@ -118,7 +125,7 @@ namespace Evolution.ViewModel.Pages
 
         private void CreateTask()
         {
-            TaskService.CreateIssue(Title, Assigned, PlannedTimeCosts, Description, OtherCategory, priority, typeTask, Categories);
+            TaskService.CreateTask(Title, Assigned, PlannedTimeCosts, Description, OtherCategory, priority, typeTask, Categories);
             ClearFields();
         }
 

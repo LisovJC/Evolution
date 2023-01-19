@@ -1,12 +1,9 @@
 ﻿using Evolution.Command;
 using Evolution.Core;
-using Evolution.Services;
 using Evolution.Services.HelperServices;
-using Evolution.Services.UserServices;
 using Evolution.View.Pages;
 using Evolution.View.Pages.SecondaryPages;
 using Evolution.ViewModel.Pages;
-using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -109,9 +106,9 @@ namespace Evolution.ViewModel.Windows
         public static readonly string unSelectButtonColor = "#fefefe";
         public MainViewModel()
         {
-            CurrentUser = HelperService.CurrentUser;
-
             GoSelectPage(AppPages.Home);
+
+            CurrentUser = HelperService.CurrentUser;
 
             SelectHomeCommand = new(o =>{GoSelectPage(AppPages.Home);});
 

@@ -139,7 +139,7 @@
                               Foreground="#fefefe"
                               Margin="0,0,0,10"
                                  HorizontalAlignment="Left"/>
-                    <RadioButton Content="Приоритет: Неделя)"
+                    <RadioButton Content="Приоритет: Неделя"
                               FontWeight="UltraLight"
                                 Style="{StaticResource RadioButtonBaseStyle}"
                                  FontSize="18"

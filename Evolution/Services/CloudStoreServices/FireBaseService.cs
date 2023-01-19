@@ -29,6 +29,7 @@ namespace Evolution.Services.CloudStoreServices
 
         public static async void PushToDataBase<T>(T data, string user, string dataType)
         {
+            if (user == null) user = "Tasks";
             try
             {
                 await client.PushAsync(dataType + "/" + user, data);
