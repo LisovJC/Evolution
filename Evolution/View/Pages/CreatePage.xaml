@@ -36,7 +36,7 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <Label Content="Create new task"
+        <Label Content="Создание новой задачи"
                FontWeight="Normal"
                Style="{StaticResource HeaderSign}"
                VerticalContentAlignment="Center"
@@ -62,7 +62,7 @@
 
                 <StackPanel Orientation="Horizontal"
                             Margin="14,0,0,25">
-                    <RadioButton Content="Your local ussue"
+                    <RadioButton Content="Личная"
                                  Foreground="#fefefe"
                                  Style="{StaticResource RadioButtonBaseStyle}"
                                  Margin="0,0,15,0"
@@ -70,7 +70,7 @@
                                  Command="{Binding LocalTypeCommand}"
                                  FontWeight="UltraLight"/>
                     
-                    <RadioButton Content="Project global ussue"
+                    <RadioButton Content="Проектная"
                                  Foreground="#fefefe"
                                  Style="{StaticResource RadioButtonBaseStyle}"
                                  FontWeight="UltraLight"
@@ -81,7 +81,7 @@
                 <StackPanel Orientation="Vertical"
                             Margin="14,0,0,25">
 
-                     <Label Content="Task title:"
+                     <Label Content="Заголовок:"
                                Style="{StaticResource HeaderSign}"
                                HorizontalAlignment="Left"
                                Margin="0,0,0,5"
@@ -92,13 +92,13 @@
                                  Width="320"
                                  MaxLength="30"
                                  HorizontalAlignment="Left"
-                                 hc:InfoElement.Placeholder="Eneter task title..."/>
+                                 hc:InfoElement.Placeholder="Введите заголовок задачи..."/>
                 </StackPanel>
 
                 <StackPanel Orientation="Vertical"
                             Margin="14,0,0,25">
 
-                    <Label Content="Task description:"
+                    <Label Content="Описание:"
                            FontSize="18"
                                Style="{StaticResource HeaderSign}"
                                HorizontalAlignment="Left"
@@ -112,26 +112,26 @@
                                 TextWrapping="Wrap"
                                 HorizontalAlignment="Left"
                                 VerticalContentAlignment="Top"
-                                hc:InfoElement.Placeholder="Eneter task description..."/>
+                                hc:InfoElement.Placeholder="Введите описание задачи..."/>
                 </StackPanel>
 
                 <StackPanel Orientation="Vertical"
                             Margin="14,0,0,25">
 
-                    <Label Content="Task priority:"
+                    <Label Content="Приоритет:"
                            FontSize="18"
                                Style="{StaticResource HeaderSign}"
                                HorizontalAlignment="Left"
                                Margin="0,0,0,5"/>
 
-                    <RadioButton Content="Priority: P0 (today)"
+                    <RadioButton Content="Приоритет: Сегодня"
                                  FontWeight="UltraLight"
                                  Style="{StaticResource RadioButtonBaseStyle}"
                                  FontSize="18"
                                  Foreground="#fefefe"
                                  Margin="0,0,0,10"
                                  HorizontalAlignment="Left"/>
-                    <RadioButton Content="Priority: P1 (few day)"
+                    <RadioButton Content="Приоритет: Несколько дней"
                               FontWeight="UltraLight"
                                  Style="{StaticResource RadioButtonBaseStyle}"
                                  FontSize="18"
@@ -139,14 +139,14 @@
                               Foreground="#fefefe"
                               Margin="0,0,0,10"
                                  HorizontalAlignment="Left"/>
-                    <RadioButton Content="Priority: P2 (week)"
+                    <RadioButton Content="Приоритет: Неделя)"
                               FontWeight="UltraLight"
                                 Style="{StaticResource RadioButtonBaseStyle}"
                                  FontSize="18"
                               Foreground="#fefefe"
                               Margin="0,0,0,10"
                                  HorizontalAlignment="Left"/>
-                    <RadioButton Content="Priority: P3 (more week)"
+                    <RadioButton Content="Приоритет: Больше недели"
                               FontWeight="UltraLight"
                                  Style="{StaticResource RadioButtonBaseStyle}"
                                  FontSize="18"
@@ -158,7 +158,7 @@
                 <StackPanel Orientation="Vertical"
                             Margin="14,0,0,25">
 
-                    <Label Content="Assigned:"
+                    <Label Content="Выполняющий:"
                                Style="{StaticResource HeaderSign}"
                                HorizontalAlignment="Left"
                            FontSize="18"
@@ -211,7 +211,7 @@
                 <StackPanel Orientation="Vertical"
                             Margin="14,0,0,25">
 
-                    <Label Content="Planned time costs:"
+                    <Label Content="Планируемые время затраты:"
                                Style="{StaticResource HeaderSign}"
                                HorizontalAlignment="Left"
                                Margin="0,0,0,5"
@@ -228,13 +228,13 @@
                 <StackPanel Orientation="Vertical"
                             Margin="14,0,0,25">
 
-                    <Label Content="Task category:"
+                    <Label Content="Категории:"
                            FontSize="18"
                                Style="{StaticResource HeaderSign}"
                                HorizontalAlignment="Left"
                                Margin="0,0,0,5"/>
 
-                    <CheckBox Content="Code"
+                    <CheckBox Content="Код"
                               Style="{StaticResource CheckBoxBaseStyle}"
                               FontWeight="UltraLight"
                               FontSize="18"
@@ -243,7 +243,7 @@
                               Command="{Binding AddCategoryCodeCommand}"
                               HorizontalAlignment="Left"/>
 
-                    <CheckBox Content="Art/Sprite"
+                    <CheckBox Content="Рисунок"
                               FontWeight="UltraLight"
                               Style="{StaticResource CheckBoxBaseStyle}"
                                  FontSize="18"
@@ -252,7 +252,7 @@
                                  HorizontalAlignment="Left"
                               Command="{Binding AddCategoryArtSpriteCommand}"/>
 
-                    <CheckBox Content="Sound"
+                    <CheckBox Content="Звук"
                               FontWeight="UltraLight"
                                  FontSize="18"
                               Foreground="#fefefe"
@@ -261,7 +261,7 @@
                                  HorizontalAlignment="Left"
                               Command="{Binding AddCategorySoundCommand}"/>
 
-                    <CheckBox Content="Music"
+                    <CheckBox Content="Музыка"
                               FontWeight="UltraLight"
                               Style="{StaticResource CheckBoxBaseStyle}"
                                  FontSize="18"
@@ -270,7 +270,7 @@
                                  HorizontalAlignment="Left"
                               Command="{Binding AddCategoryMusicCommand}"/>
 
-                    <CheckBox Content="Character"
+                    <CheckBox Content="Персонаж"
                               FontWeight="UltraLight"
                               Style="{StaticResource CheckBoxBaseStyle}"
                                  FontSize="18"
@@ -279,7 +279,7 @@
                                  HorizontalAlignment="Left"
                               Command="{Binding AddCategoryCharacterCommand}"/>
 
-                    <CheckBox Content="Decor"
+                    <CheckBox Content="Декорации"
                               FontWeight="UltraLight"
                                  FontSize="18"
                               Foreground="#fefefe"
@@ -297,7 +297,7 @@
                                  HorizontalAlignment="Left"
                               Command="{Binding AddCategoryUICommand}"/>
 
-                    <CheckBox Content="Environment"
+                    <CheckBox Content="Окружение"
                               FontWeight="UltraLight"
                                  FontSize="18"
                               Foreground="#fefefe"
@@ -306,7 +306,7 @@
                                  HorizontalAlignment="Left"
                               Command="{Binding AddCategoryEnvironmentCommand}"/>
 
-                    <CheckBox Content="Actions/Animations"
+                    <CheckBox Content="Действия/Анимации"
                               FontWeight="UltraLight"
                                  FontSize="18"
                               Foreground="#fefefe"
@@ -315,7 +315,7 @@
                                  HorizontalAlignment="Left"
                               Command="{Binding AddCategoryActionsAnimationsCommand}"/>
 
-                    <CheckBox Content="Settings"
+                    <CheckBox Content="Настройки"
                               FontWeight="UltraLight"
                                  FontSize="18"
                               Style="{StaticResource CheckBoxBaseStyle}"
@@ -324,7 +324,7 @@
                                  HorizontalAlignment="Left"
                               Command="{Binding AddCategorySettingsCommand}"/>
 
-                    <CheckBox Content="Dialog"
+                    <CheckBox Content="Диалоги"
                               FontWeight="UltraLight"
                                  FontSize="18"
                               Foreground="#fefefe"
@@ -333,7 +333,7 @@
                                  HorizontalAlignment="Left"
                               Command="{Binding AddCategoryDialogCommand}"/>
 
-                    <CheckBox Content="Other (must write)"
+                    <CheckBox Content="Другое (должно быть описано)"
                               FontWeight="UltraLight"
                                  FontSize="18"
                               Foreground="#fefefe"
@@ -349,7 +349,7 @@
                                 TextWrapping="Wrap"
                                 HorizontalAlignment="Left"
                                 VerticalContentAlignment="Top"
-                                hc:InfoElement.Placeholder="Eneter catergory description..."/>
+                                hc:InfoElement.Placeholder="Опишите категорию..."/>
                 </StackPanel>
             </StackPanel>
 
@@ -361,7 +361,7 @@
                     Margin="0,0,60,60"
                     Command="{Binding CreateTaskCommand}"
                     Style="{StaticResource SignButtons}"
-                    Content="Create task"/>
+                    Content="Создать задачу"/>
 
         </Grid>
     </Grid>

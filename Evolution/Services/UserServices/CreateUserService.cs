@@ -6,6 +6,8 @@ using System.Diagnostics;
 using File = Google.Apis.Drive.v3.Data.File;
 using System.IO;
 using System.Threading.Tasks;
+using Evolution.Services.CloudStoreServices;
+using Evolution.Services.DataSaveLoadServices;
 
 namespace Evolution.Services.UserServices
 {
@@ -19,7 +21,7 @@ namespace Evolution.Services.UserServices
 
         public static UserModel User = new();
 
-        public static bool CreateUser(string? login, string? password, string? confirmPassword, string Email = "none")
+        public static UserModel CreateUser(string? login, string? password, string? confirmPassword, string Email = "none")
         {
 
             if (IsValidUserData(login, password, confirmPassword, Email))
@@ -29,7 +31,7 @@ namespace Evolution.Services.UserServices
                 if (PathToUserFolder == "Exists")
                 {
                     Debug.WriteLine("Ошибка. Пользователь существует.");
-                    return false;
+                    return null;
                 }
                 else
                 {
@@ -45,12 +47,12 @@ namespace Evolution.Services.UserServices
                     
                     CreateUserFolderInGDrive(login, true);
                     
-                    return true;
+                    return User;
                 }
             }
             else
             {
-                return false;
+                return null;
             }
         }
 

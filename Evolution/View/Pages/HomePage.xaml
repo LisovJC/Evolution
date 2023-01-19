@@ -19,7 +19,7 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <Label Content="Main Dashboard"
+        <Label Content="Главная"
                FontWeight="Normal"
                Style="{StaticResource HeaderSign}"
                VerticalContentAlignment="Center"
@@ -54,7 +54,7 @@
                         <RowDefinition Height="50"/>
                     </Grid.RowDefinitions>
 
-                    <Label Content="Current issue in work"
+                    <Label Content="Текущая задача в работе"
                            Grid.Row="1"
                            Margin="50,0,0,0"
                            HorizontalAlignment="Left"
@@ -70,12 +70,12 @@
                                 Margin="0,0,25,0">
 
                         <Button Style="{StaticResource ActionFlatButtons}"
-                                Content="Close task"
+                                Content="Закрыть"
                                 Foreground="#fefefe"
-                                Background="#ff3c38"/>
+                                Background="#ff3c38" Cursor="Hand"/>
 
                         <Button Style="{StaticResource ActionFlatButtons}"
-                                Content="Go to Task" Cursor="Hand"/>
+                                Content="Перейти" Cursor="Hand"/>
                     </StackPanel>
                 </Grid>
                 <Border.Effect>

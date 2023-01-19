@@ -1,4 +1,5 @@
 ﻿using Evolution.Model;
+using Evolution.Services.CloudStoreServices;
 using Google.Apis.Drive.v3.Data;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -19,30 +20,32 @@ namespace Evolution.Services.HelperServices
         public static ObservableCollection<File> FilesAndFoldersInCommonTasksFolder { get; set; } = new();
         public static List<UserModel> AllUsersInApp { get; set; } = new();
 
+        public static TaskModel SelectTask { get; set; } = new();
+
         public static async Task<bool> HelperUpdateData(string user)
         {
             try
             {
                 AllUsersInApp.Clear();
                 CurrentUser = user;
-                FilesAndFoldersInRootFolder = await Task.Run(() => GoogleDriveService.ListEntities());
-                IdEvolutionFolder = GetItemIDByName(FilesAndFoldersInRootFolder, "EVOLUTION");
-                FilesAndFoldersInEvolutionFolder = await Task.Run(() => GoogleDriveService.ListEntities(IdEvolutionFolder));
-                IdUserFolder = GetItemIDByName(FilesAndFoldersInEvolutionFolder, CurrentUser);
-                IdCommonTaskFolder = GetItemIDByName(FilesAndFoldersInEvolutionFolder, "common_folder");
-                FilesAndFoldersInCommonTasksFolder = await Task.Run(() => GoogleDriveService.ListEntities(IdCommonTaskFolder));
-                FilesAndFoldersInUserFolder = await Task.Run(() => GoogleDriveService.ListEntities(IdUserFolder));
+                //FilesAndFoldersInRootFolder = await Task.Run(() => GoogleDriveService.ListEntities());
+                //IdEvolutionFolder = GetItemIDByName(FilesAndFoldersInRootFolder, "EVOLUTION");
+                //FilesAndFoldersInEvolutionFolder = await Task.Run(() => GoogleDriveService.ListEntities(IdEvolutionFolder));
+                //IdUserFolder = GetItemIDByName(FilesAndFoldersInEvolutionFolder, CurrentUser);
+                //IdCommonTaskFolder = GetItemIDByName(FilesAndFoldersInEvolutionFolder, "common_folder");
+                //FilesAndFoldersInCommonTasksFolder = await Task.Run(() => GoogleDriveService.ListEntities(IdCommonTaskFolder));
+                //FilesAndFoldersInUserFolder = await Task.Run(() => GoogleDriveService.ListEntities(IdUserFolder));
 
-                for (int i = 0; i < FilesAndFoldersInEvolutionFolder.Count; i++)
-                {
-                    if (FilesAndFoldersInEvolutionFolder[i].Name != "common_folder")
-                    {
-                        AllUsersInApp.Add(new()
-                        {
-                            Login = FilesAndFoldersInEvolutionFolder[i].Name
-                        });
-                    }
-                }
+                //for (int i = 0; i < FilesAndFoldersInEvolutionFolder.Count; i++)
+                //{
+                 //   if (FilesAndFoldersInEvolutionFolder[i].Name != "common_folder")
+                 //   {
+                 //       AllUsersInApp.Add(new()
+                 //       {
+                 //           Login = FilesAndFoldersInEvolutionFolder[i].Name
+                 //       });
+                 //   }
+               // }
                 return true;
             }
             catch (System.Exception ex)
@@ -53,8 +56,6 @@ namespace Evolution.Services.HelperServices
             }            
         }
         
-        
-
         public static string GetItemIDByName(ObservableCollection<File> FilesAndFolders, string name)
         {
             for (int i = 0; i < FilesAndFolders.Count; i++)
@@ -68,5 +69,7 @@ namespace Evolution.Services.HelperServices
 
             return null;
         }
+
+
     }
 }

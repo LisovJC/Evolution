@@ -89,7 +89,7 @@
                                        Foreground="#fefefe"
                                        FontSize="16"/>
 
-                                <Label Content="Regular user"
+                                <Label Content="Пользователь"
                                        Style="{StaticResource HeaderSign}"
                                        Padding="2.5,0,2.5,2.5"
                                        VerticalContentAlignment="Center"
@@ -175,7 +175,7 @@
 
                 <StackPanel Orientation="Vertical">
                     
-                    <Button Content="Home"
+                    <Button Content="Главная"
                             Style="{StaticResource NavigationButtons}"
                             Command="{Binding SelectHomeCommand}"/>
 
@@ -188,7 +188,7 @@
 
                 <StackPanel Orientation="Vertical">
 
-                    <Button Content="Available Task"
+                    <Button Content="Доступные задачи"
                             Style="{StaticResource NavigationButtons}"
                             Command="{Binding SelectAvailableTCommand}"/>
 
@@ -201,7 +201,7 @@
 
                 <StackPanel Orientation="Vertical">
 
-                    <Button Content="Tasks"
+                    <Button Content="Задачи"
                             IsEnabled="False"
                             Style="{StaticResource NavigationButtons}"
                             Command="{Binding SelectMyTCommand}"/>
@@ -212,27 +212,13 @@
                             Background="#fe433e"
                             Visibility="{Binding isMyTSelect, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 </StackPanel>
-
+             
                 <StackPanel Orientation="Vertical">
 
-                    <Button Content="Tasks in work"
-                            IsEnabled="False"
-                            Style="{StaticResource NavigationButtons}"
-                            Command="{Binding SelectTInWorkCommand}"/>
-
-                    <Border Height="2"
-                            Margin="15,0,15,0"
-                            CornerRadius="1"
-                            Background="#fe433e"
-                            Visibility="{Binding isTInWorkSelect, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                </StackPanel>
-
-                <StackPanel Orientation="Vertical">
-
-                    <Button Content="Create"
+                    <Button Content="Создать"
                             Style="{StaticResource NavigationButtons}"
                             Command="{Binding SelectCreateCommand}"
-                            IsEnabled="False"/>
+                            IsEnabled="True"/>
 
                     <Border Height="2"
                             Margin="15,0,15,0"
@@ -243,7 +229,7 @@
 
                 <StackPanel Orientation="Vertical">
 
-                    <Button Content="Storage"
+                    <Button Content="Хранилище"
                             IsEnabled="False"
                             Style="{StaticResource NavigationButtons}"
                             Command="{Binding SelectStorageCommand}"/>

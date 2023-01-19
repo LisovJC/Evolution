@@ -1,8 +1,8 @@
 ﻿using Evolution.Command;
 using Evolution.Core;
 using Evolution.Model;
-using Evolution.Services;
 using Evolution.Services.HelperServices;
+using Evolution.Services.TaskServices;
 using Evolution.Services.UserServices;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -29,7 +29,7 @@ namespace Evolution.ViewModel.Pages
             set => Set(ref _description, value);
         }
 
-        private string _assigned = "Choose...";
+        private string _assigned = "Выбрать...";
 
         public string Assigned
         {
@@ -95,10 +95,10 @@ namespace Evolution.ViewModel.Pages
             CreateTaskCommand = new(o => { CreateTask(); });
             SelectAssigneCommand = new(o => { Assigned = o.ToString(); });
 
-            P0PriorityCommand = new(o => { SetPriority(Priority.P0); });
-            P1PriorityCommand = new(o => { SetPriority(Priority.P1); });
-            P2PriorityCommand = new(o => { SetPriority(Priority.P2); });
-            P3PriorityCommand = new(o => { SetPriority(Priority.P3); });
+            P0PriorityCommand = new(o => { SetPriority(Priority.ToDay); });
+            P1PriorityCommand = new(o => { SetPriority(Priority.FewDays); });
+            P2PriorityCommand = new(o => { SetPriority(Priority.Week); });
+            P3PriorityCommand = new(o => { SetPriority(Priority.MoreWeek); });
             
             LocalTypeCommand = new(o => { SetType(TypeTaskEdentity.local); });
             GlobalTypeCommand = new(o => { SetType(TypeTaskEdentity.global); });

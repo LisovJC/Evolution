@@ -4,6 +4,7 @@ using Evolution.Services;
 using Evolution.Services.HelperServices;
 using Evolution.Services.UserServices;
 using Evolution.View.Pages;
+using Evolution.View.Pages.SecondaryPages;
 using Evolution.ViewModel.Pages;
 using System.Diagnostics;
 using System.Windows;
@@ -93,6 +94,8 @@ namespace Evolution.ViewModel.Windows
             set => Set(ref _currentUser, value);
         }
 
+        public static MainViewModel Instance { get; set; } = new();
+
 
         public RelayCommand SelectHomeCommand { get; set; }
         public RelayCommand SelectAvailableTCommand { get; set; }
@@ -149,7 +152,7 @@ namespace Evolution.ViewModel.Windows
                 isCreateSelect = Visibility.Hidden;               
                 isStorageSelect = Visibility.Hidden;
                 SelectMainPage = new AvailableTaskPage();
-                SelectSecondaryPage = new SecondaryHomePage();
+                SelectSecondaryPage = new SAvailablePage();
             }
 
             if (page == AppPages.MyTasks)
@@ -164,7 +167,7 @@ namespace Evolution.ViewModel.Windows
                 SelectSecondaryPage = new SecondaryHomePage();
             }
 
-            if (page == AppPages.TasksInWork)
+            if (page == AppPages.TasksInWork) //TODO: Убрать!
             {
                 isHomeSelect = Visibility.Hidden;
                 isAvailableTSelect = Visibility.Hidden;

@@ -5,7 +5,8 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Evolution.ViewModel.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="970" d:DesignWidth="560"
+      d:DesignHeight="970" 
+      d:DesignWidth="560"
       Title="SecondaryHomePage">
 
     <Grid>

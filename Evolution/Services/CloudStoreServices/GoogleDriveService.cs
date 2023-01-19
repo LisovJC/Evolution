@@ -12,7 +12,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using File = Google.Apis.Drive.v3.Data.File;
 
-namespace Evolution.Services
+namespace Evolution.Services.CloudStoreServices
 {
     public class GoogleDriveService
     {
@@ -46,7 +46,7 @@ namespace Evolution.Services
             });
         }
 
-        public static async Task<ObservableCollection<Google.Apis.Drive.v3.Data.File>> ListEntities(string id = "root")
+        public static async Task<ObservableCollection<File>> ListEntities(string id = "root")
         {
             await AuthenticateAsync();
             FilesResource.ListRequest listRequest = service.Files.List();
@@ -54,12 +54,12 @@ namespace Evolution.Services
             listRequest.Fields = "nextPageToken, files(id, name, parents, createdTime, modifiedTime, mimeType)";
             listRequest.Q = $"'{id}' in parents";
 
-            return new ObservableCollection<Google.Apis.Drive.v3.Data.File>(listRequest.Execute().Files);
+            return new ObservableCollection<File>(listRequest.Execute().Files);
         }
 
-        public static async Task<Google.Apis.Drive.v3.Data.File> CreateFolder(string name, string id = "root")
+        public static async Task<File> CreateFolder(string name, string id = "root")
         {
-            var fileMetadata = new Google.Apis.Drive.v3.Data.File()
+            var fileMetadata = new File()
             {
                 Name = name,
                 MimeType = "application/vnd.google-apps.folder",
@@ -72,22 +72,22 @@ namespace Evolution.Services
             return request.Execute();
         }
 
-        public static async Task<Google.Apis.Drive.v3.Data.File> uploadFile(string _uploadFile, string id, string _descrp = "Uploaded with .NET!")
+        public static async Task<File> uploadFile(string _uploadFile, string id, string _descrp = "Uploaded with .NET!")
         {
             if (System.IO.File.Exists(_uploadFile))
             {
-                Google.Apis.Drive.v3.Data.File body = new Google.Apis.Drive.v3.Data.File();
-                body.Name = System.IO.Path.GetFileName(_uploadFile);
+                File body = new File();
+                body.Name = Path.GetFileName(_uploadFile);
                 body.Description = _descrp;
                 body.MimeType = GetMimeType(_uploadFile);
                 body.Parents = new List<string> { id };// UN comment if you want to upload to a folder(ID of parent folder need to be send as paramter in above method)
                 byte[] byteArray = System.IO.File.ReadAllBytes(_uploadFile);
-                System.IO.MemoryStream stream = new System.IO.MemoryStream(byteArray);
+                MemoryStream stream = new MemoryStream(byteArray);
                 try
                 {
                     FilesResource.CreateMediaUpload request = service.Files.Create(body, stream, GetMimeType(_uploadFile));
                     request.SupportsTeamDrives = true;
-                   
+
                     await request.UploadAsync();
                     return request.ResponseBody;
                 }
@@ -117,7 +117,7 @@ namespace Evolution.Services
 
                 // File's content.
                 byte[] byteArray = System.IO.File.ReadAllBytes(_uploadFile);
-                System.IO.MemoryStream stream = new System.IO.MemoryStream(byteArray);
+                MemoryStream stream = new MemoryStream(byteArray);
                 try
                 {
                     FilesResource.UpdateMediaUpload request = service.Files.Update(body, _fileId, stream, GetMimeType(_uploadFile));
@@ -143,7 +143,7 @@ namespace Evolution.Services
         {
             try
             {
-                              
+
                 service.Files.Delete(id).Execute();
             }
             catch (Exception ex)
@@ -152,28 +152,28 @@ namespace Evolution.Services
             }
         }
 
-        private static string GetMimeType(string fileName) 
-        { 
-            string mimeType = "application/unknown"; 
-            string ext = System.IO.Path.GetExtension(fileName).ToLower(); 
-            Microsoft.Win32.RegistryKey regKey = Microsoft.Win32.Registry.ClassesRoot.OpenSubKey(ext); 
-            if (regKey != null && regKey.GetValue("Content Type") != null) 
-                mimeType = regKey.GetValue("Content Type").ToString(); 
-            System.Diagnostics.Debug.WriteLine(mimeType); return mimeType; 
+        private static string GetMimeType(string fileName)
+        {
+            string mimeType = "application/unknown";
+            string ext = Path.GetExtension(fileName).ToLower();
+            Microsoft.Win32.RegistryKey regKey = Microsoft.Win32.Registry.ClassesRoot.OpenSubKey(ext);
+            if (regKey != null && regKey.GetValue("Content Type") != null)
+                mimeType = regKey.GetValue("Content Type").ToString();
+            Debug.WriteLine(mimeType); return mimeType;
         }
 
         public static async Task<Stream> Download(string fileId, string saveTo)
         {
-            var stream = new System.IO.MemoryStream();
+            var stream = new MemoryStream();
             var request = service.Files.Get(fileId);
 
             await Task.Run(() => request.DownloadAsync(stream));
 
-            using (System.IO.FileStream file = new System.IO.FileStream(saveTo, System.IO.FileMode.Create, System.IO.FileAccess.Write))
+            using (FileStream file = new FileStream(saveTo, FileMode.Create, FileAccess.Write))
             {
                 stream.WriteTo(file);
             }
-          
+
             return stream;
         }
 

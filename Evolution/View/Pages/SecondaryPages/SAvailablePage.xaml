@@ -1,0 +1,39 @@
+﻿<Page x:Class="Evolution.View.Pages.SecondaryPages.SAvailablePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Evolution.View.Pages.SecondaryPages" 
+      xmlns:local1="clr-namespace:Evolution.ViewModel.Pages" xmlns:local11="clr-namespace:Evolution.ViewModel.Pages.SecondaryPages"
+      mc:Ignorable="d" 
+      d:DesignHeight="970" 
+      d:DesignWidth="560"
+      Title="SAvailablePage">
+
+    <Page.DataContext>
+        <local11:SAvailableTaskViewModel/>
+    </Page.DataContext>
+
+    <Grid>
+        <Border Background="#272a2f">
+            <Border.Effect>
+                <DropShadowEffect  BlurRadius="6" 
+                                   Direction="180"
+                                   RenderingBias="Quality" 
+                                   ShadowDepth="3"
+                                   Opacity="0.5"/>
+            </Border.Effect>
+        </Border>
+
+        <Label Content="{Binding Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+               FontWeight="Normal"
+               Style="{StaticResource HeaderSign}"
+               VerticalContentAlignment="Center"
+               Padding="10"
+               Foreground="#fefefe"
+               FontSize="50"
+               Margin="15"
+               HorizontalAlignment="Left"
+               VerticalAlignment="Top"/>
+    </Grid>
+</Page>

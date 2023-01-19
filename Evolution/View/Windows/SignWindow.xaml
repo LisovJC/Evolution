@@ -3,15 +3,16 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Evolution.View.Windows" 
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
-        xmlns:windows="clr-namespace:Evolution.ViewModel.Windows" xmlns:hc="https://handyorg.github.io/handycontrol"
+        xmlns:windows="clr-namespace:Evolution.ViewModel.Windows" 
+        xmlns:hc="https://handyorg.github.io/handycontrol"
         mc:Ignorable="d"
         Title="SignWindow"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
         WindowStyle="None"
-        Height="600" Width="350">
+        Height="600" 
+        Width="350">
 
     <Window.DataContext>
         <windows:SignViewModel/>
@@ -33,7 +34,9 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                <Label Content="{Binding LabelSign, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                <Label Content="{Binding LabelSign, 
+                                Mode=OneWay, 
+                                UpdateSourceTrigger=PropertyChanged}"
                        Style="{StaticResource HeaderSign}"
                        FontSize="35"/>
 
@@ -41,14 +44,16 @@
                             VerticalAlignment="Top"
                             HorizontalAlignment="Center"
                             Orientation="Vertical">
-
+                    
                     <StackPanel Orientation="Horizontal">
 
-                        <Label Content="Login"
+                        <Label Content="Логин"
                                Style="{StaticResource HeaderSign}"/>
 
                         <Label Content="*"
-                               Visibility="{Binding Reqired, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                               Visibility="{Binding Reqired, 
+                                            Mode=OneWay, 
+                                            UpdateSourceTrigger=PropertyChanged}"
                                Margin="5,0,0,0"
                                Style="{StaticResource HeaderSign}"/>
                     </StackPanel>
@@ -60,8 +65,10 @@
                         <hc:TextBox FontSize="15"
                                     Width="260"
                                     MaxLength="24"
-                                    hc:InfoElement.Placeholder="Eneter your login..."
-                                    Text="{Binding Login, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    hc:InfoElement.Placeholder="Введите логин..."
+                                    Text="{Binding Login, 
+                                           Mode=TwoWay, 
+                                           UpdateSourceTrigger=PropertyChanged}"/>
                     </Border>
 
                 </StackPanel>
@@ -73,11 +80,13 @@
 
                     <StackPanel Orientation="Horizontal">
 
-                        <Label Content="Password"
+                        <Label Content="Пароль"
                                Style="{StaticResource HeaderSign}"/>
 
                         <Label Content="*"
-                               Visibility="{Binding Reqired, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                               Visibility="{Binding Reqired, 
+                                            Mode=OneWay, 
+                                            UpdateSourceTrigger=PropertyChanged}"
                                Margin="5,0,0,0"
                                Style="{StaticResource HeaderSign}"/>
                     </StackPanel>
@@ -90,11 +99,12 @@
                                         FontSize="15"
                                         Width="260"
                                         MaxLength="24"
-                                        hc:InfoElement.Placeholder="Eneter your password..."
+                                        hc:InfoElement.Placeholder="Введите пароль..."
                                         ShowEyeButton="True"
-                                        UnsafePassword="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                        UnsafePassword="{Binding Password, 
+                                                        Mode=TwoWay, 
+                                                        UpdateSourceTrigger=PropertyChanged}"/>
                     </Border>
-
                 </StackPanel>
 
                 <StackPanel Orientation="Vertical"
@@ -105,15 +115,19 @@
                                 HorizontalAlignment="Center"
                                 Orientation="Vertical"
                                 Margin="0,0,0,20"
-                                Visibility="{Binding SignUpVisibility, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                Visibility="{Binding SignUpVisibility, 
+                                            Mode=TwoWay, 
+                                            UpdateSourceTrigger=PropertyChanged}">
 
                         <StackPanel Orientation="Horizontal">
 
-                            <Label Content="Confirm password"
+                            <Label Content="Повторите пароль"
                                    Style="{StaticResource HeaderSign}"/>
 
                             <Label Content="*"
-                                   Visibility="{Binding Reqired, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                   Visibility="{Binding Reqired, 
+                                                Mode=OneWay, 
+                                                UpdateSourceTrigger=PropertyChanged}"
                                    Margin="5,0,0,0"
                                    Style="{StaticResource HeaderSign}"/>
                         </StackPanel>
@@ -127,10 +141,11 @@
                                             IsSafeEnabled="False"
                                             ShowEyeButton="True"
                                             MaxLength="24"
-                                            hc:InfoElement.Placeholder="Confirm your password..."
-                                            UnsafePassword="{Binding ConfirmPassword, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                            hc:InfoElement.Placeholder="Повторите пароль..."
+                                            UnsafePassword="{Binding ConfirmPassword, 
+                                                            Mode=TwoWay, 
+                                                            UpdateSourceTrigger=PropertyChanged}"/>
                         </Border>
-
                     </StackPanel>
 
                     <StackPanel Grid.Row="2"
@@ -138,9 +153,11 @@
                                 HorizontalAlignment="Center"
                                 Orientation="Vertical"
                                 Margin="0,0,0,30"
-                                Visibility="{Binding SignUpVisibility, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                Visibility="{Binding SignUpVisibility, 
+                                            Mode=TwoWay, 
+                                            UpdateSourceTrigger=PropertyChanged}">
 
-                        <Label Content="E-Mail"
+                        <Label Content="Почта"
                                HorizontalAlignment="Left"
                                Style="{StaticResource HeaderSign}"/>
 
@@ -151,26 +168,35 @@
                             <hc:TextBox FontSize="15"
                                         Width="260"
                                         MaxLength="24"
-                                        hc:InfoElement.Placeholder="Eneter your Email..."
-                                        Text="{Binding Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                        hc:InfoElement.Placeholder="Введите Email..."
+                                        Text="{Binding Email, 
+                                                Mode=TwoWay, 
+                                                UpdateSourceTrigger=PropertyChanged}"/>
                         </Border>
-
                     </StackPanel>
 
                         <StackPanel VerticalAlignment="Top"
-                                HorizontalAlignment="Center"
-                                Orientation="Horizontal">
+                                    HorizontalAlignment="Center"
+                                    Orientation="Horizontal">
 
                             <Button Style="{StaticResource SignButtons}"
-                                Content="Sign in"
-                                Command="{Binding SignInCommand}"
-                                IsEnabled="{Binding isEnableSignIn, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Cursor="Hand"/>
+                                    Content="Войти"
+                                    Command="{Binding SignInCommand}"
+                                    IsEnabled="{Binding isEnableSignIn, 
+                                                Mode=OneWay, 
+                                                UpdateSourceTrigger=PropertyChanged}" 
+                                    Cursor="Hand"/>
 
                             <Button Style="{StaticResource SignButtons}"
-                                    IsEnabled="{Binding isEnableSignUp, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                                    Content="{Binding ContentRegButton, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                    IsEnabled="{Binding isEnableSignUp, 
+                                                Mode=OneWay, 
+                                                UpdateSourceTrigger=PropertyChanged}"
+                                    Content="{Binding ContentRegButton, 
+                                                Mode=OneWay, 
+                                                UpdateSourceTrigger=PropertyChanged}"
                                     Command="{Binding SignUpCommand}"
-                                    Background="#ff3c38" Cursor="Hand"
+                                    Background="#ff3c38" 
+                                    Cursor="Hand"
                                     Foreground="White"/>
 
                         </StackPanel>
@@ -183,13 +209,15 @@
                                                  Height="100"
                                                  Margin="0,85,0,0"
                                                  Grid.Row="3"
-                                                 Visibility="{Binding IconVisibility, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                                 Visibility="{Binding IconVisibility, 
+                                                                Mode=OneWay, 
+                                                                UpdateSourceTrigger=PropertyChanged}"/>
 
                     <Button Style="{StaticResource SignButtons}"
                             Visibility="{Binding SignUpVisibility, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                             Width="250"
                             Margin="0,20,5,0"
-                            Content="Get started!"
+                            Content="Начать использовать!"
                             IsEnabled="{Binding isEnableGetStarted, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                             Command="{Binding GetStartedCommand}"/>
                 </StackPanel>

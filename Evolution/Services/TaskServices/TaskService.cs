@@ -8,8 +8,10 @@ using System.Threading.Tasks;
 using static Evolution.Model.TaskModel;
 using File = Google.Apis.Drive.v3.Data.File;
 using System.Diagnostics;
+using Evolution.Services.CloudStoreServices;
+using Evolution.Services.DataSaveLoadServices;
 
-namespace Evolution.Services
+namespace Evolution.Services.TaskServices
 {
     internal class TaskService
     {
@@ -70,7 +72,7 @@ namespace Evolution.Services
 
                     Debug.Write(ex.Message);
                 }
-            }         
+            }
         }
 
         private static List<Category> AddCategories(List<Category> Categories)
@@ -105,16 +107,16 @@ namespace Evolution.Services
         }
 
         public static async Task<ObservableCollection<TaskModel>> GetCommonTasks()
-        {            
-            await HelperService.HelperUpdateData(HelperService.CurrentUser);           
-            
+        {
+            await HelperService.HelperUpdateData(HelperService.CurrentUser);
+
             if (!System.IO.File.Exists(PathToCommonTasksFile))
             {
                 var file = System.IO.File.Create(PathToCommonTasksFile);
                 file.Close();
             }
 
-            FilesAndFoldersInCommonTasksFolder = HelperService.FilesAndFoldersInCommonTasksFolder;          
+            FilesAndFoldersInCommonTasksFolder = HelperService.FilesAndFoldersInCommonTasksFolder;
 
             if (FilesAndFoldersInCommonTasksFolder.Count == 0)
             {
@@ -123,12 +125,12 @@ namespace Evolution.Services
             else
             {
                 await GoogleDriveService.Download(HelperService.GetItemIDByName(
-                    FilesAndFoldersInCommonTasksFolder, 
-                    "Common_Tasks.json"), 
+                    FilesAndFoldersInCommonTasksFolder,
+                    "Common_Tasks.json"),
                     PathToCommonTasksFile);
                 CommonTasks = DataSaveLoad.LoadData<TaskModel>(PathToCommonTasksFile);
                 return CommonTasks;
-            }           
+            }
         }
     }
 }

@@ -1,8 +1,10 @@
 ﻿using Evolution.Command;
 using Evolution.Core;
+using Evolution.Services.CloudStoreServices;
 using Evolution.Services.HelperServices;
 using Evolution.Services.UserServices;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace Evolution.ViewModel.Windows
@@ -19,7 +21,7 @@ namespace Evolution.ViewModel.Windows
             set => Set(ref _signUpVisibility, value);
         }
 
-        private string _labelSign = "Sign in";
+        private string _labelSign = "Вход";
 
         public string LabelSign
         {
@@ -93,7 +95,7 @@ namespace Evolution.ViewModel.Windows
             set { Set(ref _confrimPassword, value); IsValidData(); }
         }
 
-        private string _email = "none";
+        private string _email = "";
 
         public string Email
         {
@@ -101,7 +103,7 @@ namespace Evolution.ViewModel.Windows
             set => Set(ref _email, value);
         }
 
-        private string _contentRegButton = "Sign Up";
+        private string _contentRegButton = "Регистрация";
 
         public string ContentRegButton
         {
@@ -124,7 +126,7 @@ namespace Evolution.ViewModel.Windows
             {
                 if (AuthUserService.SignIn(Login, Password))
                 {
-                    HelperService.HelperUpdateData(Login);
+                    Task.Run(() => HelperService.HelperUpdateData(Login));
                     MainWindow mainWindow = new();
                     mainWindow.Owner = Application.Current.MainWindow;
                     mainWindow.Show();
@@ -141,19 +143,19 @@ namespace Evolution.ViewModel.Windows
                 if (SignUpVisibility == Visibility.Collapsed)
                 {
                     SignUpVisibility = Visibility.Visible;
-                    LabelSign = "Registration";
+                    LabelSign = "Регистрация";
                     isEnableSignIn = false;
                     Reqired = Visibility.Visible;
-                    ContentRegButton = "Cancel";
+                    ContentRegButton = "Отмена";
                     IconVisibility = Visibility.Collapsed;
                 }
                 else
                 {
                     SignUpVisibility = Visibility.Collapsed;
-                    LabelSign = "Sign in";
+                    LabelSign = "Вход";
                     isEnableSignIn = true;
                     Reqired = Visibility.Collapsed;
-                    ContentRegButton = "Sign Up";
+                    ContentRegButton = "Регистрация";
                     IconVisibility = Visibility.Visible;
                 }
 
@@ -162,14 +164,16 @@ namespace Evolution.ViewModel.Windows
             GetStartedCommand = new(o =>
             {
                 SignUpVisibility = Visibility.Collapsed;
-                LabelSign = "Sign in";
+                LabelSign = "Вход";
                 isEnableSignIn = true;
                 Reqired = Visibility.Collapsed;
-                ContentRegButton = "Sign Up";
-                IconVisibility = Visibility.Visible;                          
+                ContentRegButton = "Регистрация";
+                IconVisibility = Visibility.Visible;
 
-                if (CreateUserService.CreateUser(Login, Password, ConfirmPassword, Email))
+                var User = CreateUserService.CreateUser(Login, Password, ConfirmPassword, Email);
+                if (User != null)
                 {
+                    FireBaseService.PushToDataBase(User, Login, "UserAuthData");
                     Debug.WriteLine("Succes!");
                     ConfirmPassword = string.Empty;
                     Email = string.Empty;                    
