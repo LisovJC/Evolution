@@ -3,7 +3,9 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:Evolution.View.Pages" xmlns:pages="clr-namespace:Evolution.ViewModel.Pages"
+      xmlns:local="clr-namespace:Evolution.View.Pages" 
+      xmlns:pages="clr-namespace:Evolution.ViewModel.Pages"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
       d:DesignHeight="970" d:DesignWidth="1680"
       Title="HomePage"
@@ -35,6 +37,236 @@
                                    ShadowDepth="3"
                                    Opacity="0.5"/>
             </Border.Effect>
+
+            <Grid>
+                <StackPanel Orientation="Vertical"
+                            Margin="25">
+                    <Label Content="Настройки аккаунта"
+                           Style="{StaticResource HeaderSign}"
+                           HorizontalAlignment="Left"
+                           FontSize="30"/>
+
+                    <StackPanel Orientation="Horizontal"
+                                Margin="0,15,0,0">
+                        <materialDesign:PackIcon Kind="User"
+                                                 Foreground="White"
+                                                 Width="30"
+                                                 Height="30"/>
+
+                        <Label Content="Логин:"
+                               Style="{StaticResource HeaderSign}"
+                               HorizontalAlignment="Left"
+                               FontSize="20"
+                               Margin="5,0,0,0"/>
+
+                        <Label Content="{Binding Login}"
+                               Style="{StaticResource HeaderSign}"
+                               HorizontalAlignment="Left"
+                               FontSize="20"
+                               Margin="15,0,0,0"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal"
+                                Margin="0,15,0,0">
+                        <materialDesign:PackIcon Kind="Password"
+                                                 Foreground="White"
+                                                 Width="30"
+                                                 Height="30"/>
+
+                        <Label Content="Пароль:"
+                               Style="{StaticResource HeaderSign}"
+                               HorizontalAlignment="Left"
+                               FontSize="20"
+                               Margin="5,0,0,0"/>
+
+                        <Label Content="{Binding Login}"
+                               Style="{StaticResource HeaderSign}"
+                               HorizontalAlignment="Left"
+                               FontSize="20"
+                               Margin="15,0,0,0"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal"
+                                Margin="0,15,0,0">
+                        <materialDesign:PackIcon Kind="DateRange"
+                                                 Foreground="White"
+                                                 Width="30"
+                                                 Height="30"/>
+
+                        <Label Content="Дата регистрации:"
+                               Style="{StaticResource HeaderSign}"
+                               HorizontalAlignment="Left"
+                               FontSize="20"
+                               Margin="5,0,0,0"/>
+
+                        <Label Content="{Binding Login}"
+                               Style="{StaticResource HeaderSign}"
+                               HorizontalAlignment="Left"
+                               FontSize="20"
+                               Margin="15,0,0,0"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal"
+                                Margin="0,15,0,0">
+                        <materialDesign:PackIcon Kind="Gmail"
+                                                 Foreground="White"
+                                                 Width="30"
+                                                 Height="30"/>
+
+                        <Label Content="Почта:"
+                               Style="{StaticResource HeaderSign}"
+                               HorizontalAlignment="Left"
+                               FontSize="20"
+                               Margin="5,0,0,0"/>
+
+                        <Label Content="{Binding Login}"
+                               Style="{StaticResource HeaderSign}"
+                               HorizontalAlignment="Left"
+                               FontSize="20"
+                               Margin="15,0,0,0"/>
+                    </StackPanel>
+
+                    <Label Content="Информация о пользователе"
+                           Style="{StaticResource HeaderSign}"
+                           HorizontalAlignment="Left"
+                           FontSize="30"
+                           Margin="0,30,0,0"/>
+
+                    <StackPanel Orientation="Horizontal"
+                                Margin="0,15,0,0">
+                        <materialDesign:PackIcon Kind="Subtasks"
+                                                 Foreground="White"
+                                                 Width="30"
+                                                 Height="30"/>
+
+                        <Label Content="Принято задач за всё время:"
+                               Style="{StaticResource HeaderSign}"
+                               HorizontalAlignment="Left"
+                               FontSize="20"
+                               Margin="5,0,0,0"/>
+
+                        <Label Content="{Binding Login}"
+                               Style="{StaticResource HeaderSign}"
+                               HorizontalAlignment="Left"
+                               FontSize="20"
+                               Margin="15,0,0,0"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal"
+                                Margin="0,15,0,0">
+                        <materialDesign:PackIcon Kind="Success"
+                                                 Foreground="White"
+                                                 Width="30"
+                                                 Height="30"/>
+
+                        <Label Content="Выполнено задач за всё время:"
+                               Style="{StaticResource HeaderSign}"
+                               HorizontalAlignment="Left"
+                               FontSize="20"
+                               Margin="5,0,0,0"/>
+
+                        <Label Content="{Binding Login}"
+                               Style="{StaticResource HeaderSign}"
+                               HorizontalAlignment="Left"
+                               FontSize="20"
+                               Margin="15,0,0,0"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal"
+                                Margin="0,15,0,0">
+                        <materialDesign:PackIcon Kind="Create"
+                                                 Foreground="White"
+                                                 Width="30"
+                                                 Height="30"/>
+
+                        <Label Content="Создано задач за всё время:"
+                               Style="{StaticResource HeaderSign}"
+                               HorizontalAlignment="Left"
+                               FontSize="20"
+                               Margin="5,0,0,0"/>
+
+                        <Label Content="{Binding Login}"
+                               Style="{StaticResource HeaderSign}"
+                               HorizontalAlignment="Left"
+                               FontSize="20"
+                               Margin="15,0,0,0"/>
+                    </StackPanel>
+
+                    <Label Content="Настройки приложения"
+                           Style="{StaticResource HeaderSign}"
+                           HorizontalAlignment="Left"
+                           FontSize="30"
+                           Margin="0,30,0,0"/>
+                    
+                    <StackPanel Orientation="Horizontal"
+                                Margin="0,15,0,0">
+                        <materialDesign:PackIcon Kind="Power"
+                                                 Foreground="White"
+                                                 Width="30"
+                                                 Height="30"/>
+
+                        <Label Content="Автозапуск:"
+                               Style="{StaticResource HeaderSign}"
+                               HorizontalAlignment="Left"
+                               FontSize="20"
+                               Margin="5,0,0,0"/>
+
+                        <Label Content="{Binding Login}"
+                               Style="{StaticResource HeaderSign}"
+                               HorizontalAlignment="Left"
+                               FontSize="20"
+                               Margin="15,0,0,0"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal"
+                                Margin="0,15,0,0">
+                        <materialDesign:PackIcon Kind="SignIn"
+                                                 Foreground="White"
+                                                 Width="30"
+                                                 Height="30"/>
+
+                        <Label Content="Автовход:"
+                               Style="{StaticResource HeaderSign}"
+                               HorizontalAlignment="Left"
+                               FontSize="20"
+                               Margin="5,0,0,0"/>
+
+                        <Label Content="{Binding Login}"
+                               Style="{StaticResource HeaderSign}"
+                               HorizontalAlignment="Left"
+                               FontSize="20"
+                               Margin="15,0,0,0"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal"
+                                Margin="0,15,0,0">
+                        <materialDesign:PackIcon Kind="DownloadCircle"
+                                                 Foreground="White"
+                                                 Width="30"
+                                                 Height="30"/>
+
+                        <Label Content="Период обновления данных:"
+                               Style="{StaticResource HeaderSign}"
+                               HorizontalAlignment="Left"
+                               FontSize="20"
+                               Margin="5,0,0,0"/>
+
+                        <Label Content="{Binding Login}"
+                               Style="{StaticResource HeaderSign}"
+                               HorizontalAlignment="Left"
+                               FontSize="20"
+                               Margin="15,0,0,0"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <Button Style="{StaticResource ActionFlatButtons}"
+                        Content="Подтвердить изменения"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Bottom"
+                        Margin="0,0,25,30"
+                        Width="220"
+                        Height="38"/>
+            </Grid>
         </Border>
         <Label Content="Главная"
                FontWeight="Normal"
