@@ -45,22 +45,19 @@ namespace Evolution.Services.CloudStoreServices
         public static async Task<List<T>> GetDataFromDataBase<T>(string path)
         {
             List<T> Data = new();
-            while (true)
+            
+            try
             {
-                await Task.Delay(100);
-                try
-                {
-                    FirebaseResponse response = await client.GetAsync(path);
+               FirebaseResponse response = await client.GetAsync(path);
 
-                    Dictionary<string, T> messages = JsonConvert.DeserializeObject<Dictionary<string, T>>(response.Body.ToString());
-                    Data = messages.Select(x => x.Value).ToList();
-                    return Data;
-                }
-                catch (System.Exception ex)
-                {
-                    Debug.WriteLine(ex.Message + " ERROR!");
-                    return null;
-                }
+               Dictionary<string, T> messages = JsonConvert.DeserializeObject<Dictionary<string, T>>(response.Body.ToString());
+               Data = messages.Select(x => x.Value).ToList();
+               return Data;
+            }
+            catch (System.Exception ex)
+            {
+               Debug.WriteLine(ex.Message + " ERROR!");
+               return null;
             }
         }
 

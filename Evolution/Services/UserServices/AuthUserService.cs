@@ -1,8 +1,12 @@
 ﻿using Evolution.Model;
+using Evolution.Services.CloudStoreServices;
 using Evolution.Services.DataSaveLoadServices;
+using Evolution.Services.HelperServices;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace Evolution.Services.UserServices
 {
@@ -12,7 +16,7 @@ namespace Evolution.Services.UserServices
 
         public static UserModel User = new();
 
-        public static bool SignIn(string login, string password)
+        public static async Task<bool> SignIn(string login, string password)
         {
             PathToUserFolder = $"{AppDomain.CurrentDomain.BaseDirectory}\\Users\\{login}";
 
@@ -30,6 +34,17 @@ namespace Evolution.Services.UserServices
             }
             else
             {
+                HelperService.AllUsersInApp = await FireBaseService.GetDataFromDataBase<UserModel>("UserAuthData/Users");
+                List<UserModel> AllUsersInApp = new();
+                AllUsersInApp = HelperService.AllUsersInApp;
+                if (AllUsersInApp.Count > 0)
+                {
+                    foreach (var user in AllUsersInApp)
+                    {
+                        if (user.Login == login) return true;
+                        else return false;
+                    }
+                }
                 return false;
             }
         }

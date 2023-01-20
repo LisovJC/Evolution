@@ -1,5 +1,6 @@
 ﻿using Evolution.Command;
 using Evolution.Core;
+using Evolution.Model;
 using Evolution.Services.CloudStoreServices;
 using Evolution.Services.HelperServices;
 using Evolution.Services.UserServices;
@@ -124,7 +125,7 @@ namespace Evolution.ViewModel.Windows
             #region Commands
             SignInCommand = new(o =>
             {
-                if (AuthUserService.SignIn(Login, Password))
+                if (Task.Run(() => AuthUserService.SignIn(Login, Password)).Result)
                 {
                     Task.Run(() => HelperService.HelperUpdateData(Login));
                     MainWindow mainWindow = new();

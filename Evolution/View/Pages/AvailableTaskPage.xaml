@@ -9,7 +9,7 @@
       xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls" 
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml" xmlns:hc="https://handyorg.github.io/handycontrol"
       mc:Ignorable="d" 
-      d:DesignHeight="970" d:DesignWidth="1120"
+      d:DesignHeight="970" d:DesignWidth="1680"
       Title="AvailableTaskPage"
       Background="#212429">
    
@@ -22,6 +22,25 @@
             <RowDefinition/>
             <RowDefinition Height="9*"/>
         </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1120"/>
+            <ColumnDefinition Width="560"/>
+        </Grid.ColumnDefinitions>
+
+        <Border Background="#272a2f"
+                Grid.Column="1"
+                Grid.Row="0"
+                Grid.RowSpan="2">
+            <Border.Effect>
+                <DropShadowEffect  BlurRadius="6" 
+                                   Direction="180"
+                                   RenderingBias="Quality" 
+                                   ShadowDepth="3"
+                                   Opacity="0.5"/>
+            </Border.Effect>
+        </Border>
+        
         <hc:CircleProgressBar 
             Value="{Binding Progress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
             Margin="0,0,0,0"

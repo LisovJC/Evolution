@@ -78,7 +78,8 @@ namespace Evolution.Services.TaskServices
                         //}
                         try
                         {
-                            Task.Run(() => FireBaseService.PushToDataBase(task,"GlobalTask"));                           
+                           await Task.Run(() => FireBaseService.PushToDataBase(task,"GlobalTask"));
+                           await Task.Run(() => HelperService.HelperUpdateData(HelperService.CurrentUser));
                         }
                         catch (Exception ex)
                         {

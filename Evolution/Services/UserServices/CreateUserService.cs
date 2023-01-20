@@ -45,7 +45,7 @@ namespace Evolution.Services.UserServices
                     
                     DataSaveLoad.Serialize(User);
                     
-                    CreateUserFolderInGDrive(login, true);
+                    //CreateUserFolderInGDrive(login, true);
                     
                     return User;
                 }

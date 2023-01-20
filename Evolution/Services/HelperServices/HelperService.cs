@@ -30,8 +30,9 @@ namespace Evolution.Services.HelperServices
             try
             {
                 AllUsersInApp.Clear();
-                AllUsersInApp = FireBaseService.GetDataFromDataBase<UserModel>("UserAuthData\\Users").Result;
                 CurrentUser = user;
+                AllUsersInApp = await Task.Run(() => FireBaseService.GetDataFromDataBase<UserModel>("UserAuthData\\Users"));
+                
                 //FilesAndFoldersInRootFolder = await Task.Run(() => GoogleDriveService.ListEntities());
                 //IdEvolutionFolder = GetItemIDByName(FilesAndFoldersInRootFolder, "EVOLUTION");
                 //FilesAndFoldersInEvolutionFolder = await Task.Run(() => GoogleDriveService.ListEntities(IdEvolutionFolder));

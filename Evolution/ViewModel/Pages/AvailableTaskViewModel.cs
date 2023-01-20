@@ -3,19 +3,11 @@ using Evolution.Core;
 using Evolution.Model;
 using Evolution.Services.CloudStoreServices;
 using Evolution.Services.HelperServices;
-using Evolution.Services.TaskServices;
-using Evolution.Services.UserServices;
-using Evolution.ViewModel.Windows;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace Evolution.ViewModel.Pages
 {
@@ -80,10 +72,12 @@ namespace Evolution.ViewModel.Pages
         {
             if(isDownloaded)
             {
+                GlobalTasks.Clear();
                 for (int i = 0; i < HelperService.GlobalTasksInCash.Count; i++)
                 {
                     GlobalTasks.Add(HelperService.GlobalTasksInCash[i]);
                 }
+                return;
             }
 
             for (int i = 0; i < LoadedCommonTasks.Count; i++)
