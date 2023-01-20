@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Evolution.View.Pages" xmlns:pages="clr-namespace:Evolution.ViewModel.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="970" d:DesignWidth="1120"
+      d:DesignHeight="970" d:DesignWidth="1680"
       Title="HomePage"
       Background="#212429">
 
@@ -19,6 +19,23 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1120"/>
+            <ColumnDefinition Width="560"/>
+        </Grid.ColumnDefinitions>
+
+        <Border Background="#272a2f"
+                Grid.Column="1"
+                Grid.Row="0"
+                Grid.RowSpan="2">
+            <Border.Effect>
+                <DropShadowEffect  BlurRadius="6" 
+                                   Direction="180"
+                                   RenderingBias="Quality" 
+                                   ShadowDepth="3"
+                                   Opacity="0.5"/>
+            </Border.Effect>
+        </Border>
         <Label Content="Главная"
                FontWeight="Normal"
                Style="{StaticResource HeaderSign}"

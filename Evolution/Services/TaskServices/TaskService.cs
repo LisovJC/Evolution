@@ -10,6 +10,7 @@ using File = Google.Apis.Drive.v3.Data.File;
 using System.Diagnostics;
 using Evolution.Services.CloudStoreServices;
 using Evolution.Services.DataSaveLoadServices;
+using ControlzEx.Standard;
 
 namespace Evolution.Services.TaskServices
 {
@@ -77,7 +78,7 @@ namespace Evolution.Services.TaskServices
                         //}
                         try
                         {
-                            FireBaseService.PushToDataBase(task, null, "GlobalTask");
+                            Task.Run(() => FireBaseService.PushToDataBase(task,"GlobalTask"));                           
                         }
                         catch (Exception ex)
                         {

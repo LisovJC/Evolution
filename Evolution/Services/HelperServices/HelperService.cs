@@ -30,16 +30,15 @@ namespace Evolution.Services.HelperServices
             try
             {
                 AllUsersInApp.Clear();
-                CurrentUser = user;
-                FilesAndFoldersInRootFolder = await Task.Run(() => GoogleDriveService.ListEntities());
-                IdEvolutionFolder = GetItemIDByName(FilesAndFoldersInRootFolder, "EVOLUTION");
-                FilesAndFoldersInEvolutionFolder = await Task.Run(() => GoogleDriveService.ListEntities(IdEvolutionFolder));
-                IdUserFolder = GetItemIDByName(FilesAndFoldersInEvolutionFolder, CurrentUser);
-                IdCommonTaskFolder = GetItemIDByName(FilesAndFoldersInEvolutionFolder, "common_folder");
-                FilesAndFoldersInCommonTasksFolder = await Task.Run(() => GoogleDriveService.ListEntities(IdCommonTaskFolder));
-                FilesAndFoldersInUserFolder = await Task.Run(() => GoogleDriveService.ListEntities(IdUserFolder));
-
                 AllUsersInApp = FireBaseService.GetDataFromDataBase<UserModel>("UserAuthData\\Users").Result;
+                CurrentUser = user;
+                //FilesAndFoldersInRootFolder = await Task.Run(() => GoogleDriveService.ListEntities());
+                //IdEvolutionFolder = GetItemIDByName(FilesAndFoldersInRootFolder, "EVOLUTION");
+                //FilesAndFoldersInEvolutionFolder = await Task.Run(() => GoogleDriveService.ListEntities(IdEvolutionFolder));
+                //IdUserFolder = GetItemIDByName(FilesAndFoldersInEvolutionFolder, CurrentUser);
+                //IdCommonTaskFolder = GetItemIDByName(FilesAndFoldersInEvolutionFolder, "common_folder");
+                //FilesAndFoldersInCommonTasksFolder = await Task.Run(() => GoogleDriveService.ListEntities(IdCommonTaskFolder));
+                //FilesAndFoldersInUserFolder = await Task.Run(() => GoogleDriveService.ListEntities(IdUserFolder));               
                 //for (int i = 0; i < FilesAndFoldersInEvolutionFolder.Count; i++)
                 //{
                 //    if (FilesAndFoldersInEvolutionFolder[i].Name != "common_folder")

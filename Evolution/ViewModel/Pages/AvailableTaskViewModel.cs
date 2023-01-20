@@ -5,7 +5,6 @@ using Evolution.Services.CloudStoreServices;
 using Evolution.Services.HelperServices;
 using Evolution.Services.TaskServices;
 using Evolution.Services.UserServices;
-using Evolution.View.Pages.SecondaryPages;
 using Evolution.ViewModel.Windows;
 using System;
 using System.Collections.Generic;
@@ -60,7 +59,7 @@ namespace Evolution.ViewModel.Pages
             OpenFullInformationOfTask = new(o =>
             {
                 HelperService.SelectTask = GlobalTasks[SelectedIndex];
-                MainViewModel.Instance.SelectSecondaryPage = new SAvailablePage();
+                //MainViewModel.Instance.SelectSecondaryPage = new SAvailablePage();
             });
         }
 

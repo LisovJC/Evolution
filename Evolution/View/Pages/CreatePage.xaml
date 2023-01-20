@@ -220,6 +220,7 @@
                     <hc:NumericUpDown FontSize="18"
                                 Width="320"
                                 HorizontalAlignment="Left"
+                                DecimalPlaces="0"
                                 Value="{Binding PlannedTimeCosts, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 hc:InfoElement.Placeholder="Eneter time in hours..."/>
                 </StackPanel>

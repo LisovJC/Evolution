@@ -2,7 +2,6 @@
 using Evolution.Core;
 using Evolution.Services.HelperServices;
 using Evolution.View.Pages;
-using Evolution.View.Pages.SecondaryPages;
 using Evolution.ViewModel.Pages;
 using System.Windows;
 using System.Windows.Controls;
@@ -137,7 +136,7 @@ namespace Evolution.ViewModel.Windows
                 isCreateSelect = Visibility.Hidden;               
                 isStorageSelect = Visibility.Hidden;
                 SelectMainPage = new HomePage();
-                SelectSecondaryPage = new SecondaryHomePage();
+                //SelectSecondaryPage = new SecondaryHomePage();
             }
 
             if (page == AppPages.AvailableTasks)
@@ -149,7 +148,7 @@ namespace Evolution.ViewModel.Windows
                 isCreateSelect = Visibility.Hidden;               
                 isStorageSelect = Visibility.Hidden;
                 SelectMainPage = new AvailableTaskPage();
-                SelectSecondaryPage = new SAvailablePage();
+                //SelectSecondaryPage = new SAvailablePage();
             }
 
             if (page == AppPages.MyTasks)
@@ -161,7 +160,7 @@ namespace Evolution.ViewModel.Windows
                 isCreateSelect = Visibility.Hidden;               
                 isStorageSelect = Visibility.Hidden;
                 SelectMainPage = new MyTasksPage();
-                SelectSecondaryPage = new SecondaryHomePage();
+                //SelectSecondaryPage = new SecondaryHomePage();
             }
 
             if (page == AppPages.TasksInWork) //TODO: Убрать!
@@ -172,8 +171,8 @@ namespace Evolution.ViewModel.Windows
                 isTInWorkSelect = Visibility.Visible;
                 isCreateSelect = Visibility.Hidden;               
                 isStorageSelect = Visibility.Hidden;
-                SelectMainPage = new TasksInWorkPage();
-                SelectSecondaryPage = new SecondaryHomePage();
+                //SelectMainPage = new TasksInWorkPage();
+                //SelectSecondaryPage = new SecondaryHomePage();
             }
 
             if (page == AppPages.Create)
@@ -185,7 +184,7 @@ namespace Evolution.ViewModel.Windows
                 isCreateSelect = Visibility.Visible;                
                 isStorageSelect = Visibility.Hidden;
                 SelectMainPage = new CreatePage();
-                SelectSecondaryPage = new SecondaryHomePage();
+                //SelectSecondaryPage = new SecondaryHomePage();
             }                     
 
             if (page == AppPages.Storage)
@@ -197,7 +196,7 @@ namespace Evolution.ViewModel.Windows
                 isCreateSelect = Visibility.Hidden;                
                 isStorageSelect = Visibility.Visible;
                 SelectMainPage = new StoragePage();
-                SelectSecondaryPage = new SecondaryHomePage();
+                //SelectSecondaryPage = new SecondaryHomePage();
             }
         }
     }

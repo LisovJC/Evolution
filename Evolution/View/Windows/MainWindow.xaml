@@ -259,14 +259,15 @@
 
         <Frame Grid.Row="1"
                Grid.Column="0"
+               Grid.ColumnSpan="2"
                BorderThickness="0"
                NavigationUIVisibility="Hidden"
                Content="{Binding SelectMainPage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-        <Frame Grid.Row="1"
+        <!--<Frame Grid.Row="1"
                Grid.Column="1"
                BorderThickness="0"
                NavigationUIVisibility="Hidden"
-               Content="{Binding SelectSecondaryPage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+               Content="{Binding SelectSecondaryPage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>-->
     </Grid>
 </Window>

@@ -9,6 +9,7 @@ using FireSharp.Config;
 using FireSharp.Response;
 using FireSharp;
 using Evolution.Model;
+using Evolution.Services.HelperServices;
 
 namespace Evolution.Services.CloudStoreServices
 {
@@ -29,7 +30,7 @@ namespace Evolution.Services.CloudStoreServices
 
         public static async void PushToDataBase<T>(T data, string dataType, string path = null)
         {
-            if (path == "") path = "Tasks";
+            if (path == null) path = "Tasks";
             try
             {
                 await client.PushAsync(dataType + "/" + path, data);
