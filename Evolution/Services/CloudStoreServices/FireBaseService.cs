@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using FireSharp.Config;
 using FireSharp.Response;
 using FireSharp;
+using Evolution.Model;
 
 namespace Evolution.Services.CloudStoreServices
 {
@@ -20,19 +21,18 @@ namespace Evolution.Services.CloudStoreServices
         };
 
         private static FirebaseClient client;
-        //public static List<MessageModel> Usermessages;
 
         static FireBaseService()
         {
             client = new FirebaseClient(config);
         }
 
-        public static async void PushToDataBase<T>(T data, string user, string dataType)
+        public static async void PushToDataBase<T>(T data, string dataType, string path = null)
         {
-            if (user == null) user = "Tasks";
+            if (path == "") path = "Tasks";
             try
             {
-                await client.PushAsync(dataType + "/" + user, data);
+                await client.PushAsync(dataType + "/" + path, data);
             }
             catch (System.Exception ex)
             {
@@ -41,21 +41,24 @@ namespace Evolution.Services.CloudStoreServices
             }
         }
 
-        public static async void GetMessagesFromDataBase()
+        public static async Task<List<T>> GetDataFromDataBase<T>(string path)
         {
+            List<T> Data = new();
             while (true)
             {
                 await Task.Delay(100);
                 try
                 {
-                    FirebaseResponse response = await client.GetAsync("MessagesData/Lisov");
+                    FirebaseResponse response = await client.GetAsync(path);
 
-                    //Dictionary<string, MessageModel> messages = JsonConvert.DeserializeObject<Dictionary<string, MessageModel>>(response.Body.ToString());
-                    //Usermessages = messages.Select(x => x.Value).ToList();
+                    Dictionary<string, T> messages = JsonConvert.DeserializeObject<Dictionary<string, T>>(response.Body.ToString());
+                    Data = messages.Select(x => x.Value).ToList();
+                    return Data;
                 }
                 catch (System.Exception ex)
                 {
                     Debug.WriteLine(ex.Message + " ERROR!");
+                    return null;
                 }
             }
         }

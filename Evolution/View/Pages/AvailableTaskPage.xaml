@@ -53,7 +53,7 @@
                   Height="auto"
                   Width="auto"
                   Background="Transparent"
-                  ItemsSource="{Binding CommonTasks}"
+                  ItemsSource="{Binding GlobalTasks}"
                   SelectedIndex="{Binding SelectedIndex, 
                                   Mode=TwoWay, 
                                   UpdateSourceTrigger=PropertyChanged}">

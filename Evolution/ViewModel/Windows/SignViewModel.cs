@@ -173,7 +173,7 @@ namespace Evolution.ViewModel.Windows
                 var User = CreateUserService.CreateUser(Login, Password, ConfirmPassword, Email);
                 if (User != null)
                 {
-                    FireBaseService.PushToDataBase(User, Login, "UserAuthData");
+                    FireBaseService.PushToDataBase(User, "UserAuthData", "Users");
                     Debug.WriteLine("Succes!");
                     ConfirmPassword = string.Empty;
                     Email = string.Empty;                    

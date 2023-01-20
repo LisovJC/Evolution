@@ -39,9 +39,9 @@ namespace Evolution.ViewModel.Pages
             set => Set(ref _assigned, value);
         }
 
-        private double _plannedTimeCosts;
+        private float _plannedTimeCosts;
 
-        public double PlannedTimeCosts
+        public float PlannedTimeCosts
         {
             get => _plannedTimeCosts;
             set => Set(ref _plannedTimeCosts, value);

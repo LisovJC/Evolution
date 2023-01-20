@@ -217,11 +217,10 @@
                                Margin="0,0,0,5"
                                FontSize="18"/>
 
-                    <hc:TextBox FontSize="18"
+                    <hc:NumericUpDown FontSize="18"
                                 Width="320"
-                                MaxLength="30"
                                 HorizontalAlignment="Left"
-                                Text="{Binding PlannedTimeCosts, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                Value="{Binding PlannedTimeCosts, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 hc:InfoElement.Placeholder="Eneter time in hours..."/>
                 </StackPanel>
 

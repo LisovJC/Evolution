@@ -1,6 +1,7 @@
 ﻿using Evolution.Command;
 using Evolution.Core;
 using Evolution.Model;
+using Evolution.Services.CloudStoreServices;
 using Evolution.Services.HelperServices;
 using Evolution.Services.TaskServices;
 using Evolution.Services.UserServices;
@@ -21,8 +22,8 @@ namespace Evolution.ViewModel.Pages
 {
     internal class AvailableTaskViewModel:ObservableObject
     {
-        public ObservableCollection<TaskModel> LoadedCommonTasks { get; set; } = new();
-        public ObservableCollectionEX<TaskModel> CommonTasks { get; set; } = new();
+        public List<TaskModel> LoadedCommonTasks { get; set; } = new();
+        public ObservableCollectionEX<TaskModel> GlobalTasks { get; set; } = new();
 
         private int _progress = 0;
 
@@ -58,46 +59,62 @@ namespace Evolution.ViewModel.Pages
 
             OpenFullInformationOfTask = new(o =>
             {
-                HelperService.SelectTask = CommonTasks[SelectedIndex];
+                HelperService.SelectTask = GlobalTasks[SelectedIndex];
                 MainViewModel.Instance.SelectSecondaryPage = new SAvailablePage();
             });
         }
 
         public async void LoadDatas()
         {
-            await Task.Run(() => LoadedCommonTasks = TaskService.GetCommonTasks().Result);
-            LoadCollection();
+            if(HelperService.GlobalTasksInCash.Count == 0)
+            {
+                await Task.Run(() => LoadedCommonTasks = FireBaseService.GetDataFromDataBase<TaskModel>("GlobalTask/Tasks").Result);
+                LoadCollection();
+            }
+            else
+            {
+                LoadCollection(true);
+            }      
         }
 
-        public void LoadCollection()
+        public void LoadCollection(bool isDownloaded = false)
         {
+            if(isDownloaded)
+            {
+                for (int i = 0; i < HelperService.GlobalTasksInCash.Count; i++)
+                {
+                    GlobalTasks.Add(HelperService.GlobalTasksInCash[i]);
+                }
+            }
+
             for (int i = 0; i < LoadedCommonTasks.Count; i++)
             {
-                CommonTasks.Add(LoadedCommonTasks[i]);
+                GlobalTasks.Add(LoadedCommonTasks[i]);
             }
+            HelperService.GlobalTasksInCash = GlobalTasks;
         }
 
         public async void ProgressChange()
         {
             bool isPositive = true;
-            await Task.Run(() => 
+            await Task.Run(() =>
             {
                 Random rnd = new();
                 while (true)
                 {
-                    if(CommonTasks.Count > 0)
-                    {                      
+                    if (GlobalTasks.Count > 0)
+                    {
                         ProgressVisibility = Visibility.Hidden;
                         break;
-                    }            
-                    Progress += 1;                    
-                    if(Progress > 99)
-                    {                           
-                       Progress = 1;
+                    }
+                    Progress += 1;
+                    if (Progress > 99)
+                    {
+                        Progress = 1;
                     }
                     Thread.Sleep(50);
                 }
-            });           
+            });
         }
     }
 }
