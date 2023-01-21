@@ -128,7 +128,7 @@
                                                                  x:Name="ic"
                                                                  Height="55"
                                                                  Foreground="#3490DE"/>
-
+                                          
                                             <Label Content="{Binding Creator}"
                                                x:Name="Lb"
                                                Margin="5,0,0,0"

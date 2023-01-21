@@ -117,10 +117,10 @@
                               HorizontalAlignment="Left"
                               Command="{Binding AddCategorySettingsCommand}"/>
 
-                        <Label Content="Входить автоматически"
+                        <Label Content="Запомнить меня"
                                Margin="5,10,0,0"
                                Foreground="Gray"
-                               FontSize="10"
+                               FontSize="12"
                                Style="{StaticResource HeaderSign}"/>
                     </StackPanel>
                 </StackPanel>
@@ -205,17 +205,15 @@
                                                 UpdateSourceTrigger=PropertyChanged}" 
                                     Cursor="Hand"/>
 
-                            <Button Style="{StaticResource SignButtons}"
+                            <Button Style="{StaticResource SignButtonsRed}"
                                     IsEnabled="{Binding isEnableSignUp, 
                                                 Mode=OneWay, 
                                                 UpdateSourceTrigger=PropertyChanged}"
                                     Content="{Binding ContentRegButton, 
                                                 Mode=OneWay, 
                                                 UpdateSourceTrigger=PropertyChanged}"
-                                    Command="{Binding SignUpCommand}"
-                                    Background="#ff3c38" 
-                                    Cursor="Hand"
-                                    Foreground="White"/>
+                                    Command="{Binding SignUpCommand}" 
+                                    Cursor="Hand"/>
 
                         </StackPanel>
 

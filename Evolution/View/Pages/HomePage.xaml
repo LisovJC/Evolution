@@ -318,10 +318,10 @@
                                 Grid.Row="1"
                                 Margin="0,0,25,0">
 
-                        <Button Style="{StaticResource ActionFlatButtons}"
-                                Content="Закрыть"
-                                Foreground="#fefefe"
-                                Background="#ff3c38" Cursor="Hand"/>
+                        <Button Style="{StaticResource ActionFlatButtonsRed}"
+                                Content="Завершить"
+                                Cursor="Hand">
+                        </Button>
 
                         <Button Style="{StaticResource ActionFlatButtons}"
                                 Content="Перейти" Cursor="Hand"/>

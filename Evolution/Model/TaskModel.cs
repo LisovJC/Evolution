@@ -96,9 +96,9 @@ namespace Evolution.Model
             set { Set(ref _categories, value); SetCategories(); }
         }
 
-        private DateTime _dateCreate;
+        private string _dateCreate;
 
-        public DateTime DateCreate
+        public string DateCreate
         {
             get => _dateCreate;
             set => Set(ref _dateCreate, value);

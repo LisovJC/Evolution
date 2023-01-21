@@ -41,9 +41,9 @@ namespace Evolution.Services.TaskServices
                 OtherCategory = OtherCategory,
                 TaskPriority = priority,
                 TypeTask = typeTask,
-                DateCreate = DateTime.Now,
+                DateCreate = DateTime.Now.ToString("d"),
                 Categories = AddCategories(categories),
-                Creator = HelperService.CurrentUser
+                Creator = "автор: " + HelperService.CurrentUser
             };
 
             switch(task.TypeTask)
