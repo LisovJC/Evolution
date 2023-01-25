@@ -101,10 +101,10 @@ namespace Evolution.ViewModel.Pages
             CreateTaskCommand = new(o => { CreateTask(); });
             SelectAssigneCommand = new(o => { Assigned = o.ToString(); });
 
-            P0PriorityCommand = new(o => { SetPriority(Priority.ToDay); });
-            P1PriorityCommand = new(o => { SetPriority(Priority.FewDays); });
-            P2PriorityCommand = new(o => { SetPriority(Priority.Week); });
-            P3PriorityCommand = new(o => { SetPriority(Priority.MoreWeek); });
+            P0PriorityCommand = new(o => { SetPriority(Priority.Сегодня); });
+            P1PriorityCommand = new(o => { SetPriority(Priority.Несколько_Дней); });
+            P2PriorityCommand = new(o => { SetPriority(Priority.Неделя); });
+            P3PriorityCommand = new(o => { SetPriority(Priority.Более_Недели); });
             
             LocalTypeCommand = new(o => { SetType(TypeTaskEdentity.local); });
             GlobalTypeCommand = new(o => { SetType(TypeTaskEdentity.global); });

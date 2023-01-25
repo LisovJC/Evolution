@@ -39,6 +39,98 @@
                                    ShadowDepth="3"
                                    Opacity="0.5"/>
             </Border.Effect>
+            
+            <Grid>
+                <StackPanel Orientation="Vertical">
+                    <Label Content="Выбранная задача:"
+                       Visibility="Visible"
+                       FontSize="32"
+                       Margin="30,30,30,10"
+                       Style="{StaticResource HeaderSign}"
+                       Foreground="White"
+                       Grid.Row="0"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Top"/>
+
+                    <StackPanel Orientation="Horizontal">
+                        <Border Margin="30,30,15,10"
+                                Background="#fefefe"
+                                Width="auto"
+                                Height="45"
+                                CornerRadius="8">
+                            <Label Content="Назавание:"
+                                   Visibility="Visible"
+                                   FontSize="20"
+                                   Margin="5"
+                                   Style="{StaticResource HeaderSign}"
+                                   Foreground="Black"
+                                   Grid.Row="0"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"/>
+                        </Border>
+
+                        <TextBlock TextWrapping="Wrap"
+                                   Margin="0,30,30,10"
+                                   FontSize="20"
+                                   Foreground="White"
+                                   Text="{Binding Title, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <Border Margin="30,10,15,10"
+                                Background="#fefefe"
+                                Width="auto"
+                                Height="45"
+                                CornerRadius="8">
+                            <Label Content="Выполняющий:"
+                                   Visibility="Visible"
+                                   FontSize="20"
+                                   Margin="5"
+                                   Style="{StaticResource HeaderSign}"
+                                   Foreground="Black"
+                                   Grid.Row="0"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"/>
+                        </Border>
+
+                        <TextBlock TextWrapping="Wrap"
+                                   Margin="0,10,15,10"
+                                   FontSize="20"
+                                   Foreground="White"
+                                   Text="{Binding Assigned, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <Border Margin="30,10,15,10"
+                                Background="#fefefe"
+                                Width="auto"
+                                Height="45"
+                                CornerRadius="8">
+                            <Label Content="Срочность:"
+                                   Visibility="Visible"
+                                   FontSize="20"
+                                   Margin="5"
+                                   Style="{StaticResource HeaderSign}"
+                                   Foreground="Black"
+                                   Grid.Row="0"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"/>
+                        </Border>
+
+                        <TextBlock TextWrapping="Wrap"
+                                   Margin="0,10,15,10"
+                                   FontSize="20"
+                                   Foreground="White"
+                                   Text="{Binding TaskPriority, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"/>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
         </Border>
         
         <hc:CircleProgressBar 
