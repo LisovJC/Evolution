@@ -59,11 +59,12 @@
                                FontSize="20"
                                Margin="5,0,0,0"/>
 
-                        <Label Content="{Binding Login}"
+                        <Label Content="{Binding Login, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                                Style="{StaticResource HeaderSign}"
                                HorizontalAlignment="Left"
                                FontSize="20"
                                Margin="15,0,0,0"/>
+                        
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal"
@@ -79,7 +80,7 @@
                                FontSize="20"
                                Margin="5,0,0,0"/>
 
-                        <Label Content="{Binding Login}"
+                        <Label Content="{Binding Password, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                                Style="{StaticResource HeaderSign}"
                                HorizontalAlignment="Left"
                                FontSize="20"
@@ -99,7 +100,7 @@
                                FontSize="20"
                                Margin="5,0,0,0"/>
 
-                        <Label Content="{Binding Login}"
+                        <Label Content="{Binding RegistrationDate, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                                Style="{StaticResource HeaderSign}"
                                HorizontalAlignment="Left"
                                FontSize="20"
@@ -119,7 +120,7 @@
                                FontSize="20"
                                Margin="5,0,0,0"/>
 
-                        <Label Content="{Binding Login}"
+                        <Label Content="{Binding Email, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                                Style="{StaticResource HeaderSign}"
                                HorizontalAlignment="Left"
                                FontSize="20"

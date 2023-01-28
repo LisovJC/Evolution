@@ -2,28 +2,29 @@
 using Evolution.Services.CloudStoreServices;
 using Evolution.Services.DataSaveLoadServices;
 using Evolution.Services.HelperServices;
+using Google.Apis.Drive.v3.Data;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
+using File = System.IO.File;
 
 namespace Evolution.Services.UserServices
 {
     public class AuthUserService
     {
-        private static string PathToUserFolder = "";
+        private static string PathToUserFile = "";
 
         public static UserModel User = new();
 
         public static async Task<bool> SignIn(string login, string password)
-        {
-            PathToUserFolder = $"{AppDomain.CurrentDomain.BaseDirectory}\\Users\\{login}";
-
-            if (UserExists(PathToUserFolder))
-            {
-                User = DataSaveLoad.LoadDataUser<UserModel>(PathToUserFolder + "\\user_auth.json");
-                if (IsCorrectUserData(login, password, User))
+        {          
+            UserModel userExists = new();
+            userExists = await Task.Run(() => UserExists(login));
+            if (userExists.Login != null)
+            {                
+                if (IsCorrectUserData(login, password, userExists))
                 {                                     
                     return true;
                 }
@@ -31,6 +32,20 @@ namespace Evolution.Services.UserServices
                 {
                     return false;
                 }
+            }
+            else
+            {               
+                return false;
+            }
+        }
+
+        public static async Task<UserModel> UserExists(string login)
+        {
+            PathToUserFile = $"{AppDomain.CurrentDomain.BaseDirectory}\\Users\\{login}\\user_auth.json";            
+            if (File.Exists(PathToUserFile))
+            {
+                User = DataSaveLoad.LoadDataUser<UserModel>(PathToUserFile);
+                return User;
             }
             else
             {
@@ -41,23 +56,15 @@ namespace Evolution.Services.UserServices
                 {
                     foreach (var user in AllUsersInApp)
                     {
-                        if (user.Login == login) return true;
-                        else return false;
+                        if (user.Login == login)
+                        {
+                            User = user;
+                            return User;
+                        }             
                     }
+                    return User;
                 }
-                return false;
-            }
-        }
-
-        private static bool UserExists(string path)
-        {
-            if (Directory.Exists(path))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
+                else return User;
             }
         }
 

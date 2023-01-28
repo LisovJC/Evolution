@@ -91,9 +91,9 @@ namespace Evolution.ViewModel.Pages
             set => Set(ref _otherCategory, value);
         }
 
-        private List<Category> _categories;
+        private string _categories;
 
-        public List<Category> Categories
+        public string Categories
         {
             get => _categories;
             set => Set(ref _categories, value);
@@ -126,11 +126,30 @@ namespace Evolution.ViewModel.Pages
 
             OpenFullInformationOfTask = new(o =>
             {
-                HelperService.SelectTask = GlobalTasks[SelectedIndex];
-                Title = GlobalTasks[SelectedIndex].Title;
-                Assigned = GlobalTasks[SelectedIndex].Assigned;
-                TaskPriority = GlobalTasks[SelectedIndex].TaskPriority;
+                SrartPage();
             });
+        }
+
+        private void SrartPage()
+        {
+            Categories = String.Empty;
+            HelperService.SelectTask = GlobalTasks[SelectedIndex];
+            Title = GlobalTasks[SelectedIndex].Title;
+            Assigned = GlobalTasks[SelectedIndex].Assigned;
+            TaskPriority = GlobalTasks[SelectedIndex].TaskPriority;
+            Description = GlobalTasks[SelectedIndex].Description;
+            DateCreate = GlobalTasks[SelectedIndex].DateCreate;
+            for (int i = 0; i < GlobalTasks[SelectedIndex].Categories.Count; i++)
+            {
+                if (i != GlobalTasks[SelectedIndex].Categories.Count - 1)
+                {
+                    Categories += GlobalTasks[SelectedIndex].Categories[i].CategoryName + ", ";
+                }
+                else
+                {
+                    Categories += GlobalTasks[SelectedIndex].Categories[i].CategoryName;
+                }
+            }
         }
 
         public async void LoadDatas()
@@ -155,6 +174,7 @@ namespace Evolution.ViewModel.Pages
                 {
                     GlobalTasks.Add(HelperService.GlobalTasksInCash[i]);
                 }
+                SrartPage();
                 return;
             }
 
@@ -162,6 +182,7 @@ namespace Evolution.ViewModel.Pages
             {
                 GlobalTasks.Add(LoadedCommonTasks[i]);
             }
+            SrartPage();
             HelperService.GlobalTasksInCash = GlobalTasks;
         }
 
