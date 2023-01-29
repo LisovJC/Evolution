@@ -11,7 +11,7 @@
         xmlns:hc="https://handyorg.github.io/handycontrol"
         mc:Ignorable="d"
         Title="MainWindow"
-        ResizeMode="NoResize"
+        ResizeMode="CanMinimize"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         Height="1050" 
@@ -121,7 +121,8 @@
                             Margin="0,0,10,0">
 
                     <Button Style="{StaticResource WindowButton}"
-                            Background="Transparent">
+                            Background="Transparent"
+                            Command="{Binding MinimizeCommand}">
 
                         <materialDesign:PackIcon    Kind="Minimize"
                                                     Style="{StaticResource HotIcon}"

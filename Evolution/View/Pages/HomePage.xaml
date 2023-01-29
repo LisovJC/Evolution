@@ -120,7 +120,7 @@
                                FontSize="20"
                                Margin="5,0,0,0"/>
 
-                        <Label Content="{Binding Email, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                        <Label Content="IN WIP"
                                Style="{StaticResource HeaderSign}"
                                HorizontalAlignment="Left"
                                FontSize="20"
@@ -146,7 +146,7 @@
                                FontSize="20"
                                Margin="5,0,0,0"/>
 
-                        <Label Content="{Binding Login}"
+                        <Label Content="IN WIP"
                                Style="{StaticResource HeaderSign}"
                                HorizontalAlignment="Left"
                                FontSize="20"
@@ -166,7 +166,7 @@
                                FontSize="20"
                                Margin="5,0,0,0"/>
 
-                        <Label Content="{Binding Login}"
+                        <Label Content="IN WIP"
                                Style="{StaticResource HeaderSign}"
                                HorizontalAlignment="Left"
                                FontSize="20"
@@ -186,7 +186,7 @@
                                FontSize="20"
                                Margin="5,0,0,0"/>
 
-                        <Label Content="{Binding Login}"
+                        <Label Content="IN WIP"
                                Style="{StaticResource HeaderSign}"
                                HorizontalAlignment="Left"
                                FontSize="20"
@@ -212,7 +212,7 @@
                                FontSize="20"
                                Margin="5,0,0,0"/>
 
-                        <Label Content="{Binding Login}"
+                        <Label Content="IN WIP"
                                Style="{StaticResource HeaderSign}"
                                HorizontalAlignment="Left"
                                FontSize="20"
@@ -232,7 +232,7 @@
                                FontSize="20"
                                Margin="5,0,0,0"/>
 
-                        <Label Content="{Binding Login}"
+                        <Label Content="IN WIP"
                                Style="{StaticResource HeaderSign}"
                                HorizontalAlignment="Left"
                                FontSize="20"
@@ -252,7 +252,7 @@
                                FontSize="20"
                                Margin="5,0,0,0"/>
 
-                        <Label Content="{Binding Login}"
+                        <Label Content="IN WIP"
                                Style="{StaticResource HeaderSign}"
                                HorizontalAlignment="Left"
                                FontSize="20"

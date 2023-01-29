@@ -1,14 +1,9 @@
 ﻿using Evolution.Core;
 using Evolution.Model;
-using Evolution.Services;
 using Evolution.Services.HelperServices;
 using Evolution.Services.UserServices;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace Evolution.ViewModel.Pages
@@ -51,15 +46,15 @@ namespace Evolution.ViewModel.Pages
         
         public HomeViewModel()
         {
-            InitProperties();
-
+            InitPageProperties();
         }       
 
-        private void InitProperties()
+        private void InitPageProperties()
         {
             try
             {
                 UserModel User = Task.Run(() => AuthUserService.UserExists(HelperService.CurrentUser)).Result;
+                
                 Login = User.Login;
                 Password = User.Password;
                 RegistrationDate = User.DateCreate.ToString("d");
@@ -67,8 +62,7 @@ namespace Evolution.ViewModel.Pages
             }
             catch (Exception ex)
             {
-
-                Debug.WriteLine(ex.Message);
+                Debug.WriteLine(ex.Message + "\nОшибка загрузки данных HomePage.");
             }           
         }
     }

@@ -101,7 +101,7 @@
                                    Margin="0,10,15,10"
                                    FontSize="20"
                                    Foreground="White"
-                                   Text="{Binding TaskPriority, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                   Text="{Binding DeadLine, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                                    HorizontalAlignment="Center"
                                    VerticalAlignment="Center"/>
                     </StackPanel>
@@ -137,7 +137,7 @@
                                    Margin="0,10,15,10"
                                    FontSize="20"
                                    Foreground="White"
-                                   Text="20%"
+                                   Text="Не указано"
                                    HorizontalAlignment="Center"
                                    VerticalAlignment="Center"/>
                     </StackPanel>

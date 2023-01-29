@@ -41,18 +41,18 @@ namespace Evolution.Model
 
         public enum Priority
         {
-            Сегодня,
-            Несколько_Дней,
-            Неделя,
-            Более_Недели
+            ToDay,
+            FewDays,
+            Week,
+            MoreWeek
         }
 
-        private Priority _priority = Priority.Неделя;
+        private string _deadLine;
 
-        public Priority TaskPriority
+        public string DeadLine
         {
-            get => _priority = Priority.Неделя;
-            set => Set(ref _priority, value);
+            get => _deadLine;
+            set => Set(ref _deadLine, value);
         }
 
 

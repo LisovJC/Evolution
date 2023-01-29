@@ -1,6 +1,5 @@
 ﻿using Evolution.Command;
 using Evolution.Core;
-using Evolution.Model;
 using Evolution.Services.CloudStoreServices;
 using Evolution.Services.HelperServices;
 using Evolution.Services.UserServices;
@@ -123,68 +122,81 @@ namespace Evolution.ViewModel.Windows
         public SignViewModel()
         {
             #region Commands
+            /*=====================================================================*/
             SignInCommand = new(o =>
             {
                 if (Task.Run(() => AuthUserService.SignIn(Login, Password)).Result)
                 {
-                    Task.Run(() => HelperService.HelperUpdateData(Login));
+                    Task.Run(() => HelperService.HelperUpdateData(Login)); //Содаём необходимые данные в хелпере для их дальнейшего получения и работы с ними.
+
+                    Application.Current.MainWindow.Hide();
                     MainWindow mainWindow = new();
                     mainWindow.Owner = Application.Current.MainWindow;
+                    Application.Current.MainWindow = mainWindow;
                     mainWindow.Show();
-                    Application.Current.MainWindow.Hide();
                 }
                 else
                 {
-                    Debug.WriteLine("Непредвиденная ошибка входа!");
+                    Debug.WriteLine("Ошибка входа. Строка 140.");
                 }
             });
-
+            /*=====================================================================*/
             SignUpCommand = new(o =>
             {
                 if (SignUpVisibility == Visibility.Collapsed)
                 {
                     SignUpVisibility = Visibility.Visible;
-                    LabelSign = "Регистрация";
-                    isEnableSignIn = false;
-                    Reqired = Visibility.Visible;
-                    ContentRegButton = "Отмена";
                     IconVisibility = Visibility.Collapsed;
+                    Reqired = Visibility.Visible;
+                    
+                    LabelSign = "Регистрация";
+                    ContentRegButton = "Отмена";
+
+                    isEnableSignIn = false;
                 }
                 else
                 {
                     SignUpVisibility = Visibility.Collapsed;
-                    LabelSign = "Вход";
-                    isEnableSignIn = true;
                     Reqired = Visibility.Collapsed;
+                    Reqired = Visibility.Collapsed;
+
+                    LabelSign = "Вход";
                     ContentRegButton = "Регистрация";
-                    IconVisibility = Visibility.Visible;
+
+                    isEnableSignIn = true;
                 }
 
             });
-
+            /*=====================================================================*/
             GetStartedCommand = new(o =>
             {
                 SignUpVisibility = Visibility.Collapsed;
-                LabelSign = "Вход";
-                isEnableSignIn = true;
                 Reqired = Visibility.Collapsed;
-                ContentRegButton = "Регистрация";
                 IconVisibility = Visibility.Visible;
+                
+                LabelSign = "Вход";
+                ContentRegButton = "Регистрация";
+
+                isEnableSignIn = true;
 
                 var User = CreateUserService.CreateUser(Login, Password, ConfirmPassword, Email);
                 if (User != null)
                 {
                     FireBaseService.PushToDataBase(User, "UserAuthData", "Users");
-                    Debug.WriteLine("Succes!");
                     ConfirmPassword = string.Empty;
                     Email = string.Empty;                    
                 }
+                else
+                {
+                    Debug.WriteLine("Ошибка регистрации. User = null. Строка 191.");
+                }
             });
-
+            /*=====================================================================*/
             CloseAppCommand = new(o =>
             {
                 Application.Current.Shutdown();
             });
+            /*=====================================================================*/
             #endregion                      
         }
 

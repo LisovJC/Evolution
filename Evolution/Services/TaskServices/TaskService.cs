@@ -28,7 +28,7 @@ namespace Evolution.Services.TaskServices
             double PlannedTimeCosts,
             string Description,
             string OtherCategory,
-            Priority priority,
+            string deadLine,
             TypeTaskEdentity typeTask,
             List<Category> categories)
         {
@@ -39,7 +39,7 @@ namespace Evolution.Services.TaskServices
                 Assigned = Assigned,
                 PlannedTimeCosts = PlannedTimeCosts,
                 OtherCategory = OtherCategory,
-                TaskPriority = priority,
+                DeadLine = deadLine,
                 TypeTask = typeTask,
                 DateCreate = DateTime.Now.ToString("d"),
                 Categories = AddCategories(categories),

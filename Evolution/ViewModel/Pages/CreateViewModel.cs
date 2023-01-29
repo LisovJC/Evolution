@@ -1,13 +1,10 @@
-﻿using ControlzEx.Standard;
-using Evolution.Command;
+﻿using Evolution.Command;
 using Evolution.Core;
 using Evolution.Model;
 using Evolution.Services.HelperServices;
 using Evolution.Services.TaskServices;
-using Evolution.Services.UserServices;
+using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
 using static Evolution.Model.TaskModel;
 
 namespace Evolution.ViewModel.Pages
@@ -22,7 +19,7 @@ namespace Evolution.ViewModel.Pages
             get => _title;
             set => Set(ref _title, value);
         }
-
+        /*=====================================================================*/
         private string _description;
 
         public string Description
@@ -30,7 +27,7 @@ namespace Evolution.ViewModel.Pages
             get => _description;
             set => Set(ref _description, value);
         }
-
+        /*=====================================================================*/
         private string _assigned = "Выбрать...";
 
         public string Assigned
@@ -38,7 +35,7 @@ namespace Evolution.ViewModel.Pages
             get => _assigned;
             set => Set(ref _assigned, value);
         }
-
+        /*=====================================================================*/
         private float _plannedTimeCosts;
 
         public float PlannedTimeCosts
@@ -46,7 +43,7 @@ namespace Evolution.ViewModel.Pages
             get => _plannedTimeCosts;
             set => Set(ref _plannedTimeCosts, value);
         }
-
+        /*=====================================================================*/
         private string _otherCategory;
 
         public string OtherCategory
@@ -54,7 +51,7 @@ namespace Evolution.ViewModel.Pages
             get => _otherCategory;
             set => Set(ref _otherCategory, value);
         }
-
+        /*=====================================================================*/
         private List<Category> _categories = new();
 
         public List<Category> Categories
@@ -62,9 +59,16 @@ namespace Evolution.ViewModel.Pages
             get => _categories;
             set => Set(ref _categories, value);
         }
+        /*=====================================================================*/
+        private string _deadLine;
 
-        public Priority priority { get; set; }
-
+        public string DeadLine
+        {
+            get => _deadLine;
+            set => Set(ref _deadLine, value);
+        }
+        /*=====================================================================*/
+        public Priority Priority;
         public TypeTaskEdentity typeTask { get; set; }
 
         public List<UserModel> AllUsers { get; set; } = new();
@@ -94,17 +98,20 @@ namespace Evolution.ViewModel.Pages
 
         public CreateViewModel()
         {
-            if (Categories.Count == 0) CreateListCategory();
+            if (Categories.Count == 0)
+            { 
+                CreateListCategory(); 
+            }
 
             AllUsers = HelperService.AllUsersInApp;
 
             CreateTaskCommand = new(o => { CreateTask(); });
             SelectAssigneCommand = new(o => { Assigned = o.ToString(); });
 
-            P0PriorityCommand = new(o => { SetPriority(Priority.Сегодня); });
-            P1PriorityCommand = new(o => { SetPriority(Priority.Несколько_Дней); });
-            P2PriorityCommand = new(o => { SetPriority(Priority.Неделя); });
-            P3PriorityCommand = new(o => { SetPriority(Priority.Более_Недели); });
+            P0PriorityCommand = new(o => { SetPriority(Priority.ToDay); });
+            P1PriorityCommand = new(o => { SetPriority(Priority.FewDays); });
+            P2PriorityCommand = new(o => { SetPriority(Priority.Week); });
+            P3PriorityCommand = new(o => { SetPriority(Priority.MoreWeek); });
             
             LocalTypeCommand = new(o => { SetType(TypeTaskEdentity.local); });
             GlobalTypeCommand = new(o => { SetType(TypeTaskEdentity.global); });
@@ -125,13 +132,49 @@ namespace Evolution.ViewModel.Pages
 
         private void CreateTask()
         {
-            TaskService.CreateTask(Title, Assigned, PlannedTimeCosts, Description, OtherCategory, priority, typeTask, Categories);
-            ClearFields();
+            TaskService.CreateTask
+            (
+                Title, 
+                Assigned, 
+                PlannedTimeCosts, 
+                Description, 
+                OtherCategory,
+                DeadLine, 
+                typeTask, 
+                Categories
+           );
+            
+           ClearFields();
         }
 
         private void SetPriority(Priority priority)
         {
-            this.priority = priority;
+            switch(priority)
+            {
+                case Priority.ToDay:
+                    {
+                        DeadLine = $"Сегодня ({DateTime.Now.ToString("d")})";
+                        break;
+                    }
+
+                case Priority.FewDays:
+                    {
+                        DeadLine = $"Несколько дней ({DateTime.Now.AddDays(2).ToString("d")})";
+                        break;
+                    }
+
+                case Priority.Week:
+                    {
+                        DeadLine = $"Неделя ({DateTime.Now.AddDays(7).ToString("d")})";
+                        break;
+                    }
+
+                case Priority.MoreWeek:
+                    {
+                        DeadLine = $"Больше недели ({DateTime.Now.AddDays(7).ToString("d")})";
+                        break;
+                    }
+            }
         }
 
         private void SetType(TypeTaskEdentity typeTask)

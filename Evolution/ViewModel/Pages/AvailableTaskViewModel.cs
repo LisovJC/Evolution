@@ -8,7 +8,6 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using static Evolution.Model.TaskModel;
 
 namespace Evolution.ViewModel.Pages
 {
@@ -50,12 +49,12 @@ namespace Evolution.ViewModel.Pages
             set => Set(ref _description, value);
         }
 
-        private Priority _priority = Priority.Неделя;
+        private string _deadLine;
 
-        public Priority TaskPriority
+        public string DeadLine
         {
-            get => _priority = Priority.Неделя;
-            set => Set(ref _priority, value);
+            get => _deadLine;
+            set => Set(ref _deadLine, value);
         }
 
 
@@ -136,20 +135,24 @@ namespace Evolution.ViewModel.Pages
             HelperService.SelectTask = GlobalTasks[SelectedIndex];
             Title = GlobalTasks[SelectedIndex].Title;
             Assigned = GlobalTasks[SelectedIndex].Assigned;
-            TaskPriority = GlobalTasks[SelectedIndex].TaskPriority;
+            DeadLine = GlobalTasks[SelectedIndex].DeadLine;
             Description = GlobalTasks[SelectedIndex].Description;
             DateCreate = GlobalTasks[SelectedIndex].DateCreate;
-            for (int i = 0; i < GlobalTasks[SelectedIndex].Categories.Count; i++)
+            if(GlobalTasks[SelectedIndex].Categories != null)
             {
-                if (i != GlobalTasks[SelectedIndex].Categories.Count - 1)
+                for (int i = 0; i < GlobalTasks[SelectedIndex].Categories.Count; i++)
                 {
-                    Categories += GlobalTasks[SelectedIndex].Categories[i].CategoryName + ", ";
-                }
-                else
-                {
-                    Categories += GlobalTasks[SelectedIndex].Categories[i].CategoryName;
+                    if (i != GlobalTasks[SelectedIndex].Categories.Count - 1)
+                    {
+                        Categories += GlobalTasks[SelectedIndex].Categories[i].CategoryName + ", ";
+                    }
+                    else
+                    {
+                        Categories += GlobalTasks[SelectedIndex].Categories[i].CategoryName;
+                    }
                 }
             }
+            
         }
 
         public async void LoadDatas()

@@ -146,12 +146,14 @@
                                  FontWeight="UltraLight"
                                  Style="{StaticResource RadioButtonBaseStyle}"
                                  FontSize="18"
+                                 Command="{Binding P0PriorityCommand}"
                                  Foreground="#fefefe"
                                  Margin="0,0,0,10"
                                  HorizontalAlignment="Left"/>
                     <RadioButton Content="Приоритет: Несколько дней"
                               FontWeight="UltraLight"
                                  Style="{StaticResource RadioButtonBaseStyle}"
+                                 Command="{Binding P1PriorityCommand}"
                                  FontSize="18"
 
                               Foreground="#fefefe"
@@ -159,6 +161,7 @@
                                  HorizontalAlignment="Left"/>
                     <RadioButton Content="Приоритет: Неделя"
                               FontWeight="UltraLight"
+                                 Command="{Binding P2PriorityCommand}"
                                 Style="{StaticResource RadioButtonBaseStyle}"
                                  FontSize="18"
                               Foreground="#fefefe"
@@ -166,11 +169,12 @@
                                  HorizontalAlignment="Left"/>
                     <RadioButton Content="Приоритет: Больше недели"
                               FontWeight="UltraLight"
-                                 Style="{StaticResource RadioButtonBaseStyle}"
-                                 FontSize="18"
+                                 Command="{Binding P3PriorityCommand}"
+                              Style="{StaticResource RadioButtonBaseStyle}"
+                              FontSize="18"
                               Foreground="#fefefe"
                               Margin="0,0,0,0"
-                                 HorizontalAlignment="Left"/>
+                              HorizontalAlignment="Left"/>
                 </StackPanel>
 
                 <StackPanel Orientation="Vertical"
