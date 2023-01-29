@@ -2,6 +2,7 @@
 using Evolution.Model;
 using Evolution.Services.CloudStoreServices;
 using Google.Apis.Drive.v3.Data;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -11,6 +12,18 @@ namespace Evolution.Services.HelperServices
 {
     public static class HelperService
     {
+        #region Paths
+        public static readonly string pathToSettingsFolder = $"{AppDomain.CurrentDomain.BaseDirectory}\\Data\\Settings";
+        public static readonly string pathToSettingsFile = $"{AppDomain.CurrentDomain.BaseDirectory}\\Data\\Settings\\appSettings.json";
+        
+        public static readonly string pathToUsersFolder = $"{AppDomain.CurrentDomain.BaseDirectory}\\Data\\Users";
+        
+        public static readonly string pathToTasksFolder = $"{AppDomain.CurrentDomain.BaseDirectory}\\Data\\Tasks";
+
+        public static readonly string pathToCurrentStateDatasFolder = $"{AppDomain.CurrentDomain.BaseDirectory}\\Data\\CurrentStateDatas";
+        public static readonly string pathToCurrentStateDatasFile = $"{AppDomain.CurrentDomain.BaseDirectory}\\Data\\CurrentStateDatas\\currentDatas.json";
+        #endregion      
+
         public static string CurrentUser { get; set; } = "";
         public static string IdEvolutionFolder { get; set; } = "";
         public static string IdUserFolder { get; set; } = "";

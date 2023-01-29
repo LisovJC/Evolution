@@ -1,7 +1,10 @@
 ﻿using Evolution.Command;
 using Evolution.Core;
+using Evolution.Model;
 using Evolution.Services.CloudStoreServices;
+using Evolution.Services.DataSaveLoadServices;
 using Evolution.Services.HelperServices;
+using Evolution.Services.SettingsServices;
 using Evolution.Services.UserServices;
 using System.Diagnostics;
 using System.Threading.Tasks;
@@ -111,13 +114,22 @@ namespace Evolution.ViewModel.Windows
             set => Set(ref _contentRegButton, value);
         }
 
+        private bool _isRememberMe;
+
+        public bool isRememberMe
+        {
+            get => _isRememberMe;
+            set => Set(ref _isRememberMe, value);
+        }
+
         #endregion
-    
+
         #region Commands
         public RelayCommand SignInCommand { get; set; }
         public RelayCommand SignUpCommand { get; set; }
         public RelayCommand GetStartedCommand { get; set; }
         public RelayCommand CloseAppCommand { get; set; }
+        public RelayCommand RememberMeCommand { get; set; }
         #endregion        
         public SignViewModel()
         {
@@ -197,7 +209,15 @@ namespace Evolution.ViewModel.Windows
                 Application.Current.Shutdown();
             });
             /*=====================================================================*/
+            RememberMeCommand = new(o =>
+            {
+                isRememberMe = !isRememberMe;
+                SettingsService.UpdateSettingsFile(Login, Password, isRememberMe);
+            });
             #endregion                      
+
+            SettingsService.CreateSettingsFile();
+            AutoLogin();
         }
 
         private void IsValidData()
@@ -219,5 +239,19 @@ namespace Evolution.ViewModel.Windows
                 Debug.WriteLine(ex.Message);
             }            
         }            
+
+        private void AutoLogin()
+        {
+            SettingsModel sm = new();
+
+            sm = DataSaveLoad.LoadDataSettings<SettingsModel>(HelperService.pathToSettingsFile);
+
+            if(sm.RememberMeForAuth)
+            {
+                Login = sm.Login;
+                Password = sm.Password;
+                isRememberMe = sm.RememberMeForAuth;
+            }
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Evolution.Core;
+﻿using Evolution.Command;
+using Evolution.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -112,6 +113,33 @@ namespace Evolution.Model
             set => Set(ref _getCategories, value);
         }
 
+        private string _taskButtonContent = "Начать выполнение";
+
+        public string TaskButtonContent
+        {
+            get => _taskButtonContent;
+            set => Set(ref _taskButtonContent, value);
+        }
+        /*=====================================================================*/
+        private bool isTaskButtonEnable = true;
+
+        public bool IsTaskButtonEnable
+
+        {
+            get => isTaskButtonEnable;
+            set => Set(ref isTaskButtonEnable, value);
+        }
+
+        public RelayCommand GetTaskCommand { get; set; }
+
+        public TaskModel()
+        {
+            GetTaskCommand = new(o =>
+            {
+                IsTaskButtonEnable = false;
+                TaskButtonContent = "В работе";
+            });
+        }
 
         private void SetCategories()
         {

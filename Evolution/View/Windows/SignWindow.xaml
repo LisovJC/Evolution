@@ -113,9 +113,10 @@
                               Style="{StaticResource CheckBoxBaseStyle}"
                               Foreground="Gray"
                               Margin="0,10,0,0"
+                                  IsChecked="{Binding isRememberMe, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                               VerticalAlignment="Center"
                               HorizontalAlignment="Left"
-                              Command="{Binding AddCategorySettingsCommand}"/>
+                              Command="{Binding RememberMeCommand}"/>
 
                         <Label Content="Запомнить меня"
                                Margin="5,10,0,0"
@@ -199,6 +200,7 @@
 
                             <Button Style="{StaticResource SignButtons}"
                                     Content="Войти"
+                                    IsDefault="True"
                                     Command="{Binding SignInCommand}"
                                     IsEnabled="{Binding isEnableSignIn, 
                                                 Mode=OneWay, 
@@ -212,7 +214,7 @@
                                     Content="{Binding ContentRegButton, 
                                                 Mode=OneWay, 
                                                 UpdateSourceTrigger=PropertyChanged}"
-                                    Command="{Binding SignUpCommand}" 
+                                    Command="{Binding SignUpCommand}"
                                     Cursor="Hand"/>
 
                         </StackPanel>

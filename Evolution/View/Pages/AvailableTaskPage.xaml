@@ -313,7 +313,7 @@
                                                                      Height="35"
                                                                      Foreground="#3490DE"/>
 
-                                            <Label Content="{Binding TaskPriority}"
+                                            <Label Content="{Binding DeadLine}"
                                                x:Name="Lb1"
                                                Margin="5,0,0,0"
                                                FontSize="15"
@@ -405,24 +405,16 @@
                                                                Opacity="0.5"/>
                                         </Border.Effect>
 
-                                        <StackPanel Orientation="Horizontal">
-                                            <Button Style="{StaticResource SignButtonsRed}"
-                                                Content="Сдать задачу"
-                                                Width="100"
-                                                Command="{Binding SignUpCommand}"
-                                                HorizontalAlignment="Right"
-                                                VerticalAlignment="Bottom"
-                                                Margin="20" Cursor="Hand"/>
-                                            
-                                            <Button 
-                                                Style="{StaticResource SignButtons}"
-                                                Content="Взять задачу"
-                                                Width="100"
-                                                Command="{Binding SignUpCommand}"
-                                                HorizontalAlignment="Right"
-                                                VerticalAlignment="Bottom"
-                                                Margin="20"/>
-                                        </StackPanel>
+                                        
+                                            <Button Style="{StaticResource SignButtons}"
+                                                    Width="220"
+                                                    Content="{Binding TaskButtonContent}"
+                                                    Command="{Binding GetTaskCommand}"
+                                                    IsEnabled="{Binding IsTaskButtonEnable}"
+                                                    HorizontalAlignment="Center"
+                                                    VerticalAlignment="Bottom"
+                                                    Margin="20" Cursor="Hand"/>
+                                                                                     
                                     </Border>
                                 </Grid>
                             </Border>

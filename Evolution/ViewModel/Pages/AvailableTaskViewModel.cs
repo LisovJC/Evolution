@@ -12,10 +12,7 @@ using System.Windows;
 namespace Evolution.ViewModel.Pages
 {
     internal class AvailableTaskViewModel:ObservableObject
-    {
-        public List<TaskModel> LoadedCommonTasks { get; set; } = new();
-        public ObservableCollectionEX<TaskModel> GlobalTasks { get; set; } = new();
-
+    {       
         private int _progress = 0;
 
         public int Progress
@@ -23,7 +20,7 @@ namespace Evolution.ViewModel.Pages
             get => _progress;
             set => Set(ref _progress, value);
         }
-
+        /*=====================================================================*/
         private int _selectedIndex;
 
         public int SelectedIndex
@@ -31,7 +28,16 @@ namespace Evolution.ViewModel.Pages
             get => _selectedIndex;
             set => Set(ref _selectedIndex, value);
         }
+        /*=====================================================================*/
+        private Visibility _progressVisibility = Visibility.Visible;
 
+        public Visibility ProgressVisibility
+        {
+            get => _progressVisibility;
+            set => Set(ref _progressVisibility, value);
+        }
+        /*=====================================================================*/
+        
         #region SelectTaskProperties
         private string _title = "none";
 
@@ -40,7 +46,7 @@ namespace Evolution.ViewModel.Pages
             get => _title;
             set => Set(ref _title, value);
         }
-
+        /*=====================================================================*/
         private string _description = "none";
 
         public string Description
@@ -48,7 +54,7 @@ namespace Evolution.ViewModel.Pages
             get => _description;
             set => Set(ref _description, value);
         }
-
+        /*=====================================================================*/
         private string _deadLine;
 
         public string DeadLine
@@ -56,8 +62,7 @@ namespace Evolution.ViewModel.Pages
             get => _deadLine;
             set => Set(ref _deadLine, value);
         }
-
-
+        /*=====================================================================*/
         private string _assigned = "none";
 
         public string Assigned
@@ -65,7 +70,7 @@ namespace Evolution.ViewModel.Pages
             get => _assigned;
             set => Set(ref _assigned, value);
         }
-
+        /*=====================================================================*/
         private string _creator = "none";
 
         public string Creator
@@ -73,7 +78,7 @@ namespace Evolution.ViewModel.Pages
             get => _creator;
             set => Set(ref _creator, value);
         }
-
+        /*=====================================================================*/
         private double _plannedTimeCosts = 0.0;
 
         public double PlannedTimeCosts
@@ -81,7 +86,7 @@ namespace Evolution.ViewModel.Pages
             get => _plannedTimeCosts;
             set => Set(ref _plannedTimeCosts, value);
         }
-
+        /*=====================================================================*/
         private string _otherCategory = "";
 
         public string OtherCategory
@@ -89,7 +94,7 @@ namespace Evolution.ViewModel.Pages
             get => _otherCategory;
             set => Set(ref _otherCategory, value);
         }
-
+        /*=====================================================================*/
         private string _categories;
 
         public string Categories
@@ -97,7 +102,7 @@ namespace Evolution.ViewModel.Pages
             get => _categories;
             set => Set(ref _categories, value);
         }
-
+        /*=====================================================================*/
         private string _dateCreate;
 
         public string DateCreate
@@ -107,37 +112,36 @@ namespace Evolution.ViewModel.Pages
         }        
         #endregion
 
-
-
-        private Visibility _progressVisibility = Visibility.Visible;
-
-        public Visibility ProgressVisibility
-        {
-            get => _progressVisibility;
-            set => Set(ref _progressVisibility, value);
-        }
-
+        #region Commands
         public RelayCommand OpenFullInformationOfTask { get; set; }
+        public RelayCommand GetTaskCommand { get; set; }
+        #endregion
+
+        #region Collections
+        public List<TaskModel> LoadedCommonTasks { get; set; } = new();
+        public ObservableCollectionEX<TaskModel> GlobalTasks { get; set; } = new();
+        #endregion
+
         public AvailableTaskViewModel()
         {
             ProgressChange();
             LoadDatas();
 
-            OpenFullInformationOfTask = new(o =>
-            {
-                SrartPage();
-            });
+            OpenFullInformationOfTask = new(o => { SrartPage(); });            
         }
 
         private void SrartPage()
         {
             Categories = String.Empty;
+
             HelperService.SelectTask = GlobalTasks[SelectedIndex];
+
             Title = GlobalTasks[SelectedIndex].Title;
             Assigned = GlobalTasks[SelectedIndex].Assigned;
             DeadLine = GlobalTasks[SelectedIndex].DeadLine;
             Description = GlobalTasks[SelectedIndex].Description;
             DateCreate = GlobalTasks[SelectedIndex].DateCreate;
+
             if(GlobalTasks[SelectedIndex].Categories != null)
             {
                 for (int i = 0; i < GlobalTasks[SelectedIndex].Categories.Count; i++)

@@ -3,10 +3,10 @@ using Newtonsoft.Json.Linq;
 using System.IO;
 using Evolution.Core;
 using Evolution.Model;
-using Evolution.ViewModel.Pages;
-using System;
 using Evolution.Services.UserServices;
 using Evolution.Services.TaskServices;
+using Evolution.Services.SettingsServices;
+using Evolution.Services.HelperServices;
 
 namespace Evolution.Services.DataSaveLoadServices
 {
@@ -16,7 +16,7 @@ namespace Evolution.Services.DataSaveLoadServices
         #region Saver
         public static void Serialize(object o)
         {
-            if (CreateUserService.User != null || TaskService.task != null)
+            if (CreateUserService.User != null || TaskService.task != null || SettingsService.sm != null)
             {
                 if (o.GetType() == CreateUserService.User.GetType())
                 {
@@ -26,6 +26,11 @@ namespace Evolution.Services.DataSaveLoadServices
                 if (o.GetType() == TaskService.AllTasks.GetType())
                 {
                     SaveDatas(TaskService.PathToUserTasksFile, o);
+                }
+
+                if (o.GetType() == SettingsService.sm.GetType())
+                {
+                    SaveDatas(HelperService.pathToSettingsFile, o);
                 }
             }
         }
@@ -97,6 +102,18 @@ namespace Evolution.Services.DataSaveLoadServices
 
             string json = File.ReadAllText(path);
             return JsonConvert.DeserializeObject<UserModel>(json);
+        }
+
+        public static SettingsModel LoadDataSettings<T>(string path)
+        {
+            if (!IsValidJson(path))
+            {
+                SettingsModel obj = new();
+                return obj;
+            }
+
+            string json = File.ReadAllText(path);
+            return JsonConvert.DeserializeObject<SettingsModel>(json);
         }
         #endregion
     }

@@ -10,7 +10,6 @@ using File = Google.Apis.Drive.v3.Data.File;
 using System.Diagnostics;
 using Evolution.Services.CloudStoreServices;
 using Evolution.Services.DataSaveLoadServices;
-using ControlzEx.Standard;
 
 namespace Evolution.Services.TaskServices
 {
@@ -21,12 +20,11 @@ namespace Evolution.Services.TaskServices
         public static ObservableCollection<File> FilesAndFoldersInCommonTasksFolder { get; set; } = new();
         public static TaskModel task = new();
         public static string PathToUserTasksFile = "";
-        public static string PathToCommonTasksFile = $"{Environment.CurrentDirectory}\\Common_Tasks\\Common_Tasks.json";
         public static async void CreateTask(
-            string Title,
-            string Assigned,
-            double PlannedTimeCosts,
-            string Description,
+            string title,
+            string assigned,
+            double plannedTimeCosts,
+            string description,
             string OtherCategory,
             string deadLine,
             TypeTaskEdentity typeTask,
@@ -34,10 +32,10 @@ namespace Evolution.Services.TaskServices
         {
             task = new TaskModel
             {
-                Title = Title,
-                Description = Description,
-                Assigned = Assigned,
-                PlannedTimeCosts = PlannedTimeCosts,
+                Title = title,
+                Description = description,
+                Assigned = assigned,
+                PlannedTimeCosts = plannedTimeCosts,
                 OtherCategory = OtherCategory,
                 DeadLine = deadLine,
                 TypeTask = typeTask,
@@ -57,25 +55,7 @@ namespace Evolution.Services.TaskServices
                     }
                     break;
                 case TypeTaskEdentity.global:
-                    {
-                        ////CommonTasks = await GetCommonTasks();
-
-                        ////CommonTasks.Add(task);
-                        ////DataSaveLoad.SaveDatas(PathToCommonTasksFile, CommonTasks);
-                        //try
-                        //{
-                        //    if (HelperService.GetItemIDByName(FilesAndFoldersInCommonTasksFolder, "Common_Tasks.json") != null)
-                        //    {
-                        //        GoogleDriveService.Remove(HelperService.GetItemIDByName(FilesAndFoldersInCommonTasksFolder, "Common_Tasks.json"));
-                        //    }
-
-                        //    await GoogleDriveService.uploadFile(PathToCommonTasksFile, HelperService.IdCommonTaskFolder);
-                        //}
-                        //catch (Exception ex)
-                        //{
-
-                        //    Debug.Write(ex.Message);
-                        //}
+                    {                       
                         try
                         {
                            await Task.Run(() => FireBaseService.PushToDataBase(task,"GlobalTask"));
@@ -107,7 +87,7 @@ namespace Evolution.Services.TaskServices
 
         private static string InitTaskJsonFiles(string? login)
         {
-            string folderPath = $"{AppDomain.CurrentDomain.BaseDirectory}\\Users\\{login}\\Tasks";
+            string folderPath = $"{HelperService.pathToTasksFolder}\\{login}";
             PathToUserTasksFile = $"{folderPath}\\Tasks.json";
 
             if (!Directory.Exists(folderPath))
@@ -119,35 +99,35 @@ namespace Evolution.Services.TaskServices
             }
             else
             {
-                return "This file exists!";
+                return "error: This file exists!";
             }
         }
 
-        public static async Task<ObservableCollection<TaskModel>> GetCommonTasks()
-        {
-            await HelperService.HelperUpdateData(HelperService.CurrentUser);
+        //public static async Task<ObservableCollection<TaskModel>> GetCommonTasks()
+        //{
+        //    await HelperService.HelperUpdateData(HelperService.CurrentUser);
 
-            if (!System.IO.File.Exists(PathToCommonTasksFile))
-            {
-                var file = System.IO.File.Create(PathToCommonTasksFile);
-                file.Close();
-            }
+        //    if (!System.IO.File.Exists(PathToCommonTasksFile))
+        //    {
+        //        var file = System.IO.File.Create(PathToCommonTasksFile);
+        //        file.Close();
+        //    }
 
-            FilesAndFoldersInCommonTasksFolder = HelperService.FilesAndFoldersInCommonTasksFolder;
+        //    FilesAndFoldersInCommonTasksFolder = HelperService.FilesAndFoldersInCommonTasksFolder;
 
-            if (FilesAndFoldersInCommonTasksFolder.Count == 0)
-            {
-                return CommonTasks;
-            }
-            else
-            {
-                await GoogleDriveService.Download(HelperService.GetItemIDByName(
-                    FilesAndFoldersInCommonTasksFolder,
-                    "Common_Tasks.json"),
-                    PathToCommonTasksFile);
-                CommonTasks = DataSaveLoad.LoadData<TaskModel>(PathToCommonTasksFile);
-                return CommonTasks;
-            }
-        }
+        //    if (FilesAndFoldersInCommonTasksFolder.Count == 0)
+        //    {
+        //        return CommonTasks;
+        //    }
+        //    else
+        //    {
+        //        await GoogleDriveService.Download(HelperService.GetItemIDByName(
+        //            FilesAndFoldersInCommonTasksFolder,
+        //            "Common_Tasks.json"),
+        //            PathToCommonTasksFile);
+        //        CommonTasks = DataSaveLoad.LoadData<TaskModel>(PathToCommonTasksFile);
+        //        return CommonTasks;
+        //    }
+        //}
     }
 }

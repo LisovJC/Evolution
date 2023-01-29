@@ -8,8 +8,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Resources\Fonts\" />
-    <Folder Include="Resources\Icons\" />
+    <Compile Remove="Resources\Fonts\**" />
+    <Compile Remove="Resources\Icons\**" />
+    <EmbeddedResource Remove="Resources\Fonts\**" />
+    <EmbeddedResource Remove="Resources\Icons\**" />
+    <None Remove="Resources\Fonts\**" />
+    <None Remove="Resources\Icons\**" />
+    <Page Remove="Resources\Fonts\**" />
+    <Page Remove="Resources\Icons\**" />
   </ItemGroup>
 
   <ItemGroup>

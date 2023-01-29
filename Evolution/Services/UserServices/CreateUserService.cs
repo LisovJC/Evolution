@@ -8,14 +8,15 @@ using System.IO;
 using System.Threading.Tasks;
 using Evolution.Services.CloudStoreServices;
 using Evolution.Services.DataSaveLoadServices;
+using Evolution.Services.HelperServices;
 
 namespace Evolution.Services.UserServices
 {
     public static class CreateUserService
     {
-        private static string PathToUserFolder = "";
-        public static string PathToUserAuthFile = "";
-        public static string EVOLUTIONFolder = "";
+        private static string PathToUserFolder;
+        public static string PathToUserAuthFile;
+        public static string EVOLUTIONFolder;
 
         private static ObservableCollection<File> FilesAndFolders = new ObservableCollection<File>();
 
@@ -26,27 +27,22 @@ namespace Evolution.Services.UserServices
 
             if (IsValidUserData(login, password, confirmPassword, Email))
             {
-                PathToUserFolder = CreateUserJSON(login);
+                PathToUserAuthFile = CreateUserJSON(login);
 
-                if (PathToUserFolder == "Exists")
+                if (PathToUserAuthFile == "error: User already exists.")
                 {
                     Debug.WriteLine("Ошибка. Пользователь существует.");
                     return null;
                 }
                 else
-                {
-                    Debug.WriteLine("Успешно. Пользователь создан.");
-                    PathToUserAuthFile = $"{PathToUserFolder}\\user_auth.json";
-
+                {                   
                     User.Login = login;
                     User.Email = Email;
                     User.Password = password;
                     User.DateCreate = DateTime.Now;
                     
                     DataSaveLoad.Serialize(User);
-                    
-                    //CreateUserFolderInGDrive(login, true);
-                    
+                                        
                     return User;
                 }
             }
@@ -87,7 +83,7 @@ namespace Evolution.Services.UserServices
 
         private static string CreateUserJSON(string? login)
         {
-            PathToUserFolder = $"{AppDomain.CurrentDomain.BaseDirectory}\\Users\\{login}";
+            PathToUserFolder = $"{HelperService.pathToUsersFolder}\\{login}";
             PathToUserAuthFile = $"{PathToUserFolder}\\user_auth.json";
 
             if (!Directory.Exists(PathToUserFolder))
@@ -95,11 +91,11 @@ namespace Evolution.Services.UserServices
                 Directory.CreateDirectory(PathToUserFolder);
                 var file = System.IO.File.Create($"{PathToUserFolder}\\user_auth.json");
                 file.Close();
-                return PathToUserFolder;
+                return PathToUserAuthFile;
             }
             else
             {
-                return "Exists";
+                return "error: User already exists.";
             }
         }
 
