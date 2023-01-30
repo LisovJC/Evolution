@@ -127,15 +127,22 @@ namespace Evolution.ViewModel.Pages
             ProgressChange();
             LoadDatas();
 
-            OpenFullInformationOfTask = new(o => { SrartPage(); });            
+            OpenFullInformationOfTask = new(o => { Task.Run(() => SrartPage()); });            
         }
 
         private void SrartPage()
         {
             Categories = String.Empty;
 
+            while(true)
+            {
+                if (HelperService.index != SelectedIndex)
+                {
+                    HelperService.index = SelectedIndex;
+                    break;
+                }
+            }
             HelperService.SelectTask = GlobalTasks[SelectedIndex];
-
             Title = GlobalTasks[SelectedIndex].Title;
             Assigned = GlobalTasks[SelectedIndex].Assigned;
             DeadLine = GlobalTasks[SelectedIndex].DeadLine;

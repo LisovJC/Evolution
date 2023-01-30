@@ -35,6 +35,7 @@ namespace Evolution.Services.HelperServices
         public static List<UserModel> AllUsersInApp { get; set; } = new();
 
         public static TaskModel SelectTask { get; set; } = new();
+        public static int index { get; set; } = -1;
 
         public static ObservableCollectionEX<TaskModel> GlobalTasksInCash { get; set; } = new ();
 
