@@ -132,13 +132,12 @@ namespace Evolution.ViewModel.Pages
 
         private void SrartPage()
         {
-            Categories = String.Empty;
-
             while(true)
             {
                 if (HelperService.index != SelectedIndex)
                 {
                     HelperService.index = SelectedIndex;
+                    Categories = String.Empty;
                     break;
                 }
             }
