@@ -21,7 +21,7 @@ namespace Evolution.ViewModel.Pages
             set => Set(ref _progress, value);
         }
         /*=====================================================================*/
-        private int _selectedIndex;
+        private int _selectedIndex = -1;
 
         public int SelectedIndex
         {
@@ -134,19 +134,30 @@ namespace Evolution.ViewModel.Pages
         {
             while(true)
             {
-                if (HelperService.index != SelectedIndex)
+                if ((HelperService.index != SelectedIndex))
                 {
                     HelperService.index = SelectedIndex;
                     Categories = String.Empty;
                     break;
                 }
+
+                if(SelectedIndex == -1)
+                {                   
+                    break;
+                }
+            }
+
+            if (SelectedIndex == -1)
+            {
+                SelectedIndex = 0;
+                HelperService.index = 0;
             }
             HelperService.SelectTask = GlobalTasks[SelectedIndex];
             Title = GlobalTasks[SelectedIndex].Title;
             Assigned = GlobalTasks[SelectedIndex].Assigned;
             DeadLine = GlobalTasks[SelectedIndex].DeadLine;
             Description = GlobalTasks[SelectedIndex].Description;
-            DateCreate = GlobalTasks[SelectedIndex].DateCreate;
+            DateCreate = GlobalTasks[SelectedIndex].DateCreate;  
 
             if(GlobalTasks[SelectedIndex].Categories != null)
             {
