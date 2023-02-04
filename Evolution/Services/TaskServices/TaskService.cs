@@ -10,16 +10,18 @@ using File = Google.Apis.Drive.v3.Data.File;
 using System.Diagnostics;
 using Evolution.Services.CloudStoreServices;
 using Evolution.Services.DataSaveLoadServices;
+using System.Data.Common;
 
 namespace Evolution.Services.TaskServices
 {
     internal class TaskService
     {
         public static ObservableCollection<TaskModel> AllTasks { get; set; } = new();
-        public static ObservableCollection<TaskModel> CommonTasks { get; set; } = new();
-        public static ObservableCollection<File> FilesAndFoldersInCommonTasksFolder { get; set; } = new();
-        public static TaskModel task = new();
+        /*=====================================================================*/
+        public static TaskModel NewTask = new();
+        /*=====================================================================*/
         public static string PathToUserTasksFile = "";
+        
         public static async void CreateTask(
             string title,
             string assigned,
@@ -30,7 +32,7 @@ namespace Evolution.Services.TaskServices
             TypeTaskEdentity typeTask,
             List<Category> categories)
         {
-            task = new TaskModel
+            NewTask = new TaskModel
             {
                 Title = title,
                 Description = description,
@@ -44,13 +46,13 @@ namespace Evolution.Services.TaskServices
                 Creator = "автор: " + HelperService.CurrentUser
             };
 
-            switch(task.TypeTask)
+            switch(NewTask.TypeTask)
             {
                 case TypeTaskEdentity.local:
                     {
                         InitTaskJsonFiles(HelperService.CurrentUser);
                         AllTasks = DataSaveLoad.LoadData<TaskModel>(PathToUserTasksFile);
-                        AllTasks.Add(task);
+                        AllTasks.Add(NewTask);
                         DataSaveLoad.Serialize(AllTasks);
                     }
                     break;
@@ -58,7 +60,19 @@ namespace Evolution.Services.TaskServices
                     {                       
                         try
                         {
-                           await Task.Run(() => FireBaseService.PushToDataBase(task,"GlobalTask"));
+                           List<TaskModel> a = new();
+                           a = await Task.Run(() => FireBaseService.GetDataFromDataBase<TaskModel>("GlobalTask\\Tasks"));
+                           int c = 0;
+                           if(a != null && a.Count != 0)
+                            {
+                                c = a.Count;
+                            }
+                            else
+                            {
+                                NewTask.ID = 0;
+                            }
+                           NewTask.ID = c;
+                           await Task.Run(() => FireBaseService.PushToDataBase(NewTask, $"GlobalTask\\Tasks\\{NewTask.ID}"));
                            await Task.Run(() => HelperService.HelperUpdateData(HelperService.CurrentUser));
                         }
                         catch (Exception ex)
@@ -70,6 +84,26 @@ namespace Evolution.Services.TaskServices
                     break;
 
             }       
+        }
+
+        public static async void UpdateTaskList(TaskModel NewTask)
+        {
+            try
+            {
+                //for (int i = 0; i < HelperService.GlobalTasksInCash.Count; i++)
+                //{
+                //    if (HelperService.GlobalTasksInCash[i] == NewTask)
+                //    {
+                //        HelperService.GlobalTasksInCash[i] = NewTask;
+                //    }
+                //}
+                await Task.Run(() => FireBaseService.UpdateToDataBase(NewTask, "GlobalTask"));
+            }
+            catch (Exception ex)
+            {
+
+                Debug.WriteLine(ex.Message);
+            }
         }
 
         private static List<Category> AddCategories(List<Category> Categories)
@@ -103,6 +137,25 @@ namespace Evolution.Services.TaskServices
             }
         }
 
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         //public static async Task<ObservableCollection<TaskModel>> GetCommonTasks()
         //{
         //    await HelperService.HelperUpdateData(HelperService.CurrentUser);

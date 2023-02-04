@@ -5,6 +5,7 @@ using Evolution.Services.CloudStoreServices;
 using Evolution.Services.HelperServices;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -191,23 +192,31 @@ namespace Evolution.ViewModel.Pages
 
         public void LoadCollection(bool isDownloaded = false)
         {
-            if(isDownloaded)
+            try
             {
-                GlobalTasks.Clear();
-                for (int i = 0; i < HelperService.GlobalTasksInCash.Count; i++)
+                if (isDownloaded)
                 {
-                    GlobalTasks.Add(HelperService.GlobalTasksInCash[i]);
+                    GlobalTasks.Clear();
+                    for (int i = 0; i < HelperService.GlobalTasksInCash.Count; i++)
+                    {
+                        GlobalTasks.Add(HelperService.GlobalTasksInCash[i]);
+                    }
+                    SrartPage();
+                    return;
+                }
+
+                for (int i = 0; i < LoadedCommonTasks.Count; i++)
+                {
+                    GlobalTasks.Add(LoadedCommonTasks[i]);
                 }
                 SrartPage();
-                return;
+                HelperService.GlobalTasksInCash = GlobalTasks;
             }
-
-            for (int i = 0; i < LoadedCommonTasks.Count; i++)
+            catch (Exception ex)
             {
-                GlobalTasks.Add(LoadedCommonTasks[i]);
-            }
-            SrartPage();
-            HelperService.GlobalTasksInCash = GlobalTasks;
+
+                Debug.WriteLine(ex.Message);
+            }           
         }
 
         public async void ProgressChange()

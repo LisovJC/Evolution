@@ -42,6 +42,20 @@ namespace Evolution.Services.CloudStoreServices
             }
         }
 
+        public static async void UpdateToDataBase<T>(T data, string dataType, string path = null)
+        {
+            if (path == null) path = "Tasks";
+            try
+            {
+                await client.UpdateAsync(dataType + "/" + path, data);
+            }
+            catch (System.Exception ex)
+            {
+
+                Debug.WriteLine(ex.Message);
+            }
+        }
+
         public static async Task<List<T>> GetDataFromDataBase<T>(string path)
         {
             List<T> Data = new();

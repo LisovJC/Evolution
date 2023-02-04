@@ -16,7 +16,7 @@ namespace Evolution.Services.DataSaveLoadServices
         #region Saver
         public static void Serialize(object o)
         {
-            if (CreateUserService.User != null || TaskService.task != null || SettingsService.sm != null)
+            if (CreateUserService.User != null || TaskService.NewTask != null || SettingsService.sm != null)
             {
                 if (o.GetType() == CreateUserService.User.GetType())
                 {
