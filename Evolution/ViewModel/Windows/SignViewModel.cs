@@ -9,6 +9,8 @@ using Evolution.Services.UserServices;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
+using static Evolution.Enums.Enums;
+using static Evolution.Services.TaskServices.TaskService;
 
 namespace Evolution.ViewModel.Windows
 {
@@ -194,7 +196,7 @@ namespace Evolution.ViewModel.Windows
                 var User = CreateUserService.CreateUser(Login, Password, ConfirmPassword, Email);
                 if (User != null)
                 {
-                    FireBaseService.PushToDataBase(User, "UserAuthData", "Users");
+                    FireBaseService.PushToDataBase(TypeDatas.UserAuthData, User);
                     ConfirmPassword = string.Empty;
                     Email = string.Empty;                    
                 }

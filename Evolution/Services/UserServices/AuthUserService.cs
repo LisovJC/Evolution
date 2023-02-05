@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
+using static Evolution.Enums.Enums;
 using File = System.IO.File;
 
 namespace Evolution.Services.UserServices
@@ -49,7 +50,7 @@ namespace Evolution.Services.UserServices
             }
             else
             {
-                HelperService.AllUsersInApp = await FireBaseService.GetDataFromDataBase<UserModel>("UserAuthData/Users");
+                HelperService.AllUsersInApp = await FireBaseService.GetDataFromDataBase<UserModel>(TypeDatas.UserAuthData, -1);
                 List<UserModel> AllUsersInApp = new();
                 AllUsersInApp = HelperService.AllUsersInApp;
                 if (AllUsersInApp.Count > 0)

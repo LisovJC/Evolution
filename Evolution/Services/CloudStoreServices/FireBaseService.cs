@@ -1,15 +1,18 @@
 ﻿using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using FireSharp.Config;
 using FireSharp.Response;
 using FireSharp;
+using System.ComponentModel.DataAnnotations;
+using static Evolution.Services.TaskServices.TaskService;
 using Evolution.Model;
-using Evolution.Services.HelperServices;
+using System.Drawing.Drawing2D;
+using static Evolution.Enums.Enums;
+using System.Diagnostics.Eventing.Reader;
+using System.Windows.Markup;
 
 namespace Evolution.Services.CloudStoreServices
 {
@@ -28,56 +31,180 @@ namespace Evolution.Services.CloudStoreServices
             client = new FirebaseClient(config);
         }
 
-        public static async void PushToDataBase<T>(T data, string dataType, string path = null)
+        public static async void PushToDataBase<T>(TypeDatas dataType, T? data)
         {
-            if (path == null) path = "Tasks";
-            try
-            {
-                await client.PushAsync(dataType + "/" + path, data);
-            }
-            catch (System.Exception ex)
-            {
+            string dataPath = "";
 
-                Debug.WriteLine(ex.Message);
+            UserModel? user = new();
+            TaskModel? task = new();
+
+            if (data != null)
+            {
+                switch (dataType)
+                {
+                    case TypeDatas.UserAuthData:
+                        {
+                            user = data as UserModel;
+                            dataPath = "UserAuthData\\Users";
+                            await client.PushAsync(dataPath, user);
+                        }
+                        break;
+                    case TypeDatas.GlobalTasks:
+                        {
+                            task = data as TaskModel;
+                            dataPath = $"GlobalTasks\\Tasks\\{task?.ID}";
+                            await client.SetAsync(dataPath, task);
+                        }
+                        break;
+                    default:
+                        {
+                            Debug.WriteLine("Ошибка при попытке отправить данные в сервис.");
+                        }
+                        break;
+
+                }
             }
         }
 
-        public static async void UpdateToDataBase<T>(T data, string dataType, string path = null)
+        public static async void UpdateTaskFromDataBase<T>(TypeDatas dataType, T data)
         {
-            if (path == null) path = "Tasks";
-            try
-            {
-                await client.UpdateAsync(dataType + "/" + path, data);
-            }
-            catch (System.Exception ex)
-            {
+            string dataPath = "";
 
-                Debug.WriteLine(ex.Message);
+            UserModel? user = new();
+            TaskModel? task = new();
+
+            switch (dataType)
+            {
+                case TypeDatas.UserAuthData:
+                    break;
+                case TypeDatas.GlobalTasks:
+                    {
+                        task = data as TaskModel;
+                        dataPath = $"GlobalTasks\\Tasks\\{task?.ID}";
+                        await client.SetAsync(dataPath, task);;
+                    }
+                    break;
+                default:
+                    break;
             }
         }
 
-        public static async Task<List<T>> GetDataFromDataBase<T>(string path)
+        public static async Task<List<T>> GetDataFromDataBase<T>(TypeDatas dataType, int count = -1)
         {
             List<T> Data = new();
-            
+            string dataPath = "";
+
             try
             {
-               FirebaseResponse response = await client.GetAsync(path);
+                switch (dataType)
+                {
+                    case TypeDatas.UserAuthData:
+                        {
+                            dataPath = "UserAuthData/Users";
+                            FirebaseResponse response = await client.GetAsync(dataPath);
 
-               Dictionary<string, T> messages = JsonConvert.DeserializeObject<Dictionary<string, T>>(response.Body.ToString());
-               Data = messages.Select(x => x.Value).ToList();
-               return Data;
+                            Dictionary<string, T> datas = JsonConvert.DeserializeObject<Dictionary<string, T>>(response.Body.ToString());
+                            Data = datas.Select(x => x.Value).ToList();
+                        }
+                        break;
+                    case TypeDatas.GlobalTasks:
+                        {
+                            List<T> Temp = new();
+                            dataPath = @"GlobalTasks/Tasks/";
+
+                            for (int i = 0; i < count; i++)
+                            {
+                                FirebaseResponse response = await client.GetAsync(dataPath + i);
+                                Data.Add(response.ResultAs<T>());                                                                                            
+                            }
+                        }
+                        break;
+                    default:
+                        break;
+                }
+
+
+                return Data;
             }
             catch (System.Exception ex)
             {
-               Debug.WriteLine(ex.Message + " ERROR!");
+               Debug.WriteLine(ex.Message + " Ошибка при попытке получить данные!");
                return null;
             }
         }
 
-        //public static List<MessageModel> GetMessages()
-        //{
-        //    return Usermessages;
-        //}
+        public static async void CreateCounterFromDataBase(TypeDatas dataType)
+        {
+            switch (dataType)
+            {
+                case TypeDatas.UserAuthData:                   
+                    break;
+                case TypeDatas.GlobalTasks:
+                    {
+                        await client.SetAsync("GlobalTasks/Counter", "1");
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        public static async Task<int> GetCounterFromDataBase(TypeDatas dataType)
+        {
+            int count = 0;
+            switch (dataType)
+            {
+                case TypeDatas.UserAuthData:
+                    {
+                        return count;
+                    }                    
+                case TypeDatas.GlobalTasks:
+                    {
+                        try
+                        {
+                            FirebaseResponse response = await client.GetAsync("GlobalTasks/Counter");
+                            count = int.Parse(response.ResultAs<string>());
+
+                            return count;
+                        }
+                        catch (System.Exception ex)
+                        {
+                            Debug.WriteLine(ex.Message);
+                            return count;
+                        }                        
+                    }                    
+                default:
+                    {
+                        return count;
+                    }                  
+            }
+        }
+
+        public static async void UpdateCounterFromDataBase(TypeDatas dataType, string newCount)
+        {
+            switch (dataType)
+            {
+                case TypeDatas.UserAuthData:
+                    {                       
+                        break;
+                    }
+                case TypeDatas.GlobalTasks:
+                    {
+                        try
+                        {
+                            await client.SetAsync("GlobalTasks/Counter", newCount);                 
+                        }
+                        catch (System.Exception ex)
+                        {
+                            Debug.WriteLine(ex.Message);                           
+                        }
+                        break;
+                    }
+                default:
+                    {
+                        break;
+                    }
+            }
+        }
     }
 }

@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using static Evolution.Enums.Enums;
 
 namespace Evolution.Services.HelperServices
 {
@@ -45,7 +46,7 @@ namespace Evolution.Services.HelperServices
             {
                 AllUsersInApp.Clear();
                 CurrentUser = user;
-                AllUsersInApp = await Task.Run(() => FireBaseService.GetDataFromDataBase<UserModel>("UserAuthData\\Users"));
+                AllUsersInApp = await Task.Run(() => FireBaseService.GetDataFromDataBase<UserModel>(TypeDatas.UserAuthData, -1));
                 
                 //FilesAndFoldersInRootFolder = await Task.Run(() => GoogleDriveService.ListEntities());
                 //IdEvolutionFolder = GetItemIDByName(FilesAndFoldersInRootFolder, "EVOLUTION");

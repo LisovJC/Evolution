@@ -9,6 +9,7 @@ using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using static Evolution.Enums.Enums;
 
 namespace Evolution.ViewModel.Pages
 {
@@ -181,7 +182,7 @@ namespace Evolution.ViewModel.Pages
         {
             if(HelperService.GlobalTasksInCash.Count == 0)
             {
-                await Task.Run(() => LoadedCommonTasks = FireBaseService.GetDataFromDataBase<TaskModel>("GlobalTask/Tasks").Result);
+                await Task.Run(() => LoadedCommonTasks = FireBaseService.GetDataFromDataBase<TaskModel>(TypeDatas.GlobalTasks, 3).Result);
                 LoadCollection();
             }
             else

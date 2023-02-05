@@ -6,16 +6,15 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Threading.Tasks;
 using static Evolution.Model.TaskModel;
-using File = Google.Apis.Drive.v3.Data.File;
 using System.Diagnostics;
 using Evolution.Services.CloudStoreServices;
 using Evolution.Services.DataSaveLoadServices;
-using System.Data.Common;
+using static Evolution.Enums.Enums;
 
 namespace Evolution.Services.TaskServices
 {
     internal class TaskService
-    {
+    {      
         public static ObservableCollection<TaskModel> AllTasks { get; set; } = new();
         /*=====================================================================*/
         public static TaskModel NewTask = new();
@@ -60,20 +59,21 @@ namespace Evolution.Services.TaskServices
                     {                       
                         try
                         {
-                           List<TaskModel> a = new();
-                           a = await Task.Run(() => FireBaseService.GetDataFromDataBase<TaskModel>("GlobalTask\\Tasks"));
-                           int c = 0;
-                           if(a != null && a.Count != 0)
-                            {
-                                c = a.Count;
+                           int countOfTaskList = await Task.Run(() => FireBaseService.GetCounterFromDataBase(TypeDatas.GlobalTasks));
+                           if(countOfTaskList == 0)
+                            {                                
+                                NewTask.ID = 0;
+                                await Task.Run(() => FireBaseService.CreateCounterFromDataBase(TypeDatas.GlobalTasks));                               
+                                await Task.Run(() => FireBaseService.PushToDataBase(TypeDatas.GlobalTasks, NewTask));
+                                await Task.Run(() => HelperService.HelperUpdateData(HelperService.CurrentUser));
                             }
                             else
                             {
-                                NewTask.ID = 0;
-                            }
-                           NewTask.ID = c;
-                           await Task.Run(() => FireBaseService.PushToDataBase(NewTask, $"GlobalTask\\Tasks\\{NewTask.ID}"));
-                           await Task.Run(() => HelperService.HelperUpdateData(HelperService.CurrentUser));
+                                NewTask.ID = countOfTaskList;
+                                await Task.Run(() => FireBaseService.UpdateCounterFromDataBase(TypeDatas.GlobalTasks, (countOfTaskList + 1).ToString()));
+                                await Task.Run(() => FireBaseService.PushToDataBase(TypeDatas.GlobalTasks, NewTask));
+                                await Task.Run(() => HelperService.HelperUpdateData(HelperService.CurrentUser));
+                            }                                                                              
                         }
                         catch (Exception ex)
                         {
@@ -90,14 +90,7 @@ namespace Evolution.Services.TaskServices
         {
             try
             {
-                //for (int i = 0; i < HelperService.GlobalTasksInCash.Count; i++)
-                //{
-                //    if (HelperService.GlobalTasksInCash[i] == NewTask)
-                //    {
-                //        HelperService.GlobalTasksInCash[i] = NewTask;
-                //    }
-                //}
-                await Task.Run(() => FireBaseService.UpdateToDataBase(NewTask, "GlobalTask"));
+                await Task.Run(() => FireBaseService.UpdateTaskFromDataBase(TypeDatas.GlobalTasks, NewTask));
             }
             catch (Exception ex)
             {
