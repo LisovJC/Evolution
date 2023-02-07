@@ -26,19 +26,13 @@ namespace Evolution.Services.HelperServices
         #endregion      
 
         public static string CurrentUser { get; set; } = "";
-        public static string IdEvolutionFolder { get; set; } = "";
-        public static string IdUserFolder { get; set; } = "";
-        public static string IdCommonTaskFolder { get; set; } = "";
-        public static ObservableCollection<File> FilesAndFoldersInRootFolder { get; set; } = new();
-        public static ObservableCollection<File> FilesAndFoldersInEvolutionFolder { get; set; } = new();
-        public static ObservableCollection<File> FilesAndFoldersInUserFolder { get; set; } = new();
-        public static ObservableCollection<File> FilesAndFoldersInCommonTasksFolder { get; set; } = new();
+        public static int index { get; set; } = -2;
+        public static int CountTasksOfGlobalTaskList { get; set; } = 0;
+
         public static List<UserModel> AllUsersInApp { get; set; } = new();
+        public static ObservableCollectionEX<TaskModel> GlobalTasksInCash { get; set; } = new();
 
         public static TaskModel SelectTask { get; set; } = new();
-        public static int index { get; set; } = -2;
-
-        public static ObservableCollectionEX<TaskModel> GlobalTasksInCash { get; set; } = new ();
 
         public static async Task<bool> HelperUpdateData(string user)
         {
@@ -47,7 +41,8 @@ namespace Evolution.Services.HelperServices
                 AllUsersInApp.Clear();
                 CurrentUser = user;
                 AllUsersInApp = await Task.Run(() => FireBaseService.GetDataFromDataBase<UserModel>(TypeDatas.UserAuthData, -1));
-                
+                CountTasksOfGlobalTaskList = await Task.Run(() => FireBaseService.GetCounterFromDataBase(TypeDatas.GlobalTasks));
+
                 //FilesAndFoldersInRootFolder = await Task.Run(() => GoogleDriveService.ListEntities());
                 //IdEvolutionFolder = GetItemIDByName(FilesAndFoldersInRootFolder, "EVOLUTION");
                 //FilesAndFoldersInEvolutionFolder = await Task.Run(() => GoogleDriveService.ListEntities(IdEvolutionFolder));

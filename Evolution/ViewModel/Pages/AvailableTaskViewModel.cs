@@ -182,7 +182,7 @@ namespace Evolution.ViewModel.Pages
         {
             if(HelperService.GlobalTasksInCash.Count == 0)
             {
-                await Task.Run(() => LoadedCommonTasks = FireBaseService.GetDataFromDataBase<TaskModel>(TypeDatas.GlobalTasks, 3).Result);
+                await Task.Run(() => LoadedCommonTasks = FireBaseService.GetDataFromDataBase<TaskModel>(TypeDatas.GlobalTasks, HelperService.CountTasksOfGlobalTaskList).Result);
                 LoadCollection();
             }
             else

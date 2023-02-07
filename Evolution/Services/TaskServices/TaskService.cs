@@ -65,6 +65,7 @@ namespace Evolution.Services.TaskServices
                                 NewTask.ID = 0;
                                 await Task.Run(() => FireBaseService.CreateCounterFromDataBase(TypeDatas.GlobalTasks));                               
                                 await Task.Run(() => FireBaseService.PushToDataBase(TypeDatas.GlobalTasks, NewTask));
+                                HelperService.CountTasksOfGlobalTaskList = 1;
                                 await Task.Run(() => HelperService.HelperUpdateData(HelperService.CurrentUser));
                             }
                             else
@@ -72,6 +73,7 @@ namespace Evolution.Services.TaskServices
                                 NewTask.ID = countOfTaskList;
                                 await Task.Run(() => FireBaseService.UpdateCounterFromDataBase(TypeDatas.GlobalTasks, (countOfTaskList + 1).ToString()));
                                 await Task.Run(() => FireBaseService.PushToDataBase(TypeDatas.GlobalTasks, NewTask));
+                                HelperService.CountTasksOfGlobalTaskList = countOfTaskList + 1;
                                 await Task.Run(() => HelperService.HelperUpdateData(HelperService.CurrentUser));
                             }                                                                              
                         }
