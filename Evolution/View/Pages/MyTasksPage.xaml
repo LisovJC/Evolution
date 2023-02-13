@@ -61,195 +61,29 @@
                                       UpdateSourceTrigger=PropertyChanged}">
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <WrapPanel  Width="{Binding (FrameworkElement.ActualWidth), 
+                        <WrapPanel Width="{Binding (FrameworkElement.ActualWidth), 
                                     RelativeSource={RelativeSource AncestorType=ScrollContentPresenter}}"
                                     ItemWidth="{Binding (ListView.View).ItemWidth, 
                                     RelativeSource={RelativeSource AncestorType=ListView}}"
                                     MinWidth="{Binding ItemWidth, RelativeSource={RelativeSource Self}}"
                                     ItemHeight="{Binding (ListView.View).ItemHeight, 
-                                    RelativeSource={RelativeSource AncestorType=ListView}}"/>
+                                    RelativeSource={RelativeSource AncestorType=ListView}}"
+                                    Orientation="Vertical"/>
                     </ItemsPanelTemplate>
                 </ListView.ItemsPanel>
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <Grid Background="Transparent"
-                          Margin="7">
-                            <StackPanel Orientation="Vertical">
-                                <Border Margin="5"
-                                    x:Name="Bd"
-                                    Padding="0"
-                                    MinHeight="360"
-                                    MinWidth="280"
-                                    MaxHeight="380"
-                                    MaxWidth="300"
-                                    Background="#fefefe"
-                                    BorderThickness="0"
-                                    HorizontalAlignment="Left"
-                                    VerticalAlignment="Stretch"
-                                    CornerRadius="7">
-                                    <Border.Effect>
-                                        <DropShadowEffect  BlurRadius="10" 
-                                                       Direction="270"
-                                                       RenderingBias="Quality" 
-                                                       ShadowDepth="5"
-                                                       Opacity="0.5"/>
-                                    </Border.Effect>
-                                    <Grid>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="3*"/>
-                                            <RowDefinition/>
-                                        </Grid.RowDefinitions>
+                              Margin="7">
 
-                                        <StackPanel Orientation="Vertical">
-                                            <StackPanel Orientation="Horizontal"
-                                                    Margin="15"
-                                                    Height="55"
-                                                    VerticalAlignment="Top">
-                                                <materialDesign:PackIcon Margin="0"
-                                                                 Kind="Label"
-                                                                 Width="55"
-                                                                 x:Name="ic"
-                                                                 Height="55"
-                                                                 Foreground="#3490DE"/>
-
-                                                <Label 
-                                               Content="{Binding Title}"
-                                               x:Name="Lb"
-                                               Margin="5,0,0,0"
-                                               FontSize="18"
-                                               Style="{StaticResource HeaderSign}"
-                                               Foreground="Black"
-                                               Grid.Row="0"
-                                               HorizontalAlignment="Left"
-                                               VerticalAlignment="Center"/>
-                                            </StackPanel>
-
-                                            <StackPanel Orientation="Horizontal"
-                                                    Margin="15,7.5,15,0"
-                                                    Height="30">
-                                                <materialDesign:PackIcon Margin="5,0,0,0"
-                                                                     Kind="TimelineClock"
-                                                                     Width="35"
-                                                                     x:Name="ic1"
-                                                                     VerticalAlignment="Center"
-                                                                     Height="35"
-                                                                     Foreground="#3490DE"/>
-
-                                                <Label Content="{Binding DeadLine}"
-                                               x:Name="Lb1"
-                                               Margin="5,0,0,0"
-                                               FontSize="15"
-                                               Style="{StaticResource HeaderSign}"
-                                               Foreground="Black"
-                                               Grid.Row="0"
-                                               HorizontalAlignment="Left"
-                                               VerticalAlignment="Center"/>
-                                            </StackPanel>
-
-                                            <StackPanel Orientation="Horizontal"
-                                                    Margin="15,7.5,15,0"
-                                                    Height="30">
-                                                <materialDesign:PackIcon Margin="5,0,0,0"
-                                                                     Kind="AccountCircle"
-                                                                     Width="35"
-                                                                     x:Name="ic2"
-                                                                     VerticalAlignment="Center"
-                                                                     Height="35"
-                                                                     Foreground="#3490DE"/>
-
-                                                <Label Content="{Binding Assigned}"
-                                               x:Name="Lb2"
-                                               Margin="5,0,0,0"
-                                               FontSize="15"
-                                               Style="{StaticResource HeaderSign}"
-                                               Foreground="Black"
-                                               Grid.Row="0"
-                                               HorizontalAlignment="Left"
-                                               VerticalAlignment="Center"/>
-                                            </StackPanel>
-
-                                            <StackPanel Orientation="Horizontal"
-                                                    Margin="15,7.5,15,0"
-                                                    Height="30">
-                                                <materialDesign:PackIcon Margin="5,0,0,0"
-                                                                     Kind="ListStatus"
-                                                                     Width="35"
-                                                                     x:Name="ic3"
-                                                                     VerticalAlignment="Center"
-                                                                     Height="35"
-                                                                     Foreground="#3490DE"/>
-
-                                                <Label Content="Статус"
-                                               x:Name="Lb3"
-                                               Margin="5,0,0,0"
-                                               FontSize="15"
-                                               Style="{StaticResource HeaderSign}"
-                                               Foreground="Black"
-                                               Grid.Row="0"
-                                               HorizontalAlignment="Left"
-                                               VerticalAlignment="Center"/>
-                                            </StackPanel>
-
-                                            <StackPanel Orientation="Horizontal"
-                                                    Margin="15,7.5,15,0"
-                                                    Height="auto">
-                                                <materialDesign:PackIcon Margin="5,0,0,0"
-                                                                     Kind="Category"
-                                                                     Width="35"
-                                                                     x:Name="ic4"
-                                                                     VerticalAlignment="Top"
-                                                                     Height="35"
-                                                                     Foreground="#3490DE"/>
-
-                                                <TextBlock Text="{Binding GetCategories}"
-                                                       MaxWidth="210"
-                                                       x:Name="Lb4"
-                                                       FontWeight="UltraLight"
-                                                       Margin="5,0,0,0"
-                                                       FontSize="15" 
-                                                       TextWrapping="Wrap"
-                                                       Foreground="Black"
-                                                       Grid.Row="0"
-                                                       HorizontalAlignment="Left"
-                                                       VerticalAlignment="Center"/>
-                                            </StackPanel>
-                                        </StackPanel>
-
-                                        <Border Grid.Row="1"
-                                            Background="#272a2f"
-                                            CornerRadius="0,0,4,4"
-                                            x:Name="BdT">
-                                            <Border.Effect>
-                                                <DropShadowEffect  BlurRadius="4" 
-                                                               Direction="90"
-                                                               RenderingBias="Quality" 
-                                                               ShadowDepth="3.5"
-                                                               Opacity="0.5"/>
-                                            </Border.Effect>
-
-
-                                            <Button Style="{StaticResource SignButtons}"
-                                                    Width="220"
-                                                    Content="{Binding TaskButtonContent}"
-                                                    Command="{Binding GetTaskCommand}"
-                                                    IsEnabled="{Binding IsTaskButtonEnable}"
-                                                    HorizontalAlignment="Center"
-                                                    VerticalAlignment="Bottom"
-                                                    Margin="20" Cursor="Hand"/>
-
-                                        </Border>
-                                    </Grid>
+                            <StackPanel Orientation="Horizontal">
+                                <Border Width="50"
+                                        Height="50"
+                                        Background="#fefefe">
+                                    
                                 </Border>
-
                             </StackPanel>
-
-                            <StackPanel Orientation="Horizontal"
-                                                HorizontalAlignment="Right">
-
-
-                            </StackPanel>
-
-
+                             
                             <Grid.InputBindings>
 
                                 <!--<MouseBinding MouseAction="LeftDoubleClick"
@@ -273,7 +107,7 @@
                                     RelativeSource={RelativeSource AncestorType=ListViewItem}}" 
                                            Value="true"/>
                                 </MultiDataTrigger.Conditions>
-                                <Setter Property="Background" TargetName="Bd" Value="#3490DE"/>
+                                <!--<Setter Property="Background" TargetName="Bd" Value="#3490DE"/>
                                 <Setter Property="Width" TargetName="Bd" Value="300"/>
                                 <Setter Property="Height" TargetName="Bd" Value="380"/>
                                 <Setter Property="Foreground" TargetName="Lb" Value="White"/>
@@ -285,7 +119,7 @@
                                 <Setter Property="Foreground" TargetName="Lb3" Value="White"/>
                                 <Setter Property="Foreground" TargetName="ic3" Value="White"/>
                                 <Setter Property="Foreground" TargetName="Lb4" Value="White"/>
-                                <Setter Property="Foreground" TargetName="ic4" Value="White"/>
+                                <Setter Property="Foreground" TargetName="ic4" Value="White"/>-->
                             </MultiDataTrigger>
                         </DataTemplate.Triggers>
                     </DataTemplate>
@@ -344,5 +178,50 @@
                 </ListView.ItemContainerStyle>
             </ListView>
         </Grid>
+
+        <StackPanel Orientation="Horizontal">
+            <Border Width="50"
+                                        Height="50"
+                                        Background="#fefefe"
+                    CornerRadius="10,0,0,10"
+                    BorderThickness="0,0,1,0"
+                    BorderBrush="Gray">
+
+            </Border>
+
+            <Border Width="200"
+                                        Height="50"
+                                        Background="#fefefe"
+                    CornerRadius="0,0,0,0"
+                    BorderThickness="0,0,1,0"
+                    BorderBrush="Gray">
+
+            </Border>
+            <Border Width="200"
+                                        Height="50"
+                                        Background="#fefefe"
+                    CornerRadius="0,0,0,0"
+                    BorderThickness="0,0,1,0"
+                    BorderBrush="Gray">
+
+            </Border>
+            <Border Width="200"
+                                        Height="50"
+                                        Background="#fefefe"
+                    CornerRadius="0,0,0,0"
+                    BorderThickness="0,0,1,0"
+                    BorderBrush="Gray">
+
+            </Border>
+
+            <Border Width="50"
+                                        Height="50"
+                                        Background="#fefefe"
+                    CornerRadius="0,10,10,0"
+                    BorderThickness="0,0,1,0"
+                    BorderBrush="Gray">
+
+            </Border>
+        </StackPanel>
     </Grid>
 </Page>
