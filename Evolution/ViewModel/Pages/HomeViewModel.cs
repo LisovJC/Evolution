@@ -53,8 +53,8 @@ namespace Evolution.ViewModel.Pages
         {
             try
             {
-                UserModel User = Task.Run(() => AuthUserService.UserExists(HelperService.CurrentUser)).Result;
-                
+                UserModel User = Task.Run(() => AuthUserService.UserExists(HelperService.CurrentUser)).Result; //TODO вызывает подтормаживания
+
                 Login = User.Login;
                 Password = User.Password;
                 RegistrationDate = User.DateCreate.ToString("d");

@@ -203,7 +203,7 @@
                 <StackPanel Orientation="Vertical">
 
                     <Button Content="Задачи"
-                            IsEnabled="False"
+                            IsEnabled="True"
                             Style="{StaticResource NavigationButtons}"
                             Command="{Binding SelectMyTCommand}"/>
 
