@@ -52,8 +52,7 @@ namespace Evolution.Services.TaskServices
             {
                 case TypeTaskEdentity.local:
                     {
-                        InitTaskJsonFiles(HelperService.CurrentUser);
-                        AllTasks = DataSaveLoad.LoadData<TaskModel>(PathToUserTasksFile);
+                        AllTasks = GetAllMyTasks();
                         AllTasks.Add(NewTask);
                         DataSaveLoad.Serialize(AllTasks);
                     }
@@ -108,10 +107,17 @@ namespace Evolution.Services.TaskServices
         /***ДОБАВЛЕНИЕ ПРОЕКТНОЙ ЗАДАЧИ В СПИСОК ВСЕХ СВОИХ ЗАДАЧ НА ЛОКАЛЬНОМ ДИСКЕ***/
         public static void AddGlobalTaskToLocalTaskList(TaskModel NewTask)
         {
-            InitTaskJsonFiles(HelperService.CurrentUser);
-            AllTasks = DataSaveLoad.LoadData<TaskModel>(PathToUserTasksFile);
+            AllTasks = GetAllMyTasks();
             AllTasks.Add(NewTask);
             DataSaveLoad.Serialize(AllTasks);
+        }
+
+        /***ПОЛУЧЕНИЕ ВСЕХ ЗАДАЧ С ЛОКАЛЬНОГО ДИСКА***/
+        public static ObservableCollection<TaskModel> GetAllMyTasks()
+        {
+            InitTaskJsonFiles(HelperService.CurrentUser);
+            ObservableCollection<TaskModel> AllMyTasks = DataSaveLoad.LoadData<TaskModel>(PathToUserTasksFile);
+            return AllMyTasks;
         }
 
         /***ТУТ ДОБАВЛЯЕМ КАТЕГОРИИ, ЧТОБЫ ОТДЕЛИТЬ И ДОБАВИТЬ ТОЛЬКО ТЕ, КОТОРЫЕ ОТМЕЧЕНЫ***/

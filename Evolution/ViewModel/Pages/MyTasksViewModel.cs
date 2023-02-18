@@ -2,9 +2,13 @@
 using Evolution.Model;
 using Evolution.Services.CloudStoreServices;
 using Evolution.Services.HelperServices;
+using Evolution.Services.TaskServices;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using static Evolution.Enums.Enums;
 
@@ -23,7 +27,7 @@ namespace Evolution.ViewModel.Pages
 
         #region Collections
         public List<TaskModel> LoadedCommonTasks { get; set; } = new();
-        public ObservableCollectionEX<TaskModel> GlobalTasks { get; set; } = new();
+        public ObservableCollection<TaskModel> GlobalTasks { get; set; } = new();
         #endregion
         public MyTasksViewModel()
         {
@@ -38,7 +42,6 @@ namespace Evolution.ViewModel.Pages
                 {
                     HelperService.index = SelectedIndex;
                     //Categories = String.Empty;
-                    //
                     break;
                 }
 
@@ -79,44 +82,46 @@ namespace Evolution.ViewModel.Pages
 
         public async void LoadDatas()
         {
-            if (HelperService.GlobalTasksInCash.Count == 0)
-            {
-                await Task.Run(() => LoadedCommonTasks = FireBaseService.GetDataFromDataBase<TaskModel>(TypeDatas.GlobalTasks, HelperService.CountTasksOfGlobalTaskList).Result);
-                LoadCollection();
-            }
-            else
-            {
-                LoadCollection(true);
-            }
+            //if (HelperService.GlobalTasksInCash.Count == 0)
+            //{
+            //    await Task.Run(() => LoadedCommonTasks = FireBaseService.GetDataFromDataBase<TaskModel>(TypeDatas.GlobalTasks, HelperService.CountTasksOfGlobalTaskList).Result);
+            //    LoadCollection();
+            //}
+            //else
+            //{
+            //    LoadCollection(true);
+            //}
+
+            GlobalTasks = TaskService.GetAllMyTasks();
         }
 
-        public void LoadCollection(bool isDownloaded = false)
-        {
-            try
-            {
-                if (isDownloaded)
-                {
-                    GlobalTasks.Clear();
-                    for (int i = 0; i < HelperService.GlobalTasksInCash.Count; i++)
-                    {
-                        GlobalTasks.Add(HelperService.GlobalTasksInCash[i]);
-                    }
-                    SrartPage();
-                    return;
-                }
+        //public void LoadCollection(bool isDownloaded = false)
+        //{
+        //    try
+        //    {
+        //        if (isDownloaded)
+        //        {
+        //            GlobalTasks.Clear();
+        //            for (int i = 0; i < HelperService.GlobalTasksInCash.Count; i++)
+        //            {
+        //                GlobalTasks.Add(HelperService.GlobalTasksInCash[i]);
+        //            }
+        //            SrartPage();
+        //            return;
+        //        }
 
-                for (int i = 0; i < LoadedCommonTasks.Count; i++)
-                {
-                    GlobalTasks.Add(LoadedCommonTasks[i]);
-                }
-                SrartPage();
-                HelperService.GlobalTasksInCash = GlobalTasks;
-            }
-            catch (Exception ex)
-            {
+        //        for (int i = 0; i < LoadedCommonTasks.Count; i++)
+        //        {
+        //            GlobalTasks.Add(LoadedCommonTasks[i]);
+        //        }
+        //        SrartPage();
+        //        HelperService.GlobalTasksInCash = GlobalTasks;
+        //    }
+        //    catch (Exception ex)
+        //    {
 
-                Debug.WriteLine(ex.Message);
-            }
-        }
+        //        Debug.WriteLine(ex.Message);
+        //    }
+        //}
     }
 }
