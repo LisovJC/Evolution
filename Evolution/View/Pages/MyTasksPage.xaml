@@ -110,6 +110,7 @@
 
                                 <Border Width="50"
                                         CornerRadius="0,10,10,0"
+                                        BorderThickness="0"
                                         Style="{StaticResource MyTaskBorder}"
                                         Name="Brdr5">
 
@@ -140,18 +141,28 @@
                                     <Setter Property="Background" TargetName="Brdr3" Value="#3490DE"/>
                                     <Setter Property="Background" TargetName="Brdr4" Value="#3490DE"/>
                                     <Setter Property="Background" TargetName="Brdr5" Value="#3490DE"/>
+                                    
                                     <Setter Property="Width" TargetName="Brdr0" Value="60"/>
                                     <Setter Property="Width" TargetName="Brdr1" Value="210"/>
                                     <Setter Property="Width" TargetName="Brdr2" Value="210"/>
                                     <Setter Property="Width" TargetName="Brdr3" Value="210"/>
                                     <Setter Property="Width" TargetName="Brdr4" Value="210"/>
                                     <Setter Property="Width" TargetName="Brdr5" Value="60"/>
-                                    <Setter Property="Height" TargetName="Brdr0" Value="50"/>
-                                    <Setter Property="Height" TargetName="Brdr1" Value="50"/>
-                                    <Setter Property="Height" TargetName="Brdr2" Value="50"/>
-                                    <Setter Property="Height" TargetName="Brdr3" Value="50"/>
-                                    <Setter Property="Height" TargetName="Brdr4" Value="50"/>
-                                    <Setter Property="Height" TargetName="Brdr5" Value="50"/>
+                                    
+                                    <Setter Property="Height" TargetName="Brdr0" Value="45"/>
+                                    <Setter Property="Height" TargetName="Brdr1" Value="45"/>
+                                    <Setter Property="Height" TargetName="Brdr2" Value="45"/>
+                                    <Setter Property="Height" TargetName="Brdr3" Value="45"/>
+                                    <Setter Property="Height" TargetName="Brdr4" Value="45"/>
+                                    <Setter Property="Height" TargetName="Brdr5" Value="45"/>
+
+                                    <Setter Property="BorderBrush" TargetName="Brdr0" Value="#fefefe"/>
+                                    <Setter Property="BorderBrush" TargetName="Brdr1" Value="#fefefe"/>
+                                    <Setter Property="BorderBrush" TargetName="Brdr2" Value="#fefefe"/>
+                                    <Setter Property="BorderBrush" TargetName="Brdr3" Value="#fefefe"/>
+                                    <Setter Property="BorderBrush" TargetName="Brdr4" Value="#fefefe"/>
+                                    <Setter Property="BorderBrush" TargetName="Brdr5" Value="#fefefe"/>
+
                             </MultiDataTrigger>
                         </DataTemplate.Triggers>
                     </DataTemplate>

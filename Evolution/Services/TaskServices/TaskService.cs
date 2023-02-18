@@ -13,14 +13,16 @@ using static Evolution.Enums.Enums;
 
 namespace Evolution.Services.TaskServices
 {
-    internal class TaskService
+    /***СЕРВИС ДЛЯ РАБОТЫ С ЗАДАЧАМИ***/
+    internal class TaskService 
     {      
         public static ObservableCollection<TaskModel> AllTasks { get; set; } = new();
         /*=====================================================================*/
         public static TaskModel NewTask = new();
         /*=====================================================================*/
         public static string PathToUserTasksFile = "";
-        
+
+        /***СОЗДАНИЕ ЗАДАЧИ***/
         public static async void CreateTask(
             string title,
             string assigned,
@@ -45,7 +47,8 @@ namespace Evolution.Services.TaskServices
                 Creator = "автор: " + HelperService.CurrentUser
             };
 
-            switch(NewTask.TypeTask)
+            /***ОПРЕДЕЛЕНИЕ ЛОКАЛЬНАЯ ИЛИ ПРОЕКТНАЯ***/
+            switch (NewTask.TypeTask)
             {
                 case TypeTaskEdentity.local:
                     {
@@ -88,6 +91,7 @@ namespace Evolution.Services.TaskServices
             }       
         }
 
+        /***ОБНОВЛЕНИЕ ЗАДАЧИ***/
         public static async void UpdateTaskList(TaskModel NewTask)
         {
             try
@@ -101,6 +105,7 @@ namespace Evolution.Services.TaskServices
             }
         }
 
+        /***ТУТ ДОБАВЛЯЕМ КАТЕГОРИИ, ЧТОБЫ ОТДЕЛИТЬ И ДОБАВИТЬ ТОЛЬКО ТЕ, КОТОРЫЕ ОТМЕЧЕНЫ***/
         private static List<Category> AddCategories(List<Category> Categories)
         {
             List<Category> finalCategories = new();
@@ -114,6 +119,7 @@ namespace Evolution.Services.TaskServices
             return finalCategories;
         }
 
+        /***СОЗДАНИЕ JSON ФАЙЛА ДЛЯ ТЕХ ИЛИ ИНЫХ ЗАДАЧ***/
         private static string InitTaskJsonFiles(string? login)
         {
             string folderPath = $"{HelperService.pathToTasksFolder}\\{login}";
