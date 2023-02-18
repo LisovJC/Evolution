@@ -236,9 +236,9 @@ namespace Evolution.ViewModel.Pages
                     Progress += 1;
                     if (Progress > 99)
                     {
-                        Progress = 1;
+                        Progress = 3;
                     }
-                    Thread.Sleep(50);
+                    Thread.Sleep(10);
                 }
             });
         }

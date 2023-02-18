@@ -37,6 +37,7 @@
         </Style.Triggers>
     </Style>
 
+    <!-- AccountButton -->
     <Style x:Key="AccountButton" TargetType="Button">
         <Setter Property="Height" Value="45"/>
         <Setter Property="Width" Value="45"/>
@@ -162,6 +163,7 @@
         </Style.Triggers>
     </Style>
 
+    <!-- SignButtonsRed -->
     <Style x:Key="SignButtonsRed" TargetType="Button">
         <Setter Property="Height" Value="35"/>
         <Setter Property="Width" Value="125"/>
@@ -245,6 +247,7 @@
         </Style.Triggers>
     </Style>
 
+    <!-- ActionsButtonsRed -->
     <Style x:Key="ActionFlatButtonsRed" TargetType="Button">
         <Setter Property="Height" Value="36"/>
         <Setter Property="Width" Value="110"/>
@@ -296,6 +299,15 @@
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="HorizontalAlignment" Value="Center"/>
+    </Style>
+
+    <!-- MyTaskBorder -->
+    <Style x:Key="MyTaskBorder" TargetType="Border">
+        <Setter Property="Height" Value="40"/>
+        <Setter Property="Background" Value="#fefefe"/>
+        <Setter Property="BorderBrush" Value="Gray"/>
+        <Setter Property="BorderThickness" Value="0,0,1,0"/>
+        <Setter Property="Width" Value="200"/>
     </Style>
     
     
