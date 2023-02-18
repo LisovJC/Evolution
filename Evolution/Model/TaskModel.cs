@@ -149,6 +149,7 @@ namespace Evolution.Model
                 IsTaskButtonEnable = false;
                 TaskButtonContent = "В работе";               
                 TaskService.UpdateTaskList(this);
+                TaskService.AddGlobalTaskToLocalTaskList(this);
             });
         }
 

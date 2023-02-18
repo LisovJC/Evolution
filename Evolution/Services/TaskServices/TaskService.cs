@@ -105,6 +105,15 @@ namespace Evolution.Services.TaskServices
             }
         }
 
+        /***ДОБАВЛЕНИЕ ПРОЕКТНОЙ ЗАДАЧИ В СПИСОК ВСЕХ СВОИХ ЗАДАЧ НА ЛОКАЛЬНОМ ДИСКЕ***/
+        public static void AddGlobalTaskToLocalTaskList(TaskModel NewTask)
+        {
+            InitTaskJsonFiles(HelperService.CurrentUser);
+            AllTasks = DataSaveLoad.LoadData<TaskModel>(PathToUserTasksFile);
+            AllTasks.Add(NewTask);
+            DataSaveLoad.Serialize(AllTasks);
+        }
+
         /***ТУТ ДОБАВЛЯЕМ КАТЕГОРИИ, ЧТОБЫ ОТДЕЛИТЬ И ДОБАВИТЬ ТОЛЬКО ТЕ, КОТОРЫЕ ОТМЕЧЕНЫ***/
         private static List<Category> AddCategories(List<Category> Categories)
         {
@@ -119,16 +128,16 @@ namespace Evolution.Services.TaskServices
             return finalCategories;
         }
 
-        /***СОЗДАНИЕ JSON ФАЙЛА ДЛЯ ТЕХ ИЛИ ИНЫХ ЗАДАЧ***/
+        /***СОЗДАНИЕ JSON ФАЙЛА ДЛЯ ВСЕХ ЗАДАЧ***/
         private static string InitTaskJsonFiles(string? login)
         {
             string folderPath = $"{HelperService.pathToTasksFolder}\\{login}";
-            PathToUserTasksFile = $"{folderPath}\\Tasks.json";
+            PathToUserTasksFile = $"{folderPath}\\AllMyTasks.json";
 
             if (!Directory.Exists(folderPath))
             {
                 Directory.CreateDirectory(folderPath);
-                var file = System.IO.File.Create($"{folderPath}\\Tasks.json");
+                var file = File.Create($"{folderPath}\\AllMyTasks.json");
                 file.Close();
                 return folderPath;
             }

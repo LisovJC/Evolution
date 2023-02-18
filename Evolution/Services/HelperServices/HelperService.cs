@@ -15,13 +15,15 @@ namespace Evolution.Services.HelperServices
     {
         #region Paths
         public static readonly string pathToSettingsFolder = $"{AppDomain.CurrentDomain.BaseDirectory}\\Data\\Settings";
+        /*=====================================================================*/
         public static readonly string pathToSettingsFile = $"{AppDomain.CurrentDomain.BaseDirectory}\\Data\\Settings\\appSettings.json";
-        
+        /*=====================================================================*/
         public static readonly string pathToUsersFolder = $"{AppDomain.CurrentDomain.BaseDirectory}\\Data\\Users";
-        
+        /*=====================================================================*/
         public static readonly string pathToTasksFolder = $"{AppDomain.CurrentDomain.BaseDirectory}\\Data\\Tasks";
-
+        /*=====================================================================*/
         public static readonly string pathToCurrentStateDatasFolder = $"{AppDomain.CurrentDomain.BaseDirectory}\\Data\\CurrentStateDatas";
+        /*=====================================================================*/
         public static readonly string pathToCurrentStateDatasFile = $"{AppDomain.CurrentDomain.BaseDirectory}\\Data\\CurrentStateDatas\\currentDatas.json";
         #endregion      
 
