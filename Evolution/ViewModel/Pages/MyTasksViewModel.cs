@@ -38,6 +38,7 @@ namespace Evolution.ViewModel.Pages
                 {
                     HelperService.index = SelectedIndex;
                     //Categories = String.Empty;
+                    //
                     break;
                 }
 
