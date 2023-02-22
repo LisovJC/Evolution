@@ -32,7 +32,7 @@ namespace Evolution.Services.HelperServices
         public static int CountTasksOfGlobalTaskList { get; set; } = 0;
 
         public static List<UserModel> AllUsersInApp { get; set; } = new();
-        public static ObservableCollectionEX<TaskModel> GlobalTasksInCash { get; set; } = new();
+        public static ObservableCollection<TaskModel> GlobalTasksInCash { get; set; } = new();
 
         public static TaskModel SelectTask { get; set; } = new();
 

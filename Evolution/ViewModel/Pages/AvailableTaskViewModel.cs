@@ -5,6 +5,7 @@ using Evolution.Services.CloudStoreServices;
 using Evolution.Services.HelperServices;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
@@ -121,7 +122,7 @@ namespace Evolution.ViewModel.Pages
 
         #region Collections
         public List<TaskModel> LoadedCommonTasks { get; set; } = new();
-        public ObservableCollectionEX<TaskModel> GlobalTasks { get; set; } = new();
+        public ObservableCollection<TaskModel> GlobalTasks { get; set; } = new();
         #endregion
 
         public AvailableTaskViewModel()
