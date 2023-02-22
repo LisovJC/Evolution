@@ -134,7 +134,7 @@ namespace Evolution.ViewModel.Windows
         public RelayCommand RememberMeCommand { get; set; }
         #endregion        
         public SignViewModel()
-        {
+        {           
             #region Commands
             /*=====================================================================*/
             SignInCommand = new(o =>

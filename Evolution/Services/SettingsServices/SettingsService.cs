@@ -1,7 +1,13 @@
-﻿using Evolution.Model;
+﻿using AutostartManagement;
+using Evolution.Model;
 using Evolution.Services.DataSaveLoadServices;
 using Evolution.Services.HelperServices;
+using System;
+using System.Diagnostics;
 using System.IO;
+using System.Windows;
+using static Evolution.Enums.Enums;
+using File = System.IO.File;
 
 namespace Evolution.Services.SettingsServices
 {
@@ -40,6 +46,25 @@ namespace Evolution.Services.SettingsServices
             sm.Login = login;
 
             DataSaveLoad.Serialize(sm);
+        }
+
+        public static void AutoRunState(bool autoRunState = false)
+        {
+            string shortCutPath = Environment.GetFolderPath(Environment.SpecialFolder.Startup) + "\\Evolution";
+            string ExeFilePath = Environment.CurrentDirectory + "\\Evolution.exe";
+
+            if(autoRunState)
+            {
+                var registerShortcutForAllUser = true;
+                var autostartManager = new AutostartManager(shortCutPath, ExeFilePath, registerShortcutForAllUser);
+                autostartManager.EnableAutostart();
+            }
+            else
+            {
+                var registerShortcutForAllUser = true;
+                var autostartManager = new AutostartManager(shortCutPath, ExeFilePath, registerShortcutForAllUser);
+                autostartManager.DisableAutostart();
+            }
         }
     }
 }
