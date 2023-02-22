@@ -3,11 +3,7 @@ using Evolution.Model;
 using Evolution.Services.DataSaveLoadServices;
 using Evolution.Services.HelperServices;
 using System;
-using System.Diagnostics;
 using System.IO;
-using System.Windows;
-using static Evolution.Enums.Enums;
-using File = System.IO.File;
 
 namespace Evolution.Services.SettingsServices
 {
