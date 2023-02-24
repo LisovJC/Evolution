@@ -214,7 +214,7 @@ namespace Evolution.ViewModel.Windows
             RememberMeCommand = new(o =>
             {
                 isRememberMe = !isRememberMe;
-                SettingsService.UpdateSettingsFile(Login, Password, isRememberMe);
+                SettingsService.SetRememberDataForAuthSettings(Login, Password, isRememberMe);
             });
             #endregion                      
 
@@ -244,9 +244,7 @@ namespace Evolution.ViewModel.Windows
 
         private void AutoLogin()
         {
-            SettingsModel sm;
-
-            sm = DataSaveLoad.LoadDataSettings<SettingsModel>(HelperService.pathToSettingsFile);
+            SettingsModel sm = SettingsService.GetSettings();
 
             if(sm.RememberMeForAuth)
             {

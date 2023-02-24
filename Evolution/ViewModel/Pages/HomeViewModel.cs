@@ -1,6 +1,8 @@
-﻿using Evolution.Core;
+﻿using Evolution.Command;
+using Evolution.Core;
 using Evolution.Model;
 using Evolution.Services.HelperServices;
+using Evolution.Services.SettingsServices;
 using Evolution.Services.UserServices;
 using System;
 using System.Diagnostics;
@@ -43,10 +45,29 @@ namespace Evolution.ViewModel.Pages
             set => Set(ref _email, value);
         }
         #endregion
-        
+
+        private bool _isAutoRun = false;
+
+        public bool IsAutoRun
+        {
+            get => _isAutoRun;
+            set => Set(ref _isAutoRun, value);
+        }
+
+        public RelayCommand SetAutoRunStateCommand { get; set; }
+
         public HomeViewModel()
         {
             InitPageProperties();
+
+            SettingsModel sm = SettingsService.GetSettings();
+            IsAutoRun = sm.AutoRun;
+            
+
+            SetAutoRunStateCommand = new(o =>
+            {
+                SettingsService.SetAutoRunSettings(IsAutoRun);
+            });
         }       
 
         private void InitPageProperties()

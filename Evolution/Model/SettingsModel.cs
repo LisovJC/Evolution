@@ -11,5 +11,7 @@ namespace Evolution.Model
         public bool RememberMeForAuth { get; set; }
         public string Login { get; set; }
         public string Password { get; set; }
+        public bool AutoRun { get; set; }
+        public bool AutoLogin { get; set; }
     }
 }

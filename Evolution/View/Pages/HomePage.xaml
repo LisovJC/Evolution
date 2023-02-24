@@ -37,236 +37,333 @@
                                    ShadowDepth="3"
                                    Opacity="0.5"/>
             </Border.Effect>
-
             <Grid>
-                <StackPanel Orientation="Vertical"
+                <!--Грид пользователя-->
+                <Grid Visibility="Hidden">
+                    <StackPanel Orientation="Vertical"
                             Margin="25">
-                    <Label Content="Настройки аккаунта"
+                        <Label Content="Настройки аккаунта"
                            Style="{StaticResource HeaderSign}"
                            HorizontalAlignment="Left"
                            FontSize="30"/>
 
-                    <StackPanel Orientation="Horizontal"
+                        <StackPanel Orientation="Horizontal"
                                 Margin="0,15,0,0">
-                        <materialDesign:PackIcon Kind="User"
+                            <materialDesign:PackIcon Kind="User"
                                                  Foreground="White"
                                                  Width="30"
                                                  Height="30"/>
 
-                        <Label Content="Логин:"
+                            <Label Content="Логин:"
                                Style="{StaticResource HeaderSign}"
                                HorizontalAlignment="Left"
                                FontSize="20"
                                Margin="5,0,0,0"/>
 
-                        <Label Content="{Binding Login, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                            <Label Content="{Binding Login, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                                Style="{StaticResource HeaderSign}"
                                HorizontalAlignment="Left"
                                FontSize="20"
                                Margin="15,0,0,0"/>
-                        
-                    </StackPanel>
 
-                    <StackPanel Orientation="Horizontal"
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal"
                                 Margin="0,15,0,0">
-                        <materialDesign:PackIcon Kind="Password"
+                            <materialDesign:PackIcon Kind="Password"
                                                  Foreground="White"
                                                  Width="30"
                                                  Height="30"/>
 
-                        <Label Content="Пароль:"
+                            <Label Content="Пароль:"
                                Style="{StaticResource HeaderSign}"
                                HorizontalAlignment="Left"
                                FontSize="20"
                                Margin="5,0,0,0"/>
 
-                        <Label Content="{Binding Password, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                            <Label Content="{Binding Password, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                                Style="{StaticResource HeaderSign}"
                                HorizontalAlignment="Left"
                                FontSize="20"
                                Margin="15,0,0,0"/>
-                    </StackPanel>
+                        </StackPanel>
 
-                    <StackPanel Orientation="Horizontal"
+                        <StackPanel Orientation="Horizontal"
                                 Margin="0,15,0,0">
-                        <materialDesign:PackIcon Kind="DateRange"
+                            <materialDesign:PackIcon Kind="DateRange"
                                                  Foreground="White"
                                                  Width="30"
                                                  Height="30"/>
 
-                        <Label Content="Дата регистрации:"
+                            <Label Content="Дата регистрации:"
                                Style="{StaticResource HeaderSign}"
                                HorizontalAlignment="Left"
                                FontSize="20"
                                Margin="5,0,0,0"/>
 
-                        <Label Content="{Binding RegistrationDate, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                            <Label Content="{Binding RegistrationDate, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                                Style="{StaticResource HeaderSign}"
                                HorizontalAlignment="Left"
                                FontSize="20"
                                Margin="15,0,0,0"/>
-                    </StackPanel>
+                        </StackPanel>
 
-                    <StackPanel Orientation="Horizontal"
+                        <StackPanel Orientation="Horizontal"
                                 Margin="0,15,0,0">
-                        <materialDesign:PackIcon Kind="Gmail"
+                            <materialDesign:PackIcon Kind="Gmail"
                                                  Foreground="White"
                                                  Width="30"
                                                  Height="30"/>
 
-                        <Label Content="Почта:"
+                            <Label Content="Почта:"
                                Style="{StaticResource HeaderSign}"
                                HorizontalAlignment="Left"
                                FontSize="20"
                                Margin="5,0,0,0"/>
 
-                        <Label Content="IN WIP"
+                            <Label Content="IN WIP"
                                Style="{StaticResource HeaderSign}"
                                HorizontalAlignment="Left"
                                FontSize="20"
                                Margin="15,0,0,0"/>
-                    </StackPanel>
+                        </StackPanel>
 
-                    <Label Content="Информация о пользователе"
+                        <Label Content="Информация о пользователе"
                            Style="{StaticResource HeaderSign}"
                            HorizontalAlignment="Left"
                            FontSize="30"
                            Margin="0,30,0,0"/>
 
-                    <StackPanel Orientation="Horizontal"
+                        <StackPanel Orientation="Horizontal"
                                 Margin="0,15,0,0">
-                        <materialDesign:PackIcon Kind="Subtasks"
+                            <materialDesign:PackIcon Kind="Subtasks"
                                                  Foreground="White"
                                                  Width="30"
                                                  Height="30"/>
 
-                        <Label Content="Принято задач за всё время:"
+                            <Label Content="Принято задач за всё время:"
                                Style="{StaticResource HeaderSign}"
                                HorizontalAlignment="Left"
                                FontSize="20"
                                Margin="5,0,0,0"/>
 
-                        <Label Content="IN WIP"
+                            <Label Content="IN WIP"
                                Style="{StaticResource HeaderSign}"
                                HorizontalAlignment="Left"
                                FontSize="20"
                                Margin="15,0,0,0"/>
-                    </StackPanel>
+                        </StackPanel>
 
-                    <StackPanel Orientation="Horizontal"
+                        <StackPanel Orientation="Horizontal"
                                 Margin="0,15,0,0">
-                        <materialDesign:PackIcon Kind="Success"
+                            <materialDesign:PackIcon Kind="Success"
                                                  Foreground="White"
                                                  Width="30"
                                                  Height="30"/>
 
-                        <Label Content="Выполнено задач за всё время:"
+                            <Label Content="Выполнено задач за всё время:"
                                Style="{StaticResource HeaderSign}"
                                HorizontalAlignment="Left"
                                FontSize="20"
                                Margin="5,0,0,0"/>
 
-                        <Label Content="IN WIP"
+                            <Label Content="IN WIP"
                                Style="{StaticResource HeaderSign}"
                                HorizontalAlignment="Left"
                                FontSize="20"
                                Margin="15,0,0,0"/>
-                    </StackPanel>
+                        </StackPanel>
 
-                    <StackPanel Orientation="Horizontal"
+                        <StackPanel Orientation="Horizontal"
                                 Margin="0,15,0,0">
-                        <materialDesign:PackIcon Kind="Create"
+                            <materialDesign:PackIcon Kind="Create"
                                                  Foreground="White"
                                                  Width="30"
                                                  Height="30"/>
 
-                        <Label Content="Создано задач за всё время:"
+                            <Label Content="Создано задач за всё время:"
                                Style="{StaticResource HeaderSign}"
                                HorizontalAlignment="Left"
                                FontSize="20"
                                Margin="5,0,0,0"/>
 
-                        <Label Content="IN WIP"
+                            <Label Content="IN WIP"
                                Style="{StaticResource HeaderSign}"
                                HorizontalAlignment="Left"
                                FontSize="20"
                                Margin="15,0,0,0"/>
-                    </StackPanel>
+                        </StackPanel>
 
-                    <Label Content="Настройки приложения"
+                        <Label Content="Настройки приложения"
                            Style="{StaticResource HeaderSign}"
                            HorizontalAlignment="Left"
                            FontSize="30"
                            Margin="0,30,0,0"/>
-                    
-                    <StackPanel Orientation="Horizontal"
+
+                        <StackPanel Orientation="Horizontal"
                                 Margin="0,15,0,0">
-                        <materialDesign:PackIcon Kind="Power"
+                            <materialDesign:PackIcon Kind="Power"
                                                  Foreground="White"
                                                  Width="30"
                                                  Height="30"/>
 
-                        <Label Content="Автозапуск:"
+                            <Label Content="Автозапуск:"
                                Style="{StaticResource HeaderSign}"
                                HorizontalAlignment="Left"
                                FontSize="20"
                                Margin="5,0,0,0"/>
 
-                        <Label Content="IN WIP"
+                            <Label Content="IN WIP"
                                Style="{StaticResource HeaderSign}"
                                HorizontalAlignment="Left"
                                FontSize="20"
                                Margin="15,0,0,0"/>
-                    </StackPanel>
+                        </StackPanel>
 
-                    <StackPanel Orientation="Horizontal"
+                        <StackPanel Orientation="Horizontal"
                                 Margin="0,15,0,0">
-                        <materialDesign:PackIcon Kind="SignIn"
+                            <materialDesign:PackIcon Kind="SignIn"
                                                  Foreground="White"
                                                  Width="30"
                                                  Height="30"/>
 
-                        <Label Content="Автовход:"
+                            <Label Content="Автовход:"
                                Style="{StaticResource HeaderSign}"
                                HorizontalAlignment="Left"
                                FontSize="20"
                                Margin="5,0,0,0"/>
 
-                        <Label Content="IN WIP"
+                            <Label Content="IN WIP"
                                Style="{StaticResource HeaderSign}"
                                HorizontalAlignment="Left"
                                FontSize="20"
                                Margin="15,0,0,0"/>
-                    </StackPanel>
+                        </StackPanel>
 
-                    <StackPanel Orientation="Horizontal"
+                        <StackPanel Orientation="Horizontal"
                                 Margin="0,15,0,0">
-                        <materialDesign:PackIcon Kind="DownloadCircle"
+                            <materialDesign:PackIcon Kind="DownloadCircle"
                                                  Foreground="White"
                                                  Width="30"
                                                  Height="30"/>
 
-                        <Label Content="Период обновления данных:"
+                            <Label Content="Период обновления данных:"
                                Style="{StaticResource HeaderSign}"
                                HorizontalAlignment="Left"
                                FontSize="20"
                                Margin="5,0,0,0"/>
 
-                        <Label Content="IN WIP"
+                            <Label Content="IN WIP"
                                Style="{StaticResource HeaderSign}"
                                HorizontalAlignment="Left"
                                FontSize="20"
                                Margin="15,0,0,0"/>
+                        </StackPanel>
                     </StackPanel>
-                </StackPanel>
 
-                <Button Style="{StaticResource ActionFlatButtons}"
+                    <Button Style="{StaticResource ActionFlatButtons}"
                         Content="Подтвердить изменения"
                         HorizontalAlignment="Right"
                         VerticalAlignment="Bottom"
                         Margin="0,0,25,30"
                         Width="220"
                         Height="38"/>
+                </Grid>
+
+                <!--Грид настроек-->
+                <Grid Visibility="Visible">
+                    <StackPanel Orientation="Vertical"
+                                Margin="25">
+                        <Label Content="Настройки"
+                               Style="{StaticResource HeaderSign}"
+                               HorizontalAlignment="Left"
+                               FontSize="30"/>
+
+                        <StackPanel Orientation="Horizontal"
+                                    Margin="0,25,0,0">
+                            <materialDesign:PackIcon Kind="Power"
+                                                 Foreground="White"
+                                                 Width="30"
+                                                 Height="30"/>
+
+                            <Label Content="Автозапуск:"
+                                   Width="150"
+                                   Style="{StaticResource HeaderSign}"
+                                   HorizontalAlignment="Left"
+                                   FontSize="20"
+                                   Margin="5,0,0,0"/>
+
+                            <ToggleButton Style="{StaticResource ToggleButtonSwitch}"
+                                          Margin="15,5,0,0"
+                                          IsChecked="{Binding IsAutoRun, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                          Command="{Binding SetAutoRunStateCommand}"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal"
+                                Margin="0,15,0,0">
+                            <materialDesign:PackIcon Kind="SignInVariant"
+                                                     Foreground="White"
+                                                     Width="30"
+                                                     Height="30"/>
+
+                            <Label Content="Автовход:"
+                                   Width="150"
+                                   Style="{StaticResource HeaderSign}"
+                                   HorizontalAlignment="Left"
+                                   FontSize="20"
+                                   Margin="5,0,0,0"/>
+
+                            <ToggleButton Style="{StaticResource ToggleButtonSwitch}"
+                                          Margin="15,5,0,0"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal"
+                                Margin="0,15,0,0">
+                            <materialDesign:PackIcon Kind="FormTextboxPassword"
+                                                     Foreground="White"
+                                                     Width="30"
+                                                     Height="30"/>
+
+                            <Label Content="Запомнить меня:"
+                                   Width="150"
+                                   Style="{StaticResource HeaderSign}"
+                                   HorizontalAlignment="Left"
+                                   FontSize="20"
+                                   Margin="5,0,0,0"/>
+
+                            <ToggleButton Style="{StaticResource ToggleButtonSwitch}"
+                                          Margin="15,5,0,0"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal"
+                                Margin="0,15,0,0">
+                            <materialDesign:PackIcon Kind="DownloadCircleOutline"
+                                                     Foreground="White"
+                                                     Width="30"
+                                                     Height="30"/>
+
+                            <Label Content="Период обновления данных:"
+                               Style="{StaticResource HeaderSign}"
+                               HorizontalAlignment="Left"
+                               FontSize="20"
+                               Margin="5,0,0,0"/>
+
+                            <Label Content="IN WIP"
+                               Style="{StaticResource HeaderSign}"
+                               HorizontalAlignment="Left"
+                               FontSize="20"
+                               Margin="15,0,0,0"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <Button Style="{StaticResource ActionFlatButtons}"
+                        Content="Подтвердить изменения"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Bottom"
+                        Margin="0,0,25,30"
+                        Width="220"
+                        Height="38"/>
+                </Grid>
             </Grid>
         </Border>
         <Label Content="Главная"

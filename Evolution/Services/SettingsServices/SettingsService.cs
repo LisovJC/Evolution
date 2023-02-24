@@ -13,14 +13,22 @@ namespace Evolution.Services.SettingsServices
         {
             RememberMeForAuth = false,
             Login = "",
-            Password = ""
+            Password = "",
+            AutoRun = false,
+            AutoLogin = false
         };
 
         public static void CreateSettingsFile()
         {
             string pathToSettingsFile = HelperService.pathToSettingsFile;
+            string pathToSettingsFolder = HelperService.pathToSettingsFolder;
 
-            if(!File.Exists(pathToSettingsFile))
+            if(!Directory.Exists(pathToSettingsFolder))
+            {
+                Directory.CreateDirectory(pathToSettingsFolder);
+            }
+
+            if (!File.Exists(pathToSettingsFile))
             {
                 var file = File.Create(pathToSettingsFile);
                 file.Close();
@@ -29,16 +37,32 @@ namespace Evolution.Services.SettingsServices
             }
         }
 
-        public static void UpdateSettingsFile(string login, string password, bool isRememberMe)
+        public static void SetRememberDataForAuthSettings(string login, string password, bool isRememberMe)
         {
-            sm.RememberMeForAuth = isRememberMe;
-            sm.Password = password;
+            sm = DataSaveLoad.LoadDataSettings<SettingsModel>(HelperService.pathToSettingsFile);
             sm.Login = login;
-
+            sm.Password = password;
+            sm.RememberMeForAuth = isRememberMe;
+             
             DataSaveLoad.Serialize(sm);
         }
 
-        public static void AutoRunState(bool autoRunState = false)
+        public static void SetAutoRunSettings(bool isAutoRun)
+        {
+           sm = DataSaveLoad.LoadDataSettings<SettingsModel>(HelperService.pathToSettingsFile);
+           if (isAutoRun) { AutoRunState(true); } else { AutoRunState(false); };
+           sm.AutoRun = isAutoRun;
+
+           DataSaveLoad.Serialize(sm);
+        }
+
+        public static SettingsModel GetSettings()
+        {
+            sm = DataSaveLoad.LoadDataSettings<SettingsModel>(HelperService.pathToSettingsFile);
+            return sm;
+        }
+
+        private static void AutoRunState(bool autoRunState = false)
         {
             string shortCutPath = Environment.GetFolderPath(Environment.SpecialFolder.Startup) + "\\Evolution";
             string ExeFilePath = Environment.CurrentDirectory + "\\Evolution.exe";
