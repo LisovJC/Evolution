@@ -25,6 +25,16 @@ namespace Evolution.ViewModel.Pages
             set => Set(ref _selectedIndex, value);
         }
 
+        public static TaskModel SelectTask { get; set; } = new();
+
+        private int _Index = -2;
+
+        public int Index
+        {
+            get => _Index;
+            set => Set(ref _Index, value);
+        }
+
         #region Collections
         public List<TaskModel> LoadedCommonTasks { get; set; } = new();
         public ObservableCollection<TaskModel> GlobalTasks { get; set; } = new();
@@ -38,9 +48,9 @@ namespace Evolution.ViewModel.Pages
         {
             while (true)
             {
-                if ((HelperService.index != SelectedIndex))
+                if ((Index != SelectedIndex))
                 {
-                    HelperService.index = SelectedIndex;
+                    Index = SelectedIndex;
                     //Categories = String.Empty;
                     break;
                 }
@@ -54,9 +64,9 @@ namespace Evolution.ViewModel.Pages
             if (SelectedIndex == -1)
             {
                 SelectedIndex = 0;
-                HelperService.index = 0;
+                Index = 0;
             }
-            HelperService.SelectTask = GlobalTasks[SelectedIndex];
+            SelectTask = GlobalTasks[SelectedIndex];
             //Title = GlobalTasks[SelectedIndex].Title;
             //Assigned = GlobalTasks[SelectedIndex].Assigned;
             //DeadLine = GlobalTasks[SelectedIndex].DeadLine;

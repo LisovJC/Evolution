@@ -9,12 +9,5 @@
             UserAuthData,
             GlobalTasks
         }
-
-        public enum ShortcutLocation
-        {
-            DESKTOP,
-            COMMON_DESKTOP,
-            START_MENU
-        }
     }
 }

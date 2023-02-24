@@ -18,13 +18,7 @@ namespace Evolution.Services.SettingsServices
 
         public static void CreateSettingsFile()
         {
-            string pathToSettingsFolder = HelperService.pathToSettingsFolder;
-            string pathToSettingsFile = pathToSettingsFolder + "//appSettings.json";
-
-            if (!Directory.Exists(pathToSettingsFolder))
-            {
-                Directory.CreateDirectory(pathToSettingsFolder);
-            }
+            string pathToSettingsFile = HelperService.pathToSettingsFile;
 
             if(!File.Exists(pathToSettingsFile))
             {

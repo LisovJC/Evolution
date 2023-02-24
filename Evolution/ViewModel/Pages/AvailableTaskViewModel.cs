@@ -1,4 +1,5 @@
-﻿using Evolution.Command;
+﻿using ControlzEx.Standard;
+using Evolution.Command;
 using Evolution.Core;
 using Evolution.Model;
 using Evolution.Services.CloudStoreServices;
@@ -32,6 +33,14 @@ namespace Evolution.ViewModel.Pages
             set => Set(ref _selectedIndex, value);
         }
         /*=====================================================================*/
+        private int _Index = -2;
+
+        public int Index
+        {
+            get => _Index;
+            set => Set(ref _Index, value);
+        }
+        /*=====================================================================*/
         private Visibility _progressVisibility = Visibility.Visible;
 
         public Visibility ProgressVisibility
@@ -40,7 +49,9 @@ namespace Evolution.ViewModel.Pages
             set => Set(ref _progressVisibility, value);
         }
         /*=====================================================================*/
-        
+        public static TaskModel SelectTask { get; set; } = new();
+        /*=====================================================================*/
+
         #region SelectTaskProperties
         private string _title = "none";
 
@@ -128,18 +139,18 @@ namespace Evolution.ViewModel.Pages
         public AvailableTaskViewModel()
         {
             ProgressChange();
-            LoadDatas();
+            Task.Run(() => LoadDatas());
 
-            OpenFullInformationOfTask = new(o => { Task.Run(() => SrartPage()); });            
+            OpenFullInformationOfTask = new(o => { Task.Run(() => ShowTaskInformation()); });            
         }
 
-        private void SrartPage()
+        private void ShowTaskInformation()
         {
             while(true)
             {
-                if ((HelperService.index != SelectedIndex))
+                if (Index != SelectedIndex)
                 {
-                    HelperService.index = SelectedIndex;
+                    Index = SelectedIndex;
                     Categories = String.Empty;
                     break;
                 }
@@ -153,9 +164,9 @@ namespace Evolution.ViewModel.Pages
             if (SelectedIndex == -1)
             {
                 SelectedIndex = 0;
-                HelperService.index = 0;
+                Index = 0;
             }
-            HelperService.SelectTask = GlobalTasks[SelectedIndex];
+            SelectTask = GlobalTasks[SelectedIndex];
             Title = GlobalTasks[SelectedIndex].Title;
             Assigned = GlobalTasks[SelectedIndex].Assigned;
             DeadLine = GlobalTasks[SelectedIndex].DeadLine;
@@ -177,53 +188,29 @@ namespace Evolution.ViewModel.Pages
                 }
             }
             
-        }
+        } //TODO рефакторнуть метод!
 
-        public async void LoadDatas()
+        public void LoadDatas()
         {
-            if(HelperService.GlobalTasksInCash.Count == 0)
+            while(true)
             {
-                await Task.Run(() => LoadedCommonTasks = FireBaseService.GetDataFromDataBase<TaskModel>(TypeDatas.GlobalTasks, HelperService.CountTasksOfGlobalTaskList).Result);
-                LoadCollection();
-            }
-            else
-            {
-                LoadCollection(true);
-            }      
-        }
-
-        public void LoadCollection(bool isDownloaded = false)
-        {
-            try
-            {
-                if (isDownloaded)
+                if (HelperService.GlobalTasksInCash.Count == 0 || HelperService.GlobalTasksInCash.Count == 0)
                 {
-                    GlobalTasks.Clear();
+                    Task.Run(() => HelperService.HelperUpdateData(HelperService.CurrentUser));
+                }
+                else
+                {
                     for (int i = 0; i < HelperService.GlobalTasksInCash.Count; i++)
                     {
                         GlobalTasks.Add(HelperService.GlobalTasksInCash[i]);
                     }
-                    SrartPage();
-                    return;
+                    break;
                 }
-
-                for (int i = 0; i < LoadedCommonTasks.Count; i++)
-                {
-                    GlobalTasks.Add(LoadedCommonTasks[i]);
-                }
-                SrartPage();
-                HelperService.GlobalTasksInCash = GlobalTasks;
-            }
-            catch (Exception ex)
-            {
-
-                Debug.WriteLine(ex.Message);
-            }           
-        }
+            }    
+        }   
 
         public async void ProgressChange()
         {
-            bool isPositive = true;
             await Task.Run(() =>
             {
                 Random rnd = new();
@@ -234,11 +221,14 @@ namespace Evolution.ViewModel.Pages
                         ProgressVisibility = Visibility.Hidden;
                         break;
                     }
+
                     Progress += 1;
+
                     if (Progress > 99)
                     {
                         Progress = 3;
                     }
+
                     Thread.Sleep(10);
                 }
             });

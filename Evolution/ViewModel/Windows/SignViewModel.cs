@@ -244,7 +244,7 @@ namespace Evolution.ViewModel.Windows
 
         private void AutoLogin()
         {
-            SettingsModel sm = new();
+            SettingsModel sm;
 
             sm = DataSaveLoad.LoadDataSettings<SettingsModel>(HelperService.pathToSettingsFile);
 
