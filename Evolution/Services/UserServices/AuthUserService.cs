@@ -27,18 +27,18 @@ namespace Evolution.Services.UserServices
             {                
                 if (IsCorrectUserData(login, password, userExists))
                 {
-                    Debug.WriteLine($"\n^^^^^^^^^^^^^^^^^^^^^^^^^\n\t***** УСПЕШНО. Произведён вход пользователем: {login}. ******\n");
+                    Debug.WriteLine($"\n^^^^^^^^^^^^^^^^^^^^^^^^^\n\t***** УСПЕШНО.\n\t [AuthUserService]: Произведён вход пользователем: {login}. ******\n");
                     return true;
                 }
                 else
                 {
-                    Debug.WriteLine($"\n^^^^^^^^^^^^^^^^^^^^^^^^^\n\t***** ОШИБКА. Данные входа не корректны. ******\n");
+                    Debug.WriteLine($"\n^^^^^^^^^^^^^^^^^^^^^^^^^\n\t***** ОШИБКА.\n\t [AuthUserService]: Данные входа не корректны. ******\n");
                     return false;
                 }
             }
             else
             {
-                Debug.WriteLine($"\n^^^^^^^^^^^^^^^^^^^^^^^^^\n\t***** ОШИБКА. Данные входа не корректны. ******\n");
+                Debug.WriteLine($"\n^^^^^^^^^^^^^^^^^^^^^^^^^\n\t***** ОШИБКА.\n\t [AuthUserService]: Данные входа не корректны. ******\n");
                 return false;
             }
         }

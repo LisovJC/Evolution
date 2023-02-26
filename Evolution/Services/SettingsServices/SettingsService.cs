@@ -36,7 +36,7 @@ namespace Evolution.Services.SettingsServices
                
                 DataSaveLoad.Serialize(sm);
 
-                Debug.WriteLine($"\n^^^^^^^^^^^^^^^^^^^^^^^^^\n\t***** ВНИМАНИЕ. [SettingsService] Файл настроек создан. ******\n");
+                Debug.WriteLine($"\n^^^^^^^^^^^^^^^^^^^^^^^^^\n\t***** ВНИМАНИЕ.\n\t [SettingsService]: Файл настроек создан. ******\n");
             }
         }
 
@@ -49,7 +49,7 @@ namespace Evolution.Services.SettingsServices
              
             DataSaveLoad.Serialize(sm);
 
-            Debug.WriteLine($"\n^^^^^^^^^^^^^^^^^^^^^^^^^\n\t***** ВНИМАНИЕ. [SettingsService] Установлена настройка ЗАПОМНИТЬ МЕНЯ {isRememberMe} ******\n");
+            Debug.WriteLine($"\n^^^^^^^^^^^^^^^^^^^^^^^^^\n\t***** ВНИМАНИЕ.\n\t [SettingsService]: Установлена настройка ЗАПОМНИТЬ МЕНЯ {isRememberMe} ******\n");
         }
 
         public static void SetAutoRunSettings(bool isAutoRun)
@@ -77,14 +77,14 @@ namespace Evolution.Services.SettingsServices
                 var registerShortcutForAllUser = true;
                 var autostartManager = new AutostartManager(shortCutPath, ExeFilePath, registerShortcutForAllUser);
                 autostartManager.EnableAutostart();
-                Debug.WriteLine($"\n^^^^^^^^^^^^^^^^^^^^^^^^^\n\t***** ВНИМАНИЕ. [SettingsService] Установлена настройка автозагрузки приложения с запуском системы. ******\n");
+                Debug.WriteLine($"\n^^^^^^^^^^^^^^^^^^^^^^^^^\n\t***** ВНИМАНИЕ.\n\t [SettingsService]: Установлена настройка автозагрузки приложения с запуском системы. ******\n");
             }
             else
             {
                 var registerShortcutForAllUser = true;
                 var autostartManager = new AutostartManager(shortCutPath, ExeFilePath, registerShortcutForAllUser);
                 autostartManager.DisableAutostart();
-                Debug.WriteLine($"\n^^^^^^^^^^^^^^^^^^^^^^^^^\n\t***** ВНИМАНИЕ. [SettingsService] Отключена настройка автозагрузки приложения с запуском системы. ******\n");
+                Debug.WriteLine($"\n^^^^^^^^^^^^^^^^^^^^^^^^^\n\t***** ВНИМАНИЕ.\n\t [SettingsService]: Отключена настройка автозагрузки приложения с запуском системы. ******\n");
             }
         }
     }
