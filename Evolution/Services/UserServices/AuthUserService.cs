@@ -26,16 +26,19 @@ namespace Evolution.Services.UserServices
             if (userExists.Login != null)
             {                
                 if (IsCorrectUserData(login, password, userExists))
-                {                                     
+                {
+                    Debug.WriteLine($"\n^^^^^^^^^^^^^^^^^^^^^^^^^\n\t***** УСПЕШНО. Произведён вход пользователем: {login}. ******\n");
                     return true;
                 }
                 else
                 {
+                    Debug.WriteLine($"\n^^^^^^^^^^^^^^^^^^^^^^^^^\n\t***** ОШИБКА. Данные входа не корректны. ******\n");
                     return false;
                 }
             }
             else
-            {               
+            {
+                Debug.WriteLine($"\n^^^^^^^^^^^^^^^^^^^^^^^^^\n\t***** ОШИБКА. Данные входа не корректны. ******\n");
                 return false;
             }
         }
@@ -76,7 +79,6 @@ namespace Evolution.Services.UserServices
                     password == null
                )
             {
-                Debug.WriteLine("Ошибка, один из параметрова null!\nОшибка входа.");
                 return false;
             }
             else if
