@@ -1,9 +1,11 @@
 ﻿using Evolution.Model;
 using Evolution.Services.CloudStoreServices;
+using Evolution.Services.DataSaveLoadServices;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.IO;
 using System.Threading.Tasks;
 using static Evolution.Enums.Enums;
 
@@ -20,9 +22,12 @@ namespace Evolution.Services.HelperServices
         /*=====================================================================*/
         public static readonly string pathToTasksFolder = $"{AppDomain.CurrentDomain.BaseDirectory}\\Data\\Tasks";
 
-        /***ОБЪЕКТ ВОШЕДШЕГО ПОЛЬЗОВАТЕЛЯ***/
+        /***ЛОГИН ВОШЕДШЕГО ПОЛЬЗОВАТЕЛЯ***/
         public static string CurrentUser { get; set; } = "";
         
+        /***ОБЪЕКТ НЕОБХОДИМОГО ПОЛЬЗОВАТЕЛЯ ПОЛЬЗОВАТЕЛЯ***/
+        public static UserModel ObjectUser { get; set; } = new();
+
         /***КОЛИЧЕСТВО ГЛОБАЛЬНЫХ ЗАДАЧ***/
         public static int CountTasksOfGlobalTaskList { get; set; } = 0;
 
@@ -51,6 +56,22 @@ namespace Evolution.Services.HelperServices
                 Debug.WriteLine(ex.Message);
                 return false;
             }            
+        }
+
+        /***ПОЛУЧАЕМ ОБЪЕКТ ОПРЕДЕЛЕННОГО ПОЛЬЗОВАТЕЛЯ***/
+        public static UserModel GetUserObject(string login)
+        {
+            string pathToUserFile = $"{AppDomain.CurrentDomain.BaseDirectory}\\Users\\{login}\\user_auth.json";
+            
+            if (File.Exists(pathToUserFile))
+            {
+                ObjectUser = DataSaveLoad.LoadDataUser<UserModel>(pathToUserFile);
+                return ObjectUser;
+            }
+            else
+            {
+                return ObjectUser;
+            }
         }
     }
 }

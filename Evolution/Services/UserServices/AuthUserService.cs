@@ -26,7 +26,8 @@ namespace Evolution.Services.UserServices
             if (userExists.Login != null)
             {                
                 if (IsCorrectUserData(login, password, userExists))
-                {                                     
+                {
+                    CreateUserService.CreateUser(User.Login, User.Password, User.Password, User.Email);
                     return true;
                 }
                 else

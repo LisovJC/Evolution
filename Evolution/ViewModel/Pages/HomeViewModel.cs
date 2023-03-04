@@ -54,7 +54,16 @@ namespace Evolution.ViewModel.Pages
             set => Set(ref _isAutoRun, value);
         }
 
+        private bool _isRememberMe = false;
+
+        public bool IsRememberMe
+        {
+            get => _isRememberMe;
+            set => Set(ref _isRememberMe, value);
+        }
+
         public RelayCommand SetAutoRunStateCommand { get; set; }
+        public RelayCommand SetRememberMeStateCommand { get; set; }
 
         public HomeViewModel()
         {
@@ -62,11 +71,18 @@ namespace Evolution.ViewModel.Pages
 
             SettingsModel sm = SettingsService.GetSettings();
             IsAutoRun = sm.AutoRun;
-            
+            IsRememberMe = sm.RememberMeForAuth;
 
             SetAutoRunStateCommand = new(o =>
             {
                 SettingsService.SetAutoRunSettings(IsAutoRun);
+            });
+
+            SetRememberMeStateCommand = new(o =>
+            {
+                string login = HelperService.CurrentUser;
+                string password = HelperService.GetUserObject(HelperService.CurrentUser).Password;
+                SettingsService.SetRememberDataForAuthSettings(login, password, IsRememberMe);
             });
         }       
 

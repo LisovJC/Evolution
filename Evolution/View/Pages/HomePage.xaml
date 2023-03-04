@@ -332,7 +332,9 @@
                                    Margin="5,0,0,0"/>
 
                             <ToggleButton Style="{StaticResource ToggleButtonSwitch}"
-                                          Margin="15,5,0,0"/>
+                                          Margin="15,5,0,0"
+                                          Command="{Binding SetRememberMeStateCommand}"
+                                          IsChecked="{Binding IsRememberMe, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal"
