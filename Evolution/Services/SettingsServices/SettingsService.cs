@@ -3,6 +3,7 @@ using Evolution.Model;
 using Evolution.Services.DataSaveLoadServices;
 using Evolution.Services.HelperServices;
 using System;
+using System.Diagnostics;
 using System.IO;
 
 namespace Evolution.Services.SettingsServices
@@ -34,6 +35,8 @@ namespace Evolution.Services.SettingsServices
                 file.Close();
                
                 DataSaveLoad.Serialize(sm);
+
+                Debug.WriteLine($"\n^^^^^^^^^^^^^^^^^^^^^^^^^\n\t***** ВНИМАНИЕ.\n\t [SettingsService]: Файл настроек создан. ******\n");
             }
         }
 
@@ -45,6 +48,8 @@ namespace Evolution.Services.SettingsServices
             sm.RememberMeForAuth = isRememberMe;
              
             DataSaveLoad.Serialize(sm);
+
+            Debug.WriteLine($"\n^^^^^^^^^^^^^^^^^^^^^^^^^\n\t***** ВНИМАНИЕ.\n\t [SettingsService]: Установлена настройка ЗАПОМНИТЬ МЕНЯ {isRememberMe} ******\n");
         }
 
         public static void SetAutoRunSettings(bool isAutoRun)
@@ -72,12 +77,14 @@ namespace Evolution.Services.SettingsServices
                 var registerShortcutForAllUser = true;
                 var autostartManager = new AutostartManager(shortCutPath, ExeFilePath, registerShortcutForAllUser);
                 autostartManager.EnableAutostart();
+                Debug.WriteLine($"\n^^^^^^^^^^^^^^^^^^^^^^^^^\n\t***** ВНИМАНИЕ.\n\t [SettingsService]: Установлена настройка автозагрузки приложения с запуском системы. ******\n");
             }
             else
             {
                 var registerShortcutForAllUser = true;
                 var autostartManager = new AutostartManager(shortCutPath, ExeFilePath, registerShortcutForAllUser);
                 autostartManager.DisableAutostart();
+                Debug.WriteLine($"\n^^^^^^^^^^^^^^^^^^^^^^^^^\n\t***** ВНИМАНИЕ.\n\t [SettingsService]: Отключена настройка автозагрузки приложения с запуском системы. ******\n");
             }
         }
     }

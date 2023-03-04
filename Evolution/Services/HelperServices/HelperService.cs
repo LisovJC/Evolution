@@ -48,6 +48,8 @@ namespace Evolution.Services.HelperServices
                 CountTasksOfGlobalTaskList = await Task.Run(() => FireBaseService.GetCounterFromDataBase(TypeDatas.GlobalTasks));
                 GlobalTasksInCash = await Task.Run(() => FireBaseService.GetDataFromDataBase<TaskModel>(TypeDatas.GlobalTasks, CountTasksOfGlobalTaskList));
 
+                Debug.WriteLine($"\n^^^^^^^^^^^^^^^^^^^^^^^^^\n\t***** ВНИМАНИЕ.\n\t [HelperService]: Данные успешно получены и обновлены. ******\n");
+
                 return true;
             }
             catch (System.Exception ex)

@@ -32,11 +32,13 @@ namespace Evolution.Services.UserServices
                 }
                 else
                 {
+                    Debug.WriteLine($"\n^^^^^^^^^^^^^^^^^^^^^^^^^\n\t***** ОШИБКА.\n\t [AuthUserService]: Данные входа не корректны. ******\n");
                     return false;
                 }
             }
             else
-            {               
+            {
+                Debug.WriteLine($"\n^^^^^^^^^^^^^^^^^^^^^^^^^\n\t***** ОШИБКА.\n\t [AuthUserService]: Данные входа не корректны. ******\n");
                 return false;
             }
         }
@@ -77,7 +79,6 @@ namespace Evolution.Services.UserServices
                     password == null
                )
             {
-                Debug.WriteLine("Ошибка, один из параметрова null!\nОшибка входа.");
                 return false;
             }
             else if
