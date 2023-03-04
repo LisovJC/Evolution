@@ -28,6 +28,7 @@ namespace Evolution.Services.UserServices
                 if (IsCorrectUserData(login, password, userExists))
                 {
                     CreateUserService.CreateUser(User.Login, User.Password, User.Password, User.Email);
+                    Debug.WriteLine($"\n^^^^^^^^^^^^^^^^^^^^^^^^^\n\t***** УСПЕШНО.\n\t [AuthUserService]: Вход пользавателем {login}. ******\n");
                     return true;
                 }
                 else
