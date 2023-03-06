@@ -2,7 +2,6 @@
 using Evolution.Core;
 using Evolution.Model;
 using Evolution.Services.CloudStoreServices;
-using Evolution.Services.DataSaveLoadServices;
 using Evolution.Services.HelperServices;
 using Evolution.Services.SettingsServices;
 using Evolution.Services.UserServices;
@@ -10,7 +9,6 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
 using static Evolution.Enums.Enums;
-using static Evolution.Services.TaskServices.TaskService;
 
 namespace Evolution.ViewModel.Windows
 {
@@ -134,10 +132,13 @@ namespace Evolution.ViewModel.Windows
         public RelayCommand RememberMeCommand { get; set; }
         #endregion        
         public SignViewModel()
-        {           
+        {
+            SettingsService.CreateSettingsFile();
+            AutoLogin();
+
             #region Commands
             /*=====================================================================*/
-            SignInCommand = new(o =>
+            SignInCommand = new(o => //TODO предусмотреть отсутствие интернета!
             {
                 if (Task.Run(() => AuthUserService.SignIn(Login, Password)).Result)
                 {
@@ -217,9 +218,6 @@ namespace Evolution.ViewModel.Windows
                 SettingsService.SetRememberDataForAuthSettings(Login, Password, isRememberMe);
             });
             #endregion                      
-
-            SettingsService.CreateSettingsFile();
-            AutoLogin();
         }
 
         private void IsValidData()
@@ -242,7 +240,7 @@ namespace Evolution.ViewModel.Windows
             }            
         }            
 
-        private void AutoLogin()
+        private void AutoLogin() //TODO исправить файл настроек, так как для разных пользователей должно быть поразному.
         {
             SettingsModel sm = SettingsService.GetSettings();
 
