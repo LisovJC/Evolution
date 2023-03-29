@@ -216,6 +216,7 @@
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
             ArcThickness="12"
+            FlowDirection="{Binding DirectionProgressBar, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
             Visibility="{Binding ProgressVisibility, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
             Style="{StaticResource ProgressBarCircleBaseStyle}"/>
         <Label Content="Задачи в глобальных проектах:"

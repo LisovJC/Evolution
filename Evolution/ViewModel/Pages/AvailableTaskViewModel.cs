@@ -1,17 +1,13 @@
-﻿using ControlzEx.Standard;
-using Evolution.Command;
+﻿using Evolution.Command;
 using Evolution.Core;
 using Evolution.Model;
-using Evolution.Services.CloudStoreServices;
 using Evolution.Services.HelperServices;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using static Evolution.Enums.Enums;
 
 namespace Evolution.ViewModel.Pages
 {
@@ -25,6 +21,16 @@ namespace Evolution.ViewModel.Pages
             set => Set(ref _progress, value);
         }
         /*=====================================================================*/
+
+        private string _directionProgressBar = "LeftToRight";
+
+        public string DirectionProgressBar
+        {
+            get => _directionProgressBar;
+            set => Set(ref _directionProgressBar, value);
+        }
+        /*=====================================================================*/
+
         private int _selectedIndex = -1;
 
         public int SelectedIndex
@@ -222,11 +228,22 @@ namespace Evolution.ViewModel.Pages
                         break;
                     }
 
-                    Progress += 1;
-
                     if (Progress > 99)
                     {
-                        Progress = 3;
+                        DirectionProgressBar = "RightToLeft";
+                    }
+                    else if(Progress < 1)
+                    {
+                        DirectionProgressBar = "LeftToRight";
+                    }
+
+                    if (Progress < 100 && DirectionProgressBar == "LeftToRight")
+                    {
+                        Progress++;
+                    }
+                    else
+                    {
+                        Progress--;
                     }
 
                     Thread.Sleep(10);

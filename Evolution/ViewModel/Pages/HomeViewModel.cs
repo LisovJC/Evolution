@@ -5,6 +5,7 @@ using Evolution.Services.HelperServices;
 using Evolution.Services.SettingsServices;
 using Evolution.Services.UserServices;
 using System;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
 
@@ -64,6 +65,8 @@ namespace Evolution.ViewModel.Pages
 
         public RelayCommand SetAutoRunStateCommand { get; set; }
         public RelayCommand SetRememberMeStateCommand { get; set; }
+
+        public ObservableCollection<TaskModel> GlobalTasks { get; set; } = new() { new (){ Creator = "Lisov", Title = " test1" }};
 
         public HomeViewModel()
         {
