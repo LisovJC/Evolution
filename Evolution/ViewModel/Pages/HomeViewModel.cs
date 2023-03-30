@@ -34,8 +34,8 @@ namespace Evolution.ViewModel.Pages
 
         public string RegistrationDate
         {
-            get  => _registrationDate;
-            set => Set(ref _registrationDate, value); 
+            get => _registrationDate;
+            set => Set(ref _registrationDate, value);
         }
 
         private string _email;
@@ -63,13 +63,25 @@ namespace Evolution.ViewModel.Pages
             set => Set(ref _isRememberMe, value);
         }
 
+        private int _selectedIndex = 0;
+
+        public int SelectedIndex
+        {
+            get => _selectedIndex;
+            set => Set(ref _selectedIndex, value);
+        }
+
         public RelayCommand SetAutoRunStateCommand { get; set; }
         public RelayCommand SetRememberMeStateCommand { get; set; }
         public RelayCommand AddNewBoardCommand { get; set; }
         public RelayCommand AddNewCardToBoardCommand { get; set; }
 
-        public ObservableCollection<TaskModel> Boards { get; set; } = new() { new (){ Creator = "Lisov", Title = " test1" }};
-        public ObservableCollection<TaskModel> Test { get; set; } = new();
+        public ObservableCollection<BoardModel> Boards { get; set; } = new() { new() { Title = "", Cards = new() } };
+
+        public ObservableCollection<CardModel> Cards 
+        {
+            get { return Boards[SelectedIndex].Cards; }
+        }
 
 
         public HomeViewModel()
@@ -94,12 +106,14 @@ namespace Evolution.ViewModel.Pages
 
             AddNewBoardCommand = new(o =>
             {
-                Boards.Add(new());
+                Boards.Add(new() { Cards = new()});
+                SelectedIndex++;
             });
 
             AddNewCardToBoardCommand = new(o =>
             {
-                Test.Add(new());
+                Boards[SelectedIndex].Cards.Add(new());
+                Debug.WriteLine(SelectedIndex);
             });
         }       
 

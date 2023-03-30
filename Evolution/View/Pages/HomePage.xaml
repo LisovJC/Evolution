@@ -189,6 +189,7 @@
                           BorderThickness="0"
                           Grid.Column="0"
                           Grid.Row="1"
+                          Name="lwBoard"
                           MaxHeight="760"
                           Height="auto"
                           Width="auto"
@@ -200,10 +201,14 @@
                 <!--Панель контейнер-->
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
-                            <StackPanel  Width="{Binding (FrameworkElement.ActualWidth), 
-                                         RelativeSource={RelativeSource AncestorType=ScrollContentPresenter}}"
-                                         VerticalAlignment="Top"
-                                         Orientation="Horizontal"/>
+                            <WrapPanel  Width="{Binding (FrameworkElement.ActualWidth), 
+                                        RelativeSource={RelativeSource AncestorType=ScrollContentPresenter}}"
+                                        ItemWidth="{Binding (ListView.View).ItemWidth, 
+                                        RelativeSource={RelativeSource AncestorType=ListView}}"
+                                        MinWidth="{Binding ItemWidth, RelativeSource={RelativeSource Self}}"
+                                        ItemHeight="{Binding (ListView.View).ItemHeight, 
+                                        RelativeSource={RelativeSource AncestorType=ListView}}"
+                                        VerticalAlignment="Top"/>
                     </ItemsPanelTemplate>
                 </ListView.ItemsPanel>
 
@@ -211,8 +216,10 @@
                 <ListView.ItemTemplate>
                         <DataTemplate>
                             <Grid Background="Transparent"
-                              Margin="0">
-                                <StackPanel Orientation="Vertical">
+                                  Margin="0"
+                                  VerticalAlignment="Top">
+                                <StackPanel Orientation="Vertical"
+                                            VerticalAlignment="Top">
                                     <Border Margin="5"
                                             x:Name="MainBorder"
                                             Padding="0"
@@ -223,7 +230,7 @@
                                             Background="#ebecf0"
                                             BorderThickness="0"
                                             HorizontalAlignment="Left"
-                                            VerticalAlignment="Stretch"
+                                            VerticalAlignment="Top"
                                             CornerRadius="4">
                                         <Border.Effect>
                                             <DropShadowEffect  BlurRadius="10" 
@@ -245,10 +252,7 @@
                                                       Width="auto"
                                                       Padding="0"
                                                       Background="Transparent"
-                                                      ItemsSource="{Binding DataContext.Test, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
-                                                      SelectedIndex="{Binding SelectedIndex, 
-                                                                      Mode=TwoWay, 
-                                                                      UpdateSourceTrigger=PropertyChanged}">
+                                                      ItemsSource="{Binding DataContext.Cards, RelativeSource={RelativeSource AncestorType={x:Type Page}}}" >
                                                 <!--Панель контейнер-->
                                                 <ListView.ItemsPanel>
                                                     <ItemsPanelTemplate>
