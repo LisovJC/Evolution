@@ -43,19 +43,30 @@
                     <!--Кнопки навигации-->
                     <StackPanel Orientation="Horizontal"
                                 VerticalAlignment="Top"
-                                Margin="15, 20, 15, 15">
-                        <Button   Style="{StaticResource AccountButton}"
-                                  Background="Transparent">
+                                Margin="25, 20, 15, 15">
+                        <Button   Style="{StaticResource AccountButton}">
                             <materialDesign:PackIcon     Kind="Subtasks"
                                                          Style="{StaticResource HotIcon}"
                                                          Background="Transparent"
+                                                         Foreground="#212429"
                                                          Width="30"
                                                          Height="30"/>
                         </Button>
 
                         <Button   Style="{StaticResource AccountButton}"
-                                  Background="Transparent">
+                                  Margin="10,0,0,0"
+                                  Command="{Binding AddNewBoardCommand}">
+                            <materialDesign:PackIcon     Kind="PlusBold"
+                                                         Foreground="#212429"
+                                                         Style="{StaticResource HotIcon}"
+                                                         Width="30"
+                                                         Height="30"/>
+                        </Button>
+
+                        <Button   Style="{StaticResource AccountButton}"
+                                  Margin="10,0,0,0">
                             <materialDesign:PackIcon     Kind="Gear"
+                                                         Foreground="#212429"
                                                          Style="{StaticResource HotIcon}"
                                                          Background="Transparent"
                                                          Width="30"
@@ -168,7 +179,11 @@
         <!--Грид доски-->
         <Grid Grid.Row="1">
             <ScrollViewer HorizontalScrollBarVisibility="Visible"
-                          VerticalScrollBarVisibility="Disabled">
+                          VerticalScrollBarVisibility="Disabled"
+                          FlowDirection="LeftToRight"
+                          CanContentScroll="True"
+                          HorizontalContentAlignment ="Stretch"
+                          VerticalContentAlignment="Top">
                 <!--Доски-->
                 <ListView Margin="80,5,5,5"
                           BorderThickness="0"
@@ -178,21 +193,17 @@
                           Height="auto"
                           Width="auto"
                           Background="Transparent"
-                          ItemsSource="{Binding GlobalTasks}"
+                          ItemsSource="{Binding Boards}"
                           SelectedIndex="{Binding SelectedIndex, 
                                           Mode=TwoWay, 
                                           UpdateSourceTrigger=PropertyChanged}">
                 <!--Панель контейнер-->
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
-                            <WrapPanel  Width="{Binding (FrameworkElement.ActualWidth), 
-                                    RelativeSource={RelativeSource AncestorType=ScrollContentPresenter}}"
-                                    ItemWidth="{Binding (ListView.View).ItemWidth, 
-                                    RelativeSource={RelativeSource AncestorType=ListView}}"
-                                    MinWidth="{Binding ItemWidth, RelativeSource={RelativeSource Self}}"
-                                    ItemHeight="{Binding (ListView.View).ItemHeight, 
-                                    RelativeSource={RelativeSource AncestorType=ListView}}"
-                                    Orientation="Horizontal"/>
+                            <StackPanel  Width="{Binding (FrameworkElement.ActualWidth), 
+                                         RelativeSource={RelativeSource AncestorType=ScrollContentPresenter}}"
+                                         VerticalAlignment="Top"
+                                         Orientation="Horizontal"/>
                     </ItemsPanelTemplate>
                 </ListView.ItemsPanel>
 
@@ -234,7 +245,7 @@
                                                       Width="auto"
                                                       Padding="0"
                                                       Background="Transparent"
-                                                      ItemsSource="{Binding DataContext.GlobalTasks, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
+                                                      ItemsSource="{Binding DataContext.Test, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
                                                       SelectedIndex="{Binding SelectedIndex, 
                                                                       Mode=TwoWay, 
                                                                       UpdateSourceTrigger=PropertyChanged}">
@@ -290,7 +301,8 @@
                                                     Margin="14.5,0,14.5,10"
                                                     Background="Transparent"
                                                     BorderThickness="0"
-                                                    Content="+ Добавить карточку"/>
+                                                    Content="+ Добавить карточку"
+                                                    Command="{Binding DataContext.AddNewCardToBoardCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"/>
 
                                         </StackPanel>
                                     </Border>

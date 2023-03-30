@@ -24,5 +24,7 @@ namespace Evolution.View.Pages
         {
             InitializeComponent();
         }
+
+
     }
 }

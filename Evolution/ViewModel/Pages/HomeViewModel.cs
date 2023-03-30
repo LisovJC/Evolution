@@ -65,8 +65,12 @@ namespace Evolution.ViewModel.Pages
 
         public RelayCommand SetAutoRunStateCommand { get; set; }
         public RelayCommand SetRememberMeStateCommand { get; set; }
+        public RelayCommand AddNewBoardCommand { get; set; }
+        public RelayCommand AddNewCardToBoardCommand { get; set; }
 
-        public ObservableCollection<TaskModel> GlobalTasks { get; set; } = new() { new (){ Creator = "Lisov", Title = " test1" }};
+        public ObservableCollection<TaskModel> Boards { get; set; } = new() { new (){ Creator = "Lisov", Title = " test1" }};
+        public ObservableCollection<TaskModel> Test { get; set; } = new();
+
 
         public HomeViewModel()
         {
@@ -86,6 +90,16 @@ namespace Evolution.ViewModel.Pages
                 string login = HelperService.CurrentUser;
                 string password = HelperService.GetUserObject(HelperService.CurrentUser).Password;
                 SettingsService.SetRememberDataForAuthSettings(login, password, IsRememberMe);
+            });
+
+            AddNewBoardCommand = new(o =>
+            {
+                Boards.Add(new());
+            });
+
+            AddNewCardToBoardCommand = new(o =>
+            {
+                Test.Add(new());
             });
         }       
 
