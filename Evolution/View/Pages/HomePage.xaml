@@ -201,14 +201,8 @@
                 <!--Панель контейнер-->
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
-                            <WrapPanel  Width="{Binding (FrameworkElement.ActualWidth), 
-                                        RelativeSource={RelativeSource AncestorType=ScrollContentPresenter}}"
-                                        ItemWidth="{Binding (ListView.View).ItemWidth, 
-                                        RelativeSource={RelativeSource AncestorType=ListView}}"
-                                        MinWidth="{Binding ItemWidth, RelativeSource={RelativeSource Self}}"
-                                        ItemHeight="{Binding (ListView.View).ItemHeight, 
-                                        RelativeSource={RelativeSource AncestorType=ListView}}"
-                                        VerticalAlignment="Top"/>
+                            <StackPanel VerticalAlignment="Top"
+                                        Orientation="Horizontal"/>
                     </ItemsPanelTemplate>
                 </ListView.ItemsPanel>
 
@@ -217,7 +211,8 @@
                         <DataTemplate>
                             <Grid Background="Transparent"
                                   Margin="0"
-                                  VerticalAlignment="Top">
+                                  VerticalAlignment="Top"
+                                  HorizontalAlignment="Stretch">
                                 <StackPanel Orientation="Vertical"
                                             VerticalAlignment="Top">
                                     <Border Margin="5"
@@ -240,11 +235,12 @@
                                                        Opacity="0.5"/>
                                         </Border.Effect>
 
-                                        <StackPanel Orientation="Vertical">
+                                        <StackPanel Orientation="Vertical"
+                                                    VerticalAlignment="Top">
                                             <TextBox Margin="14.5,10,14.5,10"
                                                      Height="35"
                                                      BorderThickness="1.25"
-                                                     BorderBrush="#3490DE"/>
+                                                     BorderBrush="#3490DE" Cursor="IBeam"/>
 
                                             <ListView Margin="0"
                                                       BorderThickness="0"
@@ -310,9 +306,9 @@
 
                                         </StackPanel>
                                     </Border>
-
                                 </StackPanel>
                             </Grid>
+                            
                             <DataTemplate.Triggers>
                                 <MultiDataTrigger>
                                     <MultiDataTrigger.Conditions>
@@ -332,9 +328,12 @@
                     </ListView.ItemTemplate>
 
                 <ListView.ItemContainerStyle>
-                    <Style TargetType="{x:Type ListViewItem}">
-                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                        <Setter Property="Template">
+                        <Style TargetType="{x:Type ListViewItem}">
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                            <Setter Property="VerticalContentAlignment" Value="Top"/>
+                            <Setter Property="VerticalAlignment" Value="Top"/>
+                            <Setter Property="Template">
+                                
                             <Setter.Value>
                                 <ControlTemplate TargetType="{x:Type ListViewItem}">
                                     <Border x:Name="Bd" 
